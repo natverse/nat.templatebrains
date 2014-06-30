@@ -1,0 +1,17 @@
+Package: nat.templatebrains
+Type: Package
+Title: Functionality for handling template brains, for use with the
+    NeuroAnatomy Toolbox (nat)
+Version: 0.1
+Date: 2014-06-30
+Author: James Manton and Greg Jefferis
+Maintainer: James Manton <ajd.manton@googlemail.com>
+Description: Objects and functions for handling template brains.
+License: GPL-3
+Depends:
+    R (>= 2.10),
+    rgl,
+    nat
+Suggests:
+    testthat
+LazyData: true
