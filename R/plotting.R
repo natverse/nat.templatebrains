@@ -13,7 +13,6 @@
 #' @export
 #' @method plot3d templatebrain
 #' @importFrom rgl plot3d
-#' @seealso \code{\link{template-brains}}
 plot3d.templatebrain <- function(x, col='grey', alpha=0.3, ...) {
   plot3d(get(paste0(deparse(substitute(x)), ".surf")), col=col, alpha=alpha, ...)
 }
