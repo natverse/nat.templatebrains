@@ -1,7 +1,7 @@
 #' Plot 3D surface of a template brain
 #'
 #' @details This function will work immediately for the standard
-#'   \link{template-brains} defined in the package documentation. If passed an
+#'   \link{templatebrain} defined in the package documentation. If passed an
 #'   object called e.g. FCWB it expects to find another object named FCWB.surf
 #'   containing the surface information. If you follow this naming convention
 #'   for user-defined refbrains it will work for them as well.
