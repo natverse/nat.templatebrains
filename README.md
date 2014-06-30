@@ -9,12 +9,12 @@ This is a highly general package, usable with data from any species. For _Drosop
 This package already has very useful functionality but is still in alpha status and so there is currently no released version on CRAN.
 
 ### Bleeding Edge
-You can, however, download the [tar ball](https://github.com/jefferislab/nat.flybrains/tarball/master),
+You can, however, download the [tar ball](https://github.com/jefferislab/nat.templatebrains/tarball/master),
 and run `R CMD INSTALL` on it, or use the **devtools** package to install the development version:
 
   ```r
 # install.packages("devtools")
-devtools::install_github("nat.flybrains", "jefferislab")
+devtools::install_github("nat.templatebrains", "jefferislab")
 ```
 
 Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) and
