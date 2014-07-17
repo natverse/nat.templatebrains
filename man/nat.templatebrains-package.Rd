@@ -22,10 +22,10 @@ of data within a template brain. Presently there
 
   \itemize{
 
-  \item options('nat.flybrain.extrabridge') specifies a character vector of
+  \item options('nat.templatebrains.extrabridge') specifies a character vector of
   additional directories containing bridging registrations.
 
-  \item options('nat.flybrain.extramirror') specifies a character vector of
+  \item options('nat.templatebrains.extramirror') specifies a character vector of
   additional directories containing mirroring registrations.
 
   }

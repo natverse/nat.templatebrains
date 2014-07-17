@@ -1,7 +1,7 @@
 brain2reg <- function(reference, sample, mirror=FALSE) {
   if(mirror) {
     stem=paste0(reference$regName, "_mirror.list")
-    extradirs=getOption('nat.flybrains.extramirror')
+    extradirs=getOption('nat.templatebrains.extramirror')
     if(!is.null(extradirs)) {
       for(extradir in extradirs){
         reg <- file.path(extradir,stem)
@@ -11,7 +11,7 @@ brain2reg <- function(reference, sample, mirror=FALSE) {
     reg <- extdata(file.path("mirroringregistrations", stem))
   } else {
     stem=paste0(reference$regName, "_", sample$regName, ".list")
-    extradirs=getOption('nat.flybrains.extrabridge')
+    extradirs=getOption('nat.templatebrains.extrabridge')
     if(!is.null(extradirs)) {
       for(extradir in extradirs){
         reg <- file.path(extradir,stem)

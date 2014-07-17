@@ -57,7 +57,7 @@ test_that("can bridge JFRC2 to IS2 using inverse registration", {
 test_that("can use a bridging registration in extra directory",{
   td=tempfile(pattern = 'extrabridge')
   dir.create(td)
-  op=options('nat.flybrains.extrabridge'=td)
+  op=options('nat.templatebrains.extrabridge'=td)
   on.exit(options(op))
 
   library(rgl)
