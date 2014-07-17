@@ -3,7 +3,7 @@
 \alias{xform_brain}
 \title{Transform 3D object between template brains}
 \usage{
-xform_brain(x, sample, reference, ...)
+xform_brain(x, sample, reference, via = NULL, ...)
 }
 \arguments{
 \item{x}{the 3D object to be transformed}
@@ -12,6 +12,9 @@ xform_brain(x, sample, reference, ...)
 
 \item{reference}{target template brain (e.g. IS2) that data should be
 transformed into.}
+
+\item{via}{optional intermediate brain to use when there is no direct
+bridging registration.}
 
 \item{...}{extra arguments to pass to \code{\link[nat]{xform}}.}
 }

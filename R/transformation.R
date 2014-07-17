@@ -32,12 +32,19 @@ brain2reg <- function(reference, sample, mirror=FALSE) {
 #' @param sample source template brain (e.g. IS2) that data is currently in.
 #' @param reference target template brain (e.g. IS2) that data should be
 #'   transformed into.
+#' @param via optional intermediate brain to use when there is no direct
+#'   bridging registration.
 #' @param ... extra arguments to pass to \code{\link[nat]{xform}}.
 #' @export
-xform_brain <- function(x, sample, reference, ...) {
+xform_brain <- function(x, sample, reference, via=NULL, ...) {
   direction <- 'inverse'
   if(is.character(reference)) reference=templatebrain(name=reference)
   if(!missing(sample) && is.character(sample)) sample=templatebrain(name=sample)
+  if(!is.null(via)){
+    if(length(via)>1) stop("Currently only support for one intermediate brain")
+    x = xform_brain(x, sample=sample, reference=via, ...)
+    return(xform_brain(x, sample=via, reference=reference, ...))
+  }
   reg <- brain2reg(reference, sample)
   if(reg == "") {
     reg <- brain2reg(sample, reference)

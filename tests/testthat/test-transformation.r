@@ -54,6 +54,16 @@ test_that("can bridge JFRC2 to IS2 using inverse registration", {
   expect_equal(points.bridge, points.bridgeexp)
 })
 
+test_that("can use a via registration", {
+  points.bridge <- xform_brain(points, sample=JFRC2, reference=IS2)
+
+  points.bridgeexp <- matrix(c(-76.9174206, -14.0714713, 44.4391667, 121.076295, 37.566708, 150.794994), ncol=3)
+  colnames(points.bridgeexp) <- c("X", "Y", "Z")
+
+  expect_equal(points.bridge, points.bridgeexp)
+})
+
+
 test_that("can use a bridging registration in extra directory",{
   td=tempfile(pattern = 'extrabridge')
   dir.create(td)
