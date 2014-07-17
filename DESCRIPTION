@@ -13,5 +13,6 @@ Depends:
     rgl,
     nat
 Suggests:
-    testthat
+    testthat,
+    nat.flybrains
 LazyData: true
