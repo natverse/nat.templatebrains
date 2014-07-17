@@ -2,7 +2,7 @@ Package: nat.templatebrains
 Type: Package
 Title: Functionality for handling template brains, for use with the
     NeuroAnatomy Toolbox (nat)
-Version: 0.1
+Version: 0.2
 Date: 2014-06-30
 Author: James Manton and Greg Jefferis
 Maintainer: James Manton <ajd.manton@googlemail.com>

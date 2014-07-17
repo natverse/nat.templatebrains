@@ -1,0 +1,10 @@
+nat.templatebrains 0.2
+======================
+* move all generic functionality from nat.flybrains (which is now a data only
+  package).
+* give xform_brain a via option
+* add options for directories containing bridging and mirroring registrations
+  nb these can accept multiple dirs, but registration names must be globally
+  unique.
+* suggest nat.flybrains for tests
+* package docs and tests
