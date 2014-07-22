@@ -11,21 +11,16 @@ mirror_reg<-function(brain) {
   extdata(file.path("mirroringregistrations", stem))
 }
 
-brain2reg <- function(reference, sample, mirror=FALSE) {
-  if(mirror) {
-    reg <- mirror_reg(reference)
-  } else {
-    stem=paste0(reference$regName, "_", sample$regName, ".list")
-    extradirs=getOption('nat.templatebrains.extrabridge')
-    if(!is.null(extradirs)) {
-      for(extradir in extradirs){
-        reg <- file.path(extradir,stem)
-        if(file.exists(reg)) return(reg)
-      }
+bridging_reg <- function(reference, sample) {
+  stem=paste0(reference$regName, "_", sample$regName, ".list")
+  extradirs=getOption('nat.templatebrains.extrabridge')
+  if(!is.null(extradirs)) {
+    for(extradir in extradirs){
+      reg <- file.path(extradir,stem)
+      if(file.exists(reg)) return(reg)
     }
-    reg <- extdata(file.path("bridgingregistrations",stem))
   }
-  reg
+  extdata(file.path("bridgingregistrations",stem))
 }
 
 #' Transform 3D object between template brains
@@ -50,9 +45,9 @@ xform_brain <- function(x, sample, reference, via=NULL, ...) {
     x = xform_brain(x, sample=sample, reference=via, ...)
     return(xform_brain(x, sample=via, reference=reference, ...))
   }
-  reg <- brain2reg(reference, sample)
+  reg <- bridging_reg(reference, sample)
   if(reg == "") {
-    reg <- brain2reg(sample, reference)
+    reg <- bridging_reg(sample, reference)
     if(reg == "") stop("No suitable registration found.")
     message("Numerically inverting registration from ", reference$regName,
             " to ", sample$regName,
@@ -70,7 +65,7 @@ xform_brain <- function(x, sample, reference, via=NULL, ...) {
 #' @param ... extra arguments to pass to \code{\link[nat]{xform}}.
 #' @export
 mirror_brain <- function(x, brain, mirrorAxis=c("X","Y","Z"), ...) {
-  warpfile <- brain2reg(reference=brain, mirror=TRUE)
+  warpfile <- mirror_reg(reference=brain, mirror=TRUE)
   mirrorAxis <- match.arg(mirrorAxis)
   axisCol <- which(mirrorAxis == c("X", "Y", "Z"))
   mirrorAxisSize <- brain$BoundingBox[2, axisCol] - brain$BoundingBox[1, axisCol]
