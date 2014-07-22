@@ -1,26 +1,26 @@
 # return path to mirroring registration for a template brain
 mirror_reg<-function(brain) {
   stem=paste0(brain$regName, "_mirror.list")
-  extradirs=getOption('nat.templatebrains.extramirror')
-  if(!is.null(extradirs)) {
-    for(extradir in extradirs){
-      reg <- file.path(extradir,stem)
-      if(file.exists(reg)) return(reg)
-    }
-  }
-  extdata(file.path("mirroringregistrations", stem))
+  reg<-find_reg(stem, "mirroringregistrations",
+                extradirs=getOption('nat.templatebrains.extramirror'))
 }
 
+# return path to bridging registration between template brains
 bridging_reg <- function(reference, sample) {
   stem=paste0(reference$regName, "_", sample$regName, ".list")
-  extradirs=getOption('nat.templatebrains.extrabridge')
+  find_reg(stem, "bridgingregistrations",
+           extradirs=getOption('nat.templatebrains.extrabridge'))
+}
+
+# find a registration checking a vector of extradirs and then defaultreldir
+find_reg<-function(regname, defaultreldir, extradirs=NULL) {
   if(!is.null(extradirs)) {
     for(extradir in extradirs){
-      reg <- file.path(extradir,stem)
+      reg <- file.path(extradir,regname)
       if(file.exists(reg)) return(reg)
     }
   }
-  extdata(file.path("bridgingregistrations",stem))
+  extdata(file.path(defaultreldir, regname))
 }
 
 #' Transform 3D object between template brains
@@ -65,7 +65,7 @@ xform_brain <- function(x, sample, reference, via=NULL, ...) {
 #' @param ... extra arguments to pass to \code{\link[nat]{xform}}.
 #' @export
 mirror_brain <- function(x, brain, mirrorAxis=c("X","Y","Z"), ...) {
-  warpfile <- mirror_reg(reference=brain, mirror=TRUE)
+  warpfile <- mirror_reg(brain)
   mirrorAxis <- match.arg(mirrorAxis)
   axisCol <- which(mirrorAxis == c("X", "Y", "Z"))
   mirrorAxisSize <- brain$BoundingBox[2, axisCol] - brain$BoundingBox[1, axisCol]
