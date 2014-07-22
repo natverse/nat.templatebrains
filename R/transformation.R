@@ -1,14 +1,19 @@
+# return path to mirroring registration for a template brain
+mirror_reg<-function(brain) {
+  stem=paste0(brain$regName, "_mirror.list")
+  extradirs=getOption('nat.templatebrains.extramirror')
+  if(!is.null(extradirs)) {
+    for(extradir in extradirs){
+      reg <- file.path(extradir,stem)
+      if(file.exists(reg)) return(reg)
+    }
+  }
+  extdata(file.path("mirroringregistrations", stem))
+}
+
 brain2reg <- function(reference, sample, mirror=FALSE) {
   if(mirror) {
-    stem=paste0(reference$regName, "_mirror.list")
-    extradirs=getOption('nat.templatebrains.extramirror')
-    if(!is.null(extradirs)) {
-      for(extradir in extradirs){
-        reg <- file.path(extradir,stem)
-        if(file.exists(reg)) return(reg)
-      }
-    }
-    reg <- extdata(file.path("mirroringregistrations", stem))
+    reg <- mirror_reg(reference)
   } else {
     stem=paste0(reference$regName, "_", sample$regName, ".list")
     extradirs=getOption('nat.templatebrains.extrabridge')
