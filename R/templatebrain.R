@@ -84,6 +84,11 @@ as.templatebrain.im3d <- function(x, name, ...) {
                 units=units, ...)
 }
 
+#' Test if object is templatebrain
+#' @param x Object to test
+#' @return logical
+is.templatebrain<-function(x) inherits(x, 'templatebrain')
+
 #' Print brain template information in human-readable form
 #'
 #' @param x the object of class \code{templatebrain} to print.
