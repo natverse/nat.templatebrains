@@ -89,6 +89,18 @@ as.templatebrain.im3d <- function(x, name, ...) {
 #' @return logical
 is.templatebrain<-function(x) inherits(x, 'templatebrain')
 
+#' Convert template brain to character vector representation
+#'
+#' This will normally be used to extract the short name i.e. \code{regName}.
+#' @param x templatebrain to convert
+#' @param field Which field to use (defaults to \code{'regName'})
+#' @return character vector
+#' @export
+as.character.templatebrain<-function(x, field=c('regName','name')){
+  field=match.arg(field)
+  x[[field]]
+}
+
 #' Print brain template information in human-readable form
 #'
 #' @param x the object of class \code{templatebrain} to print.
