@@ -26,10 +26,25 @@ test_that("we can find registrations",{
   unlink(td2, recursive = TRUE)
 })
 
+test_that("we can find bridging registrations",{
+  td=tempfile(pattern = 'extrabridge')
+  dir.create(td)
+  op=options('nat.templatebrains.regdirs'=td)
+  on.exit(options(op))
+
+  rcreg=file.path(td,"rhubarb_crumble.list")
+  dir.create(rcreg, recursive = T)
+  expect_true(nzchar(bridging_reg(ref='rhubarb', sample='crumble')))
+  expect_error(bridging_reg(ref='crumble', sample='rhubarb', mustWork = T))
+  expect_false(nzchar(bridging_reg(ref='crumble', sample='rhubarb')))
+  expect_true(nzchar(bridging_reg(
+    ref='crumble', sample='rhubarb', checkboth = TRUE)))
+})
+
 if(is.null(cmtk.bindir())){
   message("skipping transformation tests since CMTK is not installed")
 } else {
-
+context("Transformation.cmtk")
 test_that("can use a bridging registration in regdirs",{
   td=tempfile(pattern = 'extrabridge')
   dir.create(td)

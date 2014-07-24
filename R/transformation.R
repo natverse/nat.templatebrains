@@ -5,9 +5,21 @@ mirror_reg<-function(brain, ...) {
 }
 
 # return path to bridging registration between template brains
-bridging_reg <- function(reference, sample, ...) {
-  regname=paste0(reference$regName, "_", sample$regName, ".list")
-  find_reg(regname, ...)
+bridging_reg <- function(reference, sample, checkboth=FALSE, mustWork=FALSE) {
+  if(is.templatebrain(reference)) reference=reference$regName
+  if(is.templatebrain(sample)) sample=sample$regName
+  regname=paste0(reference, "_", sample, ".list")
+  reg=""
+  if(checkboth){
+    reg=find_reg(regname, mustWork=FALSE)
+    regname=paste0(sample, "_", reference, ".list")
+  }
+  if(reg=="") {
+    reg=find_reg(regname, mustWork=FALSE)
+    if(mustWork && reg=="") stop("Unable to find bridging registration between:"
+                                 , reference, " and ", sample)
+  }
+  reg
 }
 
 # find a registration checking a vector of extradirs and then defaultreldir
