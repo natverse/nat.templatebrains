@@ -1,26 +1,26 @@
 # return path to mirroring registration for a template brain
 mirror_reg<-function(brain) {
-  stem=paste0(brain$regName, "_mirror.list")
-  reg<-find_reg(stem, "mirroringregistrations",
-                extradirs=getOption('nat.templatebrains.extramirror'))
+  regname=paste0(brain$regName, "_mirror.list")
+  find_reg(regname)
 }
 
 # return path to bridging registration between template brains
 bridging_reg <- function(reference, sample) {
-  stem=paste0(reference$regName, "_", sample$regName, ".list")
-  find_reg(stem, "bridgingregistrations",
-           extradirs=getOption('nat.templatebrains.extrabridge'))
+  regname=paste0(reference$regName, "_", sample$regName, ".list")
+  find_reg(regname)
 }
 
 # find a registration checking a vector of extradirs and then defaultreldir
-find_reg<-function(regname, defaultreldir, extradirs=NULL) {
-  if(!is.null(extradirs)) {
-    for(extradir in extradirs){
-      reg <- file.path(extradir,regname)
+find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs')) {
+  if(is.null(regdirs)) {
+    stop("No registration directories set. See options section of ?nat.templatebrains")
+  } else {
+    for(regdir in regdirs){
+      reg <- file.path(regdir,regname)
       if(file.exists(reg)) return(reg)
     }
   }
-  extdata(file.path(defaultreldir, regname))
+  ""
 }
 
 #' Transform 3D object between template brains
