@@ -22,16 +22,20 @@ of data within a template brain. Presently there
 
   \itemize{
 
-  \item options('nat.templatebrains.extrabridge') specifies a character vector of
-  additional directories containing bridging registrations.
-
-  \item options('nat.templatebrains.extramirror') specifies a character vector of
-  additional directories containing mirroring registrations.
+  \item options('nat.templatebrains.regdirs') specifies a character vector of
+  directories containing registrations.
 
   }
 
-  Note that registrations in these extra directories will override those of
-  the same name provided with the package.
+  Note that registration directories should be specified as full paths and
+  will be searched in the order that they are listed. Registrations should
+  therefore have globally unique names.
+}
+\examples{
+\dontrun{
+options(nat.templatebrains.regdirs=union(
+  getOption('nat.templatebrains.regdirs'), "/my/new/path"))
+}
 }
 \seealso{
 \code{\link[nat]{nat}}
