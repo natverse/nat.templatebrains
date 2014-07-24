@@ -7,7 +7,7 @@ if(is.null(cmtk.bindir())){
 test_that("can use a bridging registration in extra directory",{
   td=tempfile(pattern = 'extrabridge')
   dir.create(td)
-  op=options('nat.templatebrains.extrabridge'=td)
+  op=options('nat.templatebrains.regdirs'=td)
   on.exit(options(op))
 
   library(rgl)
