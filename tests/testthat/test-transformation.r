@@ -1,10 +1,36 @@
 context("Transformation")
 
+test_that("we can find registrations",{
+
+  op=options(nat.templatebrains.regdirs=NULL)
+  on.exit(options(op))
+  expect_error(find_reg("rhubarb.list"), "registration directories")
+
+  td=tempfile(pattern = 'regdir1')
+  dir.create(td)
+  options('nat.templatebrains.regdirs'=td)
+
+  expect_equal(find_reg("rhubarb.list"), "")
+  expect_error(find_reg("rhubarb.list", mustWork = TRUE), "Unable to find")
+  dir.create(file.path(td,"rhubarb.list"), recursive = T)
+  expect_equal(find_reg("rhubarb.list"), file.path(td,"rhubarb.list"))
+
+  td2=tempfile(pattern = 'regdir2')
+  dir.create(file.path(td2, 'rhubarb.list'), recursive = T)
+  dir.create(file.path(td2, 'crumble.list'), recursive = T)
+
+  options(nat.templatebrains.regdirs=c(td,td2))
+  expect_equal(find_reg("rhubarb.list"), file.path(td,"rhubarb.list"))
+  expect_equal(find_reg("crumble.list"), file.path(td2,"crumble.list"))
+  unlink(td, recursive = TRUE)
+  unlink(td2, recursive = TRUE)
+})
+
 if(is.null(cmtk.bindir())){
   message("skipping transformation tests since CMTK is not installed")
 } else {
 
-test_that("can use a bridging registration in extra directory",{
+test_that("can use a bridging registration in regdirs",{
   td=tempfile(pattern = 'extrabridge')
   dir.create(td)
   op=options('nat.templatebrains.regdirs'=td)
