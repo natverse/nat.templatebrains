@@ -1,17 +1,17 @@
 # return path to mirroring registration for a template brain
-mirror_reg<-function(brain) {
+mirror_reg<-function(brain, ...) {
   regname=paste0(brain$regName, "_mirror.list")
-  find_reg(regname)
+  find_reg(regname, ...)
 }
 
 # return path to bridging registration between template brains
-bridging_reg <- function(reference, sample) {
+bridging_reg <- function(reference, sample, ...) {
   regname=paste0(reference$regName, "_", sample$regName, ".list")
-  find_reg(regname)
+  find_reg(regname, ...)
 }
 
 # find a registration checking a vector of extradirs and then defaultreldir
-find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs')) {
+find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs'), mustWork=FALSE) {
   if(is.null(regdirs)) {
     stop("No registration directories set. See options section of ?nat.templatebrains")
   } else {
@@ -20,6 +20,8 @@ find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs')) {
       if(file.exists(reg)) return(reg)
     }
   }
+  if(mustWork) stop("Unable to find registration: ", regname, ' in folders: ',
+                    paste(regdirs, collapse="\n"))
   ""
 }
 
