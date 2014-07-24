@@ -40,3 +40,13 @@ test_that("is.templatebrain works",{
   expect_true(is.templatebrain(FCWB))
   expect_false(is.templatebrain("FCWB"))
 })
+
+test_that("as.character.templatebrain works",{
+  expect_equal(as.character(FCWB), "FCWB")
+  expect_equal(as.character('FCWB'), "FCWB")
+  expect_equal(as.character(FCWB, 'name'), "FlyCircuit Whole Brain")
+  expect_error(as.character(FCWB, 'rhubarb'))
+
+  l=lapply(LETTERS, templatebrain)
+  expect_equal(sapply(l, as.character), LETTERS)
+})
