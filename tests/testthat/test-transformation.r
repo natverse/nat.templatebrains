@@ -62,8 +62,6 @@ test_that("can use a bridging registration in regdirs",{
   cmtk.mat2dof(identityMatrix(), rcreg)
   expect_equal(xform_brain(m, ref='rhubarb',sample='crumble'), m)
 
-  expect_message(xform_brain(m, ref='crumble',sample='rhubarb'),
-                 regexp = 'Numerically inverting registration')
   unlink(td, recursive = TRUE)
 })
 
