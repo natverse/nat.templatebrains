@@ -3,12 +3,14 @@
 \alias{as.character.templatebrain}
 \title{Convert template brain to character vector representation}
 \usage{
-\method{as.character}{templatebrain}(x, field = c("regName", "name"))
+\method{as.character}{templatebrain}(x, field = c("regName", "name"), ...)
 }
 \arguments{
 \item{x}{templatebrain to convert}
 
 \item{field}{Which field to use (defaults to \code{'regName'})}
+
+\item{...}{additional arguments (currently ignored)}
 }
 \value{
 character vector

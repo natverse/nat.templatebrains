@@ -94,9 +94,10 @@ is.templatebrain<-function(x) inherits(x, 'templatebrain')
 #' This will normally be used to extract the short name i.e. \code{regName}.
 #' @param x templatebrain to convert
 #' @param field Which field to use (defaults to \code{'regName'})
+#' @param ... additional arguments (currently ignored)
 #' @return character vector
 #' @export
-as.character.templatebrain<-function(x, field=c('regName','name')){
+as.character.templatebrain<-function(x, field=c('regName','name'), ...){
   field=match.arg(field)
   x[[field]]
 }
