@@ -37,8 +37,10 @@ test_that("we can find bridging registrations",{
   expect_true(nzchar(bridging_reg(ref='rhubarb', sample='crumble')))
   expect_error(bridging_reg(ref='crumble', sample='rhubarb', mustWork = T))
   expect_false(nzchar(bridging_reg(ref='crumble', sample='rhubarb')))
-  expect_true(nzchar(bridging_reg(
-    ref='crumble', sample='rhubarb', checkboth = TRUE)))
+
+  br<-bridging_reg(reference ='crumble', sample='rhubarb', checkboth = TRUE)
+  expect_true(nzchar(br))
+  expect_true(attr(br,'swapped'))
 })
 
 if(is.null(cmtk.bindir())){

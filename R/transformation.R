@@ -9,17 +9,20 @@ bridging_reg <- function(reference, sample, checkboth=FALSE, mustWork=FALSE) {
   reference=as.character(reference)
   sample=as.character(sample)
   regname=paste0(reference, "_", sample, ".list")
-  reg=""
-  if(checkboth){
-    reg=find_reg(regname, mustWork=FALSE)
-    regname=paste0(sample, "_", reference, ".list")
-  }
-  if(reg=="") {
-    reg=find_reg(regname, mustWork=FALSE)
-    if(mustWork && reg=="") stop("Unable to find bridging registration between:"
-                                 , reference, " and ", sample)
-  }
-  reg
+  tryCatch(
+    if(checkboth){
+      reg=find_reg(regname, mustWork=FALSE)
+      if(reg==""){
+        # try again, marking the registration as swapped
+        regname=paste0(sample, "_", reference, ".list")
+        structure(find_reg(regname, mustWork=TRUE), swapped=TRUE)
+      } else reg
+    } else {
+      reg=find_reg(regname, mustWork=mustWork)
+    },
+    error=function(e) stop("Unable to find bridging registration between ",
+                           reference, " and ", sample)
+  )
 }
 
 # find a registration checking a vector of extradirs and then defaultreldir
