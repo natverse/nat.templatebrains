@@ -1,6 +1,6 @@
 # return path to mirroring registration for a template brain
 mirror_reg<-function(brain, ...) {
-  regname=paste0(brain$regName, "_mirror.list")
+  regname=paste0(as.character(brain), "_mirror.list")
   find_reg(regname, ...)
 }
 
