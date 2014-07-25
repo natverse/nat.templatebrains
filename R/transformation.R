@@ -6,8 +6,8 @@ mirror_reg<-function(brain, ...) {
 
 # return path to bridging registration between template brains
 bridging_reg <- function(reference, sample, checkboth=FALSE, mustWork=FALSE) {
-  if(is.templatebrain(reference)) reference=reference$regName
-  if(is.templatebrain(sample)) sample=sample$regName
+  reference=as.character(reference)
+  sample=as.character(sample)
   regname=paste0(reference, "_", sample, ".list")
   reg=""
   if(checkboth){
