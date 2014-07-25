@@ -18,7 +18,7 @@ bridging_reg <- function(reference, sample, checkboth=FALSE, mustWork=FALSE) {
         structure(find_reg(regname, mustWork=TRUE), swapped=TRUE)
       } else reg
     } else {
-      reg=find_reg(regname, mustWork=mustWork)
+      find_reg(regname, mustWork=mustWork)
     },
     error=function(e) stop("Unable to find bridging registration between ",
                            reference, " and ", sample)
