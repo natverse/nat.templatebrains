@@ -55,7 +55,8 @@ find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs'), mus
 #' @export
 xform_brain <- function(x, sample, reference, via=NULL, ...) {
   if(!is.null(via)){
-    if(length(via)>1) stop("Currently only support for one intermediate brain")
+    if(!is.templatebrain(via) && length(via)>1)
+      stop("Currently only support for one intermediate brain")
     x = xform_brain(x, sample=sample, reference=via, ...)
     return(xform_brain(x, sample=via, reference=reference, ...))
   }
