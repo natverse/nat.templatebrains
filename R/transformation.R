@@ -54,23 +54,13 @@ find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs'), mus
 #' @param ... extra arguments to pass to \code{\link[nat]{xform}}.
 #' @export
 xform_brain <- function(x, sample, reference, via=NULL, ...) {
-  direction <- 'inverse'
-  if(is.character(reference)) reference=templatebrain(name=reference)
-  if(!missing(sample) && is.character(sample)) sample=templatebrain(name=sample)
   if(!is.null(via)){
     if(length(via)>1) stop("Currently only support for one intermediate brain")
     x = xform_brain(x, sample=sample, reference=via, ...)
     return(xform_brain(x, sample=via, reference=reference, ...))
   }
-  reg <- bridging_reg(reference, sample)
-  if(reg == "") {
-    reg <- bridging_reg(sample, reference)
-    if(reg == "") stop("No suitable registration found.")
-    message("Numerically inverting registration from ", reference$regName,
-            " to ", sample$regName,
-            ". This may take some time and results may be inaccurate.")
-    direction <- 'forward'
-  }
+  reg <- bridging_reg(reference, sample, checkboth = T, mustWork = T)
+  direction <- ifelse(isTRUE(attr(reg,'swapped')), 'forward', 'inverse')
   nat::xform(x, reg=reg, direction=direction, ...)
 }
 
