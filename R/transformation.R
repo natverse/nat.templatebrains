@@ -4,6 +4,19 @@ mirror_reg<-function(brain, ...) {
   find_reg(regname, ...)
 }
 
+bridging_sequence<-function(reference, sample, via=NULL, ...) {
+  if(!is.null(via)) {
+    if(is.templatebrain(via)) via=list(via)
+    via=sapply(via, as.character, USE.NAMES = F)
+  }
+  # TODO check this order carefully, especially with multiple via brains
+  all_brains=c(as.character(reference), via, as.character(sample))
+  Map(function(r, s, ...) bridging_reg(reference=r, sample=s, ...),
+      r=all_brains[-length(all_brains)],
+      s=all_brains[-1],
+      ...)
+}
+
 # return path to bridging registration between template brains
 bridging_reg <- function(reference, sample, checkboth=FALSE, mustWork=FALSE) {
   reference=as.character(reference)
