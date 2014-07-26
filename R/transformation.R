@@ -14,7 +14,7 @@ bridging_sequence<-function(reference, sample, via=NULL, ...) {
   mapply(bridging_reg,
          reference=all_brains[-length(all_brains)],
          sample=all_brains[-1],
-         MoreArgs = ...)
+         MoreArgs = ..., SIMPLIFY = FALSE)
 }
 
 # return path to bridging registration between template brains
