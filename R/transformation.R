@@ -11,10 +11,10 @@ bridging_sequence<-function(reference, sample, via=NULL, ...) {
   }
   # TODO check this order carefully, especially with multiple via brains
   all_brains=c(as.character(reference), via, as.character(sample))
-  Map(function(r, s, ...) bridging_reg(reference=r, sample=s, ...),
-      r=all_brains[-length(all_brains)],
-      s=all_brains[-1],
-      ...)
+  mapply(bridging_reg,
+         reference=all_brains[-length(all_brains)],
+         sample=all_brains[-1],
+         MoreArgs = ...)
 }
 
 # return path to bridging registration between template brains
