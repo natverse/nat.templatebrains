@@ -10,10 +10,10 @@ bridging_sequence<-function(reference, sample, via=NULL, ...) {
     via=sapply(via, as.character, USE.NAMES = F)
   }
   # TODO check this order carefully, especially with multiple via brains
-  all_brains=c(as.character(reference), via, as.character(sample))
+  all_brains=c(as.character(sample), via, as.character(reference))
   mapply(bridging_reg,
-         reference=all_brains[-length(all_brains)],
-         sample=all_brains[-1],
+         sample=all_brains[-length(all_brains)],
+         reference=all_brains[-1],
          MoreArgs = ..., SIMPLIFY = FALSE)
 }
 
