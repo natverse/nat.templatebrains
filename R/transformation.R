@@ -17,6 +17,8 @@ mirror_reg<-function(brain, ...) {
 # $IS2
 # [1] "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/FCWB_IS2.list"
 bridging_sequence<-function(sample, reference, via=NULL, ...) {
+bridging_sequence<-function(sample, reference, via=NULL, checkboth=FALSE,
+                            mustWork=FALSE) {
   if(!is.null(via)) {
     if(is.templatebrain(via)) via=list(via)
     via=sapply(via, as.character, USE.NAMES = F)
@@ -26,7 +28,8 @@ bridging_sequence<-function(sample, reference, via=NULL, ...) {
   mapply(bridging_reg,
          sample=all_brains[-length(all_brains)],
          reference=all_brains[-1],
-         MoreArgs = ..., SIMPLIFY = FALSE)
+         MoreArgs = list(checkboth=checkboth, mustWork=mustWork),
+         SIMPLIFY = FALSE)
 }
 
 # return path to bridging registration between template brains
