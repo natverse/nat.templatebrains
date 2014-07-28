@@ -79,15 +79,11 @@ find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs'), mus
 #' @param ... extra arguments to pass to \code{\link[nat]{xform}}.
 #' @export
 xform_brain <- function(x, sample, reference, via=NULL, ...) {
-  if(!is.null(via)){
-    if(!is.templatebrain(via) && length(via)>1)
-      stop("Currently only support for one intermediate brain")
-    x = xform_brain(x, sample=sample, reference=via, ...)
-    return(xform_brain(x, sample=via, reference=reference, ...))
-  }
-  reg <- bridging_reg(reference, sample, checkboth = T, mustWork = T)
-  direction <- ifelse(isTRUE(attr(reg,'swapped')), 'forward', 'inverse')
-  nat::xform(x, reg=reg, direction=direction, ...)
+  regs <- bridging_sequence(reference=reference, sample=sample, via=via,
+                            checkboth = T, mustWork = T)
+  directions <- sapply(regs, function(reg)
+    ifelse(isTRUE(attr(reg,'swapped')), 'forward', 'inverse'))
+  nat::xform(x, reg=as.character(regs), direction=directions, ...)
 }
 
 #' Mirror 3D object around a given axis, optionally using a warping registration
