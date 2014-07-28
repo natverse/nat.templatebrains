@@ -4,6 +4,31 @@ mirror_reg<-function(brain, ...) {
   find_reg(regname, ...)
 }
 
+# sequence of more than 1 bridging registration
+# for example from JFRC2 -> IS2 -> FCWB
+# should look like:
+# streamxform -- JFRC2_IS2.list --inverse FCWB_IS2.list
+#
+# $JFRC2
+# [1] "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/JFRC2_IS2.list"
+# attr(,"swapped")
+# [1] TRUE
+#
+# $IS2
+# [1] "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/FCWB_IS2.list"
+bridging_sequence<-function(reference, sample, via=NULL, ...) {
+  if(!is.null(via)) {
+    if(is.templatebrain(via)) via=list(via)
+    via=sapply(via, as.character, USE.NAMES = F)
+  }
+  # TODO check this order carefully, especially with multiple via brains
+  all_brains=c(as.character(sample), via, as.character(reference))
+  mapply(bridging_reg,
+         sample=all_brains[-length(all_brains)],
+         reference=all_brains[-1],
+         MoreArgs = ..., SIMPLIFY = FALSE)
+}
+
 # return path to bridging registration between template brains
 bridging_reg <- function(reference, sample, checkboth=FALSE, mustWork=FALSE) {
   reference=as.character(reference)
