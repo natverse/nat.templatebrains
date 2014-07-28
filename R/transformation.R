@@ -4,19 +4,45 @@ mirror_reg<-function(brain, ...) {
   find_reg(regname, ...)
 }
 
-# sequence of more than 1 bridging registration
-# for example from JFRC2 -> IS2 -> FCWB
-# should look like:
-# streamxform -- JFRC2_IS2.list --inverse FCWB_IS2.list
-#
-# $JFRC2
-# [1] "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/JFRC2_IS2.list"
-# attr(,"swapped")
-# [1] TRUE
-#
-# $IS2
-# [1] "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/FCWB_IS2.list"
-bridging_sequence<-function(reference, sample, via=NULL, ...) {
+#' Find sequence of one or more bridging registrations
+#'
+#' @description This function is primarily intended for developer use (it is
+#'   used inside \code{xform_brain}) but may be useful for end users.
+#'
+#' @details When \code{checkboth=FALSE}, only registrations that can be directly
+#'   used to map image data from sample to reference are returned. When working
+#'   with 3D points, use \code{checkboth=TRUE}. Note that all possible
+#'   directories will first be scanned for registrations in the preferred
+#'   direction and then rescanned for the opposite direction if nothing is
+#'   found.
+#'
+#' @section registration direction: When mapping points from JFRC2 -> IS2 -> FCWB
+#'   (i.e. sample=JFRC2, via=IS2, ref=FCWB) the command line passed to CMTK's streamxform
+#'   should look like:
+#' \verb{streamxform -- JFRC2_IS2.list --inverse FCWB_IS2.list}
+#' However when mapping image data
+#' the command line for CMTK's reformatx should look like:
+#' \verb{reformatx -- JFRC2_IS2.list --inverse FCWB_IS2.list}
+#' and the corresponding output might look like \verb{
+#' list(JFRC2 = structure(
+#'        "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/JFRC2_IS2.list",
+#'        swapped = TRUE),
+#'      IS2 = "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/FCWB_IS2.list")
+#' }
+#' @inheritParams xform_brain
+#' @param checkboth Whether to look for registrations in both directions. The
+#'   default (\code{checkboth=FALSE}) will only return registrations in the
+#'   forward direction (see details).
+#' @param mustWork Whether to error out if appropriate registrations are not
+#'   found.
+#' @export
+#' @examples
+#' \dontrun{
+#' bridging_sequence(sample=JFRC2, ref=FCWB, checkboth = T)
+#' bridging_sequence(sample=JFRC2, via=IS2, ref=FCWB, checkboth = T)
+#' }
+bridging_sequence<-function(sample, reference, via=NULL, checkboth=FALSE,
+                            mustWork=FALSE) {
   if(!is.null(via)) {
     if(is.templatebrain(via)) via=list(via)
     via=sapply(via, as.character, USE.NAMES = F)
@@ -26,11 +52,12 @@ bridging_sequence<-function(reference, sample, via=NULL, ...) {
   mapply(bridging_reg,
          sample=all_brains[-length(all_brains)],
          reference=all_brains[-1],
-         MoreArgs = ..., SIMPLIFY = FALSE)
+         MoreArgs = list(checkboth=checkboth, mustWork=mustWork),
+         SIMPLIFY = FALSE)
 }
 
 # return path to bridging registration between template brains
-bridging_reg <- function(reference, sample, checkboth=FALSE, mustWork=FALSE) {
+bridging_reg <- function(sample, reference, checkboth=FALSE, mustWork=FALSE) {
   reference=as.character(reference)
   sample=as.character(sample)
   regname=paste0(reference, "_", sample, ".list")
@@ -79,15 +106,11 @@ find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs'), mus
 #' @param ... extra arguments to pass to \code{\link[nat]{xform}}.
 #' @export
 xform_brain <- function(x, sample, reference, via=NULL, ...) {
-  if(!is.null(via)){
-    if(!is.templatebrain(via) && length(via)>1)
-      stop("Currently only support for one intermediate brain")
-    x = xform_brain(x, sample=sample, reference=via, ...)
-    return(xform_brain(x, sample=via, reference=reference, ...))
-  }
-  reg <- bridging_reg(reference, sample, checkboth = T, mustWork = T)
-  direction <- ifelse(isTRUE(attr(reg,'swapped')), 'forward', 'inverse')
-  nat::xform(x, reg=reg, direction=direction, ...)
+  regs <- bridging_sequence(reference=reference, sample=sample, via=via,
+                            checkboth = T, mustWork = T)
+  directions <- sapply(regs, function(reg)
+    ifelse(isTRUE(attr(reg,'swapped')), 'forward', 'inverse'))
+  nat::xform(x, reg=as.character(regs), direction=directions, ...)
 }
 
 #' Mirror 3D object around a given axis, optionally using a warping registration
