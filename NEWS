@@ -1,3 +1,13 @@
+nat.templatebrains 0.3
+======================
+* add bridging_sequence function to return a bridging registrations sequence
+  that may span more than 2 template brains.
+* xform_brain can apply compound registrations in one streamxform call
+  (but depends on nat >=1.5.9 and CMTK >= 3.2.2)
+* add is.templatebrain and as.character.templatebrain utility functions.
+* switch to single option regdirs for all paths
+* no longer suggests nat.flybrains but includes basic tests with internal data.
+
 nat.templatebrains 0.2
 ======================
 * move all generic functionality from nat.flybrains (which is now a data only
