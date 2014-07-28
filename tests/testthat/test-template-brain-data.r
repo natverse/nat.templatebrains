@@ -30,8 +30,9 @@ test_that("voxdims returns correct result", {
 
 test_that("boundingbox returns correct result", {
   bb <- boundingbox(FCWB)
-  bb.expected <- matrix(c(0, 563.9342, 0, 326.3877, 0, 107), nrow=2)
-  expect_equal(bb, bb.expected)
+  bb.expected <- structure(matrix(c(0, 563.9342, 0, 326.3877, 0, 107), nrow=2),
+                           class='boundingbox')
+  expect_equivalent(bb, bb.expected)
 })
 
 context("Template brain")
