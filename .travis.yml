@@ -19,3 +19,5 @@ env:
     - WARNINGS_ARE_ERRORS=1
     - _R_CHECK_FORCE_SUGGESTS_=0
 after_success:
+  - chmod 755 ./travisbuildchildren.sh
+  - ./travisbuildchildren.sh
