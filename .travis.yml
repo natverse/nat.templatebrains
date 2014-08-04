@@ -16,7 +16,7 @@ notifications:
     on_failure: change
 env:
   global:
-    - secure: f3wCk5rXHy6ghYxDeo2hQ/GMHB3dus155XurN0GVLTxopcnQTbHbuQfv4T0vOYDY28LyLhu++EOybbUW3H3Ctnsjw/XBA7FA9XIqFJ5cLuwj1fYR6dVwDl1eDLOCtBjGQq+Fh8OxmDMNnN/EOx7OWhwJJWaHgtD4Kdf8Z9wp/6A=
+    - secure: enuHyjS3QdAyNTn03zj2sL4jbAh1pJ7vzCC4m674KdTG0tYB7ApiLEiu/PxT88Ub4UficJtutas3qLHhOpjL6ZW/Z18RYRIzwGHwimvVMRLYg2G1R8BPgsWtMSA3GynlOCHjiFxLeoGPW0mPJ4+5wzWJXD6tKWvZPHOngki/658=
     - WARNINGS_ARE_ERRORS=1
     - _R_CHECK_FORCE_SUGGESTS_=0
 after_success:
