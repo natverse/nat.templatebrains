@@ -152,14 +152,36 @@ xform_brain <- function(x, sample, reference, via=NULL, ...) {
 #' data(FCWB.demo)
 #' # Simple mirror along the x i.e. medio-lateral axis
 #' kcs20.flip=mirror_brain(kcs20, FCWB.demo, transform='flip')
+#'
 #' ## full non-rigid mirroring to account for differences in shape/centering of
 #' ## template brain. Depends on nat.flybrains package and system CMTK installation
 #' \dontrun{
-#' kcs20.right=mirror_brain(kcs20, FCWB, transform='flip')
+#' kcs20.right=mirror_brain(kcs20, FCWB, .progress='text')
 #' plot3d(kcs20, col='red')
 #' plot3d(kcs20.right, col='green')
 #' # include surface plot of brain
 #' plot3d(FCWB)
+#'
+#' # compare simple flip with full mirror
+#' # this template brain is highly symmetric so these are almost identical
+#' clear3d()
+#' plot3d(kcs20.flip, col='blue')
+#' plot3d(kcs20.right, col='green')
+#'
+#' # convert to JFRC2 and do the same
+#' kcs20.jfrc2=xform_brain(kcs20, sample = FCWB, reference=JFRC2, .progress='text')
+#' kcs20.jfrc2.right=mirror_brain(kcs20.jfrc2, JFRC2, .progress='text')
+#' kcs20.jfrc2.flip=mirror_brain(kcs20.jfrc2, JFRC2, transform='flip')
+#' clear3d()
+#' # this time there is a bigger difference between the two transformations
+#' plot3d(kcs20.jfrc2.flip, col='blue')
+#' plot3d(kcs20.jfrc2.right, col='green')
+#' # plot mushroom body neuropils as well
+#' plot3d(JFRC2NP.surf, "MB.*_R", alpha=0.3, col='grey')
+#'
+#' # compare Euclidean distance between corresponding points in all neurons
+#' diffs=xyzmatrix(kcs20.jfrc2.flip)-xyzmatrix(kcs20.jfrc2.right)
+#' hist(sqrt(rowSums(diffs^2)), xlab='Distance /microns')
 #' }
 mirror_brain <- function(x, brain, mirrorAxis=c("X","Y","Z"),
                          transform = c("warp", "affine", "flip"), ...) {
