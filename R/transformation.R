@@ -118,10 +118,28 @@ xform_brain <- function(x, sample, reference, via=NULL, ...) {
 #' @param x the 3D object to be mirrored.
 #' @param brain source template brain (e.g. IS2) that data is in.
 #' @param mirrorAxis the axis to mirror (default \code{"X"}).
-#' @param ... extra arguments to pass to \code{\link[nat]{xform}}.
+#' @param transform whether to use warp (default) or affine component of
+#'   registration, or simply flip about midplane of axis.
+#' @param ... extra arguments to pass to \code{\link[nat]{mirror}}.
 #' @export
-mirror_brain <- function(x, brain, mirrorAxis=c("X","Y","Z"), ...) {
-  warpfile <- mirror_reg(brain)
+#' @examples
+#' data(FCWB.demo)
+#' data(kcs20, package='nat')
+#' # Simple mirror along the x i.e. medio-lateral axis
+#' kcs20.flip=mirror_brain(kcs20, FCWB.demo, transform='flip')
+#' ## full non-rigid mirroring to account for differences in shape/centering of
+#' ## template brain. Depends on nat.flybrains package and system CMTK installation
+#' \dontrun{
+#' kcs20.right=mirror_brain(kcs20, FCWB, transform='flip')
+#' plot3d(kcs20, col='red')
+#' plot3d(kcs20.right, col='green')
+#' # include surface plot of brain
+#' plot3d(FCWB)
+#' }
+mirror_brain <- function(x, brain, mirrorAxis=c("X","Y","Z"),
+                         transform = c("warp", "affine", "flip"), ...) {
+  transform=match.arg(transform)
+  warpfile <- if(transform=="flip") NULL else mirror_reg(brain)
   mirrorAxis <- match.arg(mirrorAxis)
   axisCol <- which(mirrorAxis == c("X", "Y", "Z"))
   mirrorAxisSize <- brain$BoundingBox[2, axisCol] - brain$BoundingBox[1, axisCol]

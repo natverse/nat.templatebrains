@@ -3,7 +3,8 @@
 \alias{mirror_brain}
 \title{Mirror 3D object around a given axis, optionally using a warping registration}
 \usage{
-mirror_brain(x, brain, mirrorAxis = c("X", "Y", "Z"), ...)
+mirror_brain(x, brain, mirrorAxis = c("X", "Y", "Z"), transform = c("warp",
+  "affine", "flip"), ...)
 }
 \arguments{
 \item{x}{the 3D object to be mirrored.}
@@ -12,9 +13,27 @@ mirror_brain(x, brain, mirrorAxis = c("X", "Y", "Z"), ...)
 
 \item{mirrorAxis}{the axis to mirror (default \code{"X"}).}
 
-\item{...}{extra arguments to pass to \code{\link[nat]{xform}}.}
+\item{transform}{whether to use warp (default) or affine component of
+registration, or simply flip about midplane of axis.}
+
+\item{...}{extra arguments to pass to \code{\link[nat]{mirror}}.}
 }
 \description{
 Mirror 3D object around a given axis, optionally using a warping registration
+}
+\examples{
+data(FCWB.demo)
+data(kcs20, package='nat')
+# Simple mirror along the x i.e. medio-lateral axis
+kcs20.flip=mirror_brain(kcs20, FCWB.demo, transform='flip')
+## full non-rigid mirroring to account for differences in shape/centering of
+## template brain. Depends on nat.flybrains package and system CMTK installation
+\dontrun{
+kcs20.right=mirror_brain(kcs20, FCWB, transform='flip')
+plot3d(kcs20, col='red')
+plot3d(kcs20.right, col='green')
+# include surface plot of brain
+plot3d(FCWB)
+}
 }
 
