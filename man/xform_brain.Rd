@@ -29,6 +29,7 @@ NB the sample and reference brains can either be
 \examples{
 ## depends on nat.flybrains package and system CMTK installation
 \dontrun{
+library(nat.flybrains)
 # Plot Kenyon cells in their original FCWB template brain
 nopen3d()
 plot3d(kcs20)

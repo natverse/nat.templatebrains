@@ -27,8 +27,10 @@ data(FCWB.demo)
 kcs20.flip=mirror_brain(kcs20, FCWB.demo, transform='flip')
 
 ## full non-rigid mirroring to account for differences in shape/centering of
-## template brain. Depends on nat.flybrains package and system CMTK installation
+## template brain.
+## Depends on nat.flybrains package and system CMTK installation
 \dontrun{
+library(nat.flybrains)
 kcs20.right=mirror_brain(kcs20, FCWB, .progress='text')
 plot3d(kcs20, col='red')
 plot3d(kcs20.right, col='green')
