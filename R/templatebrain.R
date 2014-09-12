@@ -85,9 +85,9 @@ as.templatebrain.character <- function(x, name=NULL, ...) {
 as.templatebrain.im3d <- function(x, name, ...) {
   # This will be incorrect if the directions are not rectilinear
   units <- attr(x, 'header')$'space units'
-  templatebrain(name=name, dims=dim(im3d), voxdims=voxdims(im3d),
-                origin=origin(im3d), BoundingBox=boundingbox(im3d),
-                units=units, ...)
+  templatebrain(name=name, dims=dim(x), voxdims=voxdims(x),
+                origin=origin(x), BoundingBox=boundingbox(x),
+                units=units, regName=regName, ...)
 }
 
 #' Template brain methods
