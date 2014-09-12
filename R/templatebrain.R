@@ -87,6 +87,7 @@ as.templatebrain.im3d <- function(x, name, ...) {
 #' Test if object is templatebrain
 #' @param x Object to test
 #' @return logical
+#' @export
 is.templatebrain<-function(x) inherits(x, 'templatebrain')
 
 #' Convert template brain to character vector representation
