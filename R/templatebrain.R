@@ -84,30 +84,40 @@ as.templatebrain.im3d <- function(x, name, ...) {
                 units=units, ...)
 }
 
-#' Test if object is templatebrain
-#' @param x Object to test
+#' Template brain methods
+#' @description \code{is.templatebrain} tests if object is of class templatebrain
+#' @param x An object (usually a templatebrain)
 #' @return logical
 #' @export
+#' @name templatebrain-meths
+#' @aliases is.templatebrain
+#' @examples
+#' data(FCWB.demo)
+#' is.templatebrain(FCWB.demo)
+#' origin(FCWB.demo)
+#' dim(FCWB.demo)
+#' voxdims(FCWB.demo)
+#' boundingbox(FCWB.demo)
 is.templatebrain<-function(x) inherits(x, 'templatebrain')
 
-#' Convert template brain to character vector representation
+#' @description \code{as.character.templatebrain} converts template brain to
+#'   character vector representation (normally used to extract the short name
+#'   i.e. \code{regName}).
 #'
-#' This will normally be used to extract the short name i.e. \code{regName}.
-#' @param x templatebrain to convert
 #' @param field Which field to use (defaults to \code{'regName'})
-#' @param ... additional arguments (currently ignored)
+#' @param ... additional arguments for methods
 #' @return character vector
 #' @export
+#' @rdname templatebrain-meths
 as.character.templatebrain<-function(x, field=c('regName','name'), ...){
   field=match.arg(field)
   x[[field]]
 }
 
-#' Print brain template information in human-readable form
-#'
-#' @param x the object of class \code{templatebrain} to print.
-#' @param ... further objects to print.
+#' @description \code{print.templatebrain} prints templatebrain information in
+#'   human-readable form
 #' @export
+#' @rdname templatebrain-meths
 print.templatebrain <- function(x, ...) {
   cat("=== Template Brain ===", "\n")
   cat("Name:", x$name, "\n")
@@ -128,36 +138,56 @@ print.templatebrain <- function(x, ...) {
 }
 
 #' @export
+#' @description \code{as.im3d} converts a template brain to a \code{nat::im3d}
+#'   object; this is probably useful for developers.
 #' @method as.im3d templatebrain
 #' @importFrom nat as.im3d
+#' @rdname templatebrain-meths
+#' @seealso \code{\link[nat]{im3d}}
 as.im3d.templatebrain <- function(x, ...) {
   newim3d <- nat::im3d(NA, dims=x$dims, voxdims=x$voxdims, origin=x$origin)
   newim3d
 }
 
 #' @export
+#' @description \code{origin} extracts the space origin of a templatebrain
+#'   object.
 #' @method origin templatebrain
 #' @importFrom nat origin
+#' @rdname templatebrain-meths
+#' @seealso \code{\link[nat]{origin}}
 origin.templatebrain <- function(x, ...) {
   origin(nat::as.im3d(x))
 }
 
+#' @description \code{dim} extracts the dimensions (in number of pixels) of the
+#'   image associated with a templatebrain object.
 #' @export
 #' @method dim templatebrain
+#' @rdname templatebrain-meths
 dim.templatebrain <- function(x, ...) {
   dim(nat::as.im3d(x))
 }
 
+#' @description \code{voxdims} extracts the dimensions (in number of pixels) of
+#'   the image associated with a templatebrain object.
 #' @export
 #' @method voxdims templatebrain
 #' @importFrom nat voxdims
+#' @rdname templatebrain-meths
+#' @seealso \code{\link[nat]{voxdims}}
 voxdims.templatebrain <- function(x, ...) {
   voxdims(nat::as.im3d(x))
 }
 
+#' @description \code{boundingbox} extracts the boundingbox (in calibrated
+#'   spatial units, typically microns) of the image associated with a
+#'   templatebrain object. See \code{\link[nat]{boundingbox}} for details.
 #' @export
 #' @method boundingbox templatebrain
+#' @rdname templatebrain-meths
 #' @importFrom nat boundingbox
+#' @seealso \code{\link[nat]{boundingbox}}
 boundingbox.templatebrain <- function(x, ...) {
   boundingbox(nat::as.im3d(x))
 }
