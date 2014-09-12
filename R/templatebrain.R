@@ -6,12 +6,18 @@
 #' convenient to use  \code{\link{as.templatebrain}} methods to convert an image
 #' file or an im3d object into a \code{templatebrain}}.
 #'
+#' A variety of methods are availabe to work on templatebrain objects. See
+#' \code{\link{templatebrain-meths}} for basic methods. The two main functions
+#' that are availavle for using templatebrains are \code{\link{xform_brain}} and
+#' \code{\link{mirror_brain}}.
+#'
 #' \code{templatebrain} objects are only useful for transformation processes
 #' when the \code{BoundingBox} is specified to define the physical extent of the
 #' volume. We use the definition of the Amira 3D visualisation and analysis
 #' software. This corresponds to the \strong{node} centers option in the
 #' \href{http://teem.sourceforge.net/nrrd/format.html}{NRRD format}. The
-#' bounding box can be obtained from nrrd or amiramesh format files.
+#' bounding box can be obtained from nrrd or amiramesh format files. See
+#' \code{\link[nat]{boundingbox}} for details.
 #'
 #' @param name the name of the template.
 #' @param regName the short name to use for finding appropriate registrations.
@@ -31,8 +37,8 @@
 #'   \code{templatebrain} object
 #' @return A list with class \code{templatebrain}.
 #' @export
-#' @seealso \code{\link{as.templatebrain}}, \code{\link[nat]{im3d},
-#'   \link[nat]{boundingbox}}
+#' @seealso \code{\link{as.templatebrain}}, \code{\link{templatebrain-meths}},
+#'   \code{\link{xform_brain}}, \code{\link{mirror_brain}}.
 templatebrain<-function(name, regName=name, type=NULL, sex=NULL, dims=NULL,
                         BoundingBox=NULL, voxdims=NULL, units=NULL,
                         description=NULL, ...) {
