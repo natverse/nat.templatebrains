@@ -77,7 +77,7 @@ as.templatebrain.character <- function(x, name=NULL, ...) {
   if(!file.exists(x)) stop("x does not specify a valid path!")
   im3d <- read.im3d(x, ReadData=FALSE)
   if(is.null(name)) sub("\\.[^.]+$", "", basename(x))
-  templatebrain(im3d, name=name, ...)
+  as.templatebrain(im3d, name=name, ...)
 }
 
 #' @rdname as.templatebrain
@@ -87,7 +87,7 @@ as.templatebrain.im3d <- function(x, name, ...) {
   units <- attr(x, 'header')$'space units'
   templatebrain(name=name, dims=dim(x), voxdims=voxdims(x),
                 origin=origin(x), BoundingBox=boundingbox(x),
-                units=units, regName=regName, ...)
+                units=units, ...)
 }
 
 #' Template brain methods
