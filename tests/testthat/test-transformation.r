@@ -1,4 +1,4 @@
-context("Transformation")
+context("Registrations")
 
 test_that("we can find registrations",{
 
@@ -51,6 +51,8 @@ test_that("we can find bridging registrations",{
                     as.list(bridging_reg(ref='crumble', sample='rhubarb', checkboth=T)))
   expect_error(bridging_sequence(ref='crumble', sample='rhubarb', mustWork=T))
 })
+
+context("Transformation")
 
 if(is.null(cmtk.bindir())){
   message("skipping transformation tests since CMTK is not installed")
