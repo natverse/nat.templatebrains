@@ -105,6 +105,32 @@ find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs'), mus
 #'   bridging registration.
 #' @param ... extra arguments to pass to \code{\link[nat]{xform}}.
 #' @export
+#' @examples
+#' ## depends on nat.flybrains package and system CMTK installation
+#' \dontrun{
+#' # Plot Kenyon cells in their original FCWB template brain
+#' nopen3d()
+#' plot3d(kcs20)
+#' plot3d(FCWB)
+#' # Convert to JFCR2 template brain
+#' kcs20.jfrc2=xform_brain(kcs20, sample = FCWB, reference=JFRC2, .progress='text')
+#' # now plot in the new JFRC2 space
+#' nopen3d()
+#' plot3d(kcs20.jfrc2)
+#' plot3d(JFRC2)
+#' # compare with the untransformed neurons
+#' plot3d(kcs20)
+#' # plot with neuropil sub regions for the left mushroom body
+#' clear3d()
+#' plot3d(kcs20.jfrc2)
+#' # nb "MB.*_L" is a regular expression
+#' plot3d(JFRC2NP.surf, "MB.*_L", alpha=0.3)
+#' # compare with originals - briging registration is no perfect in peduncle
+#' nopen3d()
+#' plot3d(kcs20)
+#' plot3d(FCWBNP.surf, "MB.*_L", alpha=0.3)
+#'
+#' }
 xform_brain <- function(x, sample, reference, via=NULL, ...) {
   regs <- bridging_sequence(reference=reference, sample=sample, via=via,
                             checkboth = T, mustWork = T)

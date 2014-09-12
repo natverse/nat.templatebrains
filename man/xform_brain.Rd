@@ -26,4 +26,31 @@ NB the sample and reference brains can either be
   \code{templatebrain} objects or a character string containing the short
   name of the template e.g. \code{"IS2"}.
 }
+\examples{
+## depends on nat.flybrains package and system CMTK installation
+\dontrun{
+# Plot Kenyon cells in their original FCWB template brain
+nopen3d()
+plot3d(kcs20)
+plot3d(FCWB)
+# Convert to JFCR2 template brain
+kcs20.jfrc2=xform_brain(kcs20, sample = FCWB, reference=JFRC2, .progress='text')
+# now plot in the new JFRC2 space
+nopen3d()
+plot3d(kcs20.jfrc2)
+plot3d(JFRC2)
+# compare with the untransformed neurons
+plot3d(kcs20)
+# plot with neuropil sub regions for the left mushroom body
+clear3d()
+plot3d(kcs20.jfrc2)
+# nb "MB.*_L" is a regular expression
+plot3d(JFRC2NP.surf, "MB.*_L", alpha=0.3)
+# compare with originals - briging registration is no perfect in peduncle
+nopen3d()
+plot3d(kcs20)
+plot3d(FCWBNP.surf, "MB.*_L", alpha=0.3)
+
+}
+}
 
