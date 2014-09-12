@@ -14,4 +14,3 @@ Depends:
     nat (>= 1.5.9)
 Suggests:
     testthat
-LazyData: true

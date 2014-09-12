@@ -34,3 +34,12 @@
 #'   getOption('nat.templatebrains.regdirs'), "/my/new/path"))
 #' }
 NULL
+
+#' Sample template brain: FlyCircuit Whole Brain
+#'
+#' This is a sample template brain for testing purposes which is equivalent to
+#' the FCWB template brain defined by the \code{nat.flybrains}, which should be
+#' considered the canonical version.
+#' @name FCWB.demo
+#' @docType data
+NULL
