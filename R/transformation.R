@@ -124,7 +124,6 @@ xform_brain <- function(x, sample, reference, via=NULL, ...) {
 #' @export
 #' @examples
 #' data(FCWB.demo)
-#' data(kcs20, package='nat')
 #' # Simple mirror along the x i.e. medio-lateral axis
 #' kcs20.flip=mirror_brain(kcs20, FCWB.demo, transform='flip')
 #' ## full non-rigid mirroring to account for differences in shape/centering of
