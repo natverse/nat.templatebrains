@@ -1,3 +1,13 @@
+nat.templatebrains 0.4
+======================
+* prepare for CRAN release
+* fix export of is.templatebrain
+* give mirro_brain explicit transform argument
+* full examples in mirror_brain and xform_brain functions and
+  templatebrain-meths.
+* add FCWB.demo as data object that can be loaded
+* dev: integrate with nat.flybrains build on travis
+
 nat.templatebrains 0.3
 ======================
 * add bridging_sequence function to return a bridging registrations sequence
