@@ -42,3 +42,11 @@ test_that("as.character.templatebrain works",{
   l=lapply(LETTERS, templatebrain)
   expect_equal(sapply(l, as.character), LETTERS)
 })
+test_that("as.templatebrain.im3d works", {
+  fcwb.nhdr=system.file("images","FCWB.nhdr",package='nat.templatebrains')
+  expect_is(FCWB.test<-as.templatebrain(fcwb.nhdr, sex="Intersex",
+                                        type="Average", regName="FCWB"),
+            'templatebrain')
+  fields=c("sex", "regName", "type","dims","voxdims", "origin","BoundingBox","units")
+  expect_equal(FCWB.test[fields], FCWB.demo[fields])
+})
