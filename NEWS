@@ -1,8 +1,16 @@
+nat.templatebrains 0.4.1
+========================
+* fix handling of regName in templatebrain
+* fix as.templatebrain.im3d (completely broken due to variable name error)
+* better defaults in as.templatebrain.im3d / as.templatebrain.character
+  (both name and short name will be take from file name)
+* print.templatebrain now includes short name
+
 nat.templatebrains 0.4
 ======================
 * prepare for CRAN release
 * fix export of is.templatebrain
-* give mirro_brain explicit transform argument
+* give mirror_brain explicit transform argument
 * full examples in mirror_brain and xform_brain functions and
   templatebrain-meths.
 * add FCWB.demo as data object that can be loaded
