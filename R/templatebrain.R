@@ -42,7 +42,7 @@
 templatebrain<-function(name, regName=name, type=NULL, sex=NULL, dims=NULL,
                         BoundingBox=NULL, voxdims=NULL, units=NULL,
                         description=NULL, ...) {
-  template <- structure(list(name=name, regName=name, type=type, sex=sex,
+  template <- structure(list(name=name, regName=regName, type=type, sex=sex,
                              dims=dims, voxdims=voxdims, origin=origin,
                              BoundingBox=BoundingBox, units=units,
                              description=description),
@@ -76,14 +76,14 @@ as.templatebrain <- function(x, ...) UseMethod("as.templatebrain")
 as.templatebrain.character <- function(x, name=NULL, ...) {
   if(!file.exists(x)) stop("x does not specify a valid path!")
   im3d <- read.im3d(x, ReadData=FALSE)
-  if(is.null(name)) sub("\\.[^.]+$", "", basename(x))
   as.templatebrain(im3d, name=name, ...)
 }
 
 #' @rdname as.templatebrain
 #' @export
-as.templatebrain.im3d <- function(x, name, ...) {
+as.templatebrain.im3d <- function(x, name=NULL, ...) {
   # This will be incorrect if the directions are not rectilinear
+  if(is.null(name)) name = sub("\\.[^.]+$", "", basename(attr(x, 'file')))
   units <- attr(x, 'header')$'space units'
   templatebrain(name=name, dims=dim(x), voxdims=voxdims(x),
                 origin=origin(x), BoundingBox=boundingbox(x),
