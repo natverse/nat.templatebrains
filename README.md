@@ -13,6 +13,7 @@ install.packages("nat.templatebrains")
 library(nat.templatebrains)
 
 # basic examples for templatebrain class
+example("as.templatebrain")
 example("templatebrain-meths")
 
 # run examples for mirroring
