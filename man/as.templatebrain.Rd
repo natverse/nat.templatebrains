@@ -9,7 +9,7 @@ as.templatebrain(x, ...)
 
 \method{as.templatebrain}{character}(x, name = NULL, ...)
 
-\method{as.templatebrain}{im3d}(x, name, ...)
+\method{as.templatebrain}{im3d}(x, name = NULL, ...)
 }
 \arguments{
 \item{x}{object used to construct the templatebrain, either a character
