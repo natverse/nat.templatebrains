@@ -7,27 +7,29 @@
 \usage{
 as.templatebrain(x, ...)
 
-\method{as.templatebrain}{character}(x, name = NULL, ...)
+\method{as.templatebrain}{character}(x, ...)
 
-\method{as.templatebrain}{im3d}(x, name = NULL, ...)
+\method{as.templatebrain}{im3d}(x, name = NULL, regName = NULL, ...)
 }
 \arguments{
 \item{x}{object used to construct the templatebrain, either a character
-vector with the path to a file or a \code{im3d} object.}
+vector with the path to a file or an \code{im3d} object.}
 
-\item{...}{additional named arguments passed to methods or to
-\code{templatebrain} and that will be added as fields to the
+\item{...}{additional named arguments passed to methods and then on to
+\code{templatebrain} that will be added as fields to the
 \code{templatebrain} object.}
 
-\item{name}{name of the template brain. Will use the filename (minus final
-extension) by default for \code{as.templatebrain.character} but must be
-supplied for \code{as.templatebrain.im3d}.}
+\item{name,regName}{name and short name of the template brain. Will use the
+filename (minus final extension) by default for both fields.}
 }
 \value{
 A list with class \code{templatebrain}.
 }
 \description{
 Use image file or other object to initialise template brain
+}
+\examples{
+as.templatebrain(system.file('images','FCWB.nhdr', package='nat.templatebrains'))
 }
 \seealso{
 \code{\link[nat]{im3d}}

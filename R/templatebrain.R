@@ -57,9 +57,9 @@ templatebrain<-function(name, regName=name, type=NULL, sex=NULL, dims=NULL,
 #' Use image file or other object to initialise template brain
 #'
 #' @param x object used to construct the templatebrain, either a character
-#'   vector with the path to a file or a \code{im3d} object.
-#' @param ... additional named arguments passed to methods or to
-#'   \code{templatebrain} and that will be added as fields to the
+#'   vector with the path to a file or an \code{im3d} object.
+#' @param ... additional named arguments passed to methods and then on to
+#'   \code{templatebrain} that will be added as fields to the
 #'   \code{templatebrain} object.
 #' @return A list with class \code{templatebrain}.
 #' @export
@@ -68,24 +68,27 @@ templatebrain<-function(name, regName=name, type=NULL, sex=NULL, dims=NULL,
 as.templatebrain <- function(x, ...) UseMethod("as.templatebrain")
 
 #' @rdname as.templatebrain
-#' @param name name of the template brain. Will use the filename (minus final
-#'   extension) by default for \code{as.templatebrain.character} but must be
-#'   supplied for \code{as.templatebrain.im3d}.
 #' @importFrom nat read.im3d voxdims boundingbox origin
 #' @export
-as.templatebrain.character <- function(x, name=NULL, ...) {
+#' @examples
+#' as.templatebrain(system.file('images','FCWB.nhdr', package='nat.templatebrains'))
+as.templatebrain.character <- function(x, ...) {
   if(!file.exists(x)) stop("x does not specify a valid path!")
   im3d <- read.im3d(x, ReadData=FALSE)
-  as.templatebrain(im3d, name=name, ...)
+  as.templatebrain(im3d, ...)
 }
 
+#' @param name,regName name and short name of the template brain. Will use the
+#'   filename (minus final extension) by default for both fields.
 #' @rdname as.templatebrain
 #' @export
-as.templatebrain.im3d <- function(x, name=NULL, ...) {
+as.templatebrain.im3d <- function(x, name=NULL, regName=NULL, ...) {
   # This will be incorrect if the directions are not rectilinear
-  if(is.null(name)) name = sub("\\.[^.]+$", "", basename(attr(x, 'file')))
+  file_stem = sub("\\.[^.]+$", "", basename(attr(x, 'file')))
+  if(is.null(name)) name = file_stem
+  if(is.null(regName)) regName = file_stem
   units <- attr(x, 'header')$'space units'
-  templatebrain(name=name, dims=dim(x), voxdims=voxdims(x),
+  templatebrain(name=name, regName=regName, dims=dim(x), voxdims=voxdims(x),
                 origin=origin(x), BoundingBox=boundingbox(x),
                 units=units, ...)
 }
