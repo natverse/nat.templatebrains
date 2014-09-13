@@ -73,8 +73,9 @@ as.templatebrain <- function(x, ...) UseMethod("as.templatebrain")
 #' @importFrom nat read.im3d voxdims boundingbox origin
 #' @export
 #' @examples
-#' as.templatebrain(system.file('images','FCWB.nhdr', package='nat.templatebrains'),
-#'                  name = "FlyCircuit Whole Brain")
+#' # Make templatebrain object using image info from the template brain NRRD file
+#' nhdr=system.file('images','FCWB.nhdr', package='nat.templatebrains')
+#' as.templatebrain(nhdr, name = "FlyCircuit Whole Brain")
 as.templatebrain.character <- function(x, ...) {
   if(!file.exists(x)) stop("x does not specify a valid path!")
   im3d <- read.im3d(x, ReadData=FALSE)
