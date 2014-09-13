@@ -131,6 +131,7 @@ as.character.templatebrain<-function(x, field=c('regName','name'), ...){
 print.templatebrain <- function(x, ...) {
   cat("=== Template Brain ===", "\n")
   cat("Name:", x$name, "\n")
+  cat("Short Name:", x$regName, "\n")
   cat("Type:", x$type, "\n")
   cat("Sex: ", x$sex, "\n")
   cat(paste0("Voxel size:\n"))
