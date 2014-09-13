@@ -29,7 +29,8 @@ A list with class \code{templatebrain}.
 Use image file or other object to initialise template brain
 }
 \examples{
-as.templatebrain(system.file('images','FCWB.nhdr', package='nat.templatebrains'))
+as.templatebrain(system.file('images','FCWB.nhdr', package='nat.templatebrains'),
+                 name = "FlyCircuit Whole Brain")
 }
 \seealso{
 \code{\link[nat]{im3d}}

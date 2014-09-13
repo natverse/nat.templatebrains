@@ -44,8 +44,8 @@ test_that("as.character.templatebrain works",{
 })
 test_that("as.templatebrain.im3d works", {
   fcwb.nhdr=system.file("images","FCWB.nhdr",package='nat.templatebrains')
-  expect_is(FCWB.test<-as.templatebrain(fcwb.nhdr, sex="Intersex", type="Average"),
-            'templatebrain')
-  fields=c("sex", "regName", "type","dims","voxdims", "origin","BoundingBox","units")
+  expect_is(FCWB.test<-as.templatebrain(fcwb.nhdr, name="FlyCircuit Whole Brain (demonstration purposes)",
+                                        sex="Intersex", type="Average"), 'templatebrain')
+  fields=c("name","sex", "regName", "type","dims","voxdims", "origin","BoundingBox","units")
   expect_equal(FCWB.test[fields], FCWB.demo[fields])
 })
