@@ -8,9 +8,11 @@ templatebrain(name, regName = name, type = NULL, sex = NULL,
   description = NULL, ...)
 }
 \arguments{
-\item{name}{the name of the template.}
+\item{name}{the full name of the template.}
 
-\item{regName}{the short name to use for finding appropriate registrations.}
+\item{regName}{the short name. This will be the stem used to prefix
+registrations (e.g. JFRC2_someimage.list) for this template brain and
+likely also the stem of the template brain image (e.g. JFRC2.nrrd).}
 
 \item{type}{one of \code{c('single brain', 'average')}, indicating whether
 the template brain has been created from just one image, or is the average

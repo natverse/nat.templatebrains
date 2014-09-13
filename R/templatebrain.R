@@ -19,8 +19,10 @@
 #' bounding box can be obtained from nrrd or amiramesh format files. See
 #' \code{\link[nat]{boundingbox}} for details.
 #'
-#' @param name the name of the template.
-#' @param regName the short name to use for finding appropriate registrations.
+#' @param name the full name of the template.
+#' @param regName the short name. This will be the stem used to prefix
+#'   registrations (e.g. JFRC2_someimage.list) for this template brain and
+#'   likely also the stem of the template brain image (e.g. JFRC2.nrrd).
 #' @param type one of \code{c('single brain', 'average')}, indicating whether
 #'   the template brain has been created from just one image, or is the average
 #'   of multiple images.
