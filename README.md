@@ -46,8 +46,9 @@ This package has now been released to CRAN, but since this is the first official
 release you may wish to install the development version from github.
 
 ### Bleeding Edge
-You can, however, download the [tar ball](https://github.com/jefferislab/nat.templatebrains/tarball/master),
-and run `R CMD INSTALL` on it, or use the **devtools** package to install the development version:
+You can install the development version by downloading the 
+[tar ball](https://github.com/jefferislab/nat.templatebrains/tarball/master),
+and running `R CMD INSTALL` on it, or (**recommended**) using the **devtools** package:
 
   ```r
 if (!require("devtools")) install.packages("devtools")
