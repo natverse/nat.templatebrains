@@ -2,7 +2,7 @@
 #'
 #' @param brain template brain (e.g. IS2) of the slice.
 #' @param slice path to the slice PNG image to display.
-#' @param ... extra arguments to pass to persp3d.
+#' @param ... extra arguments to pass to \code{\link[rgl]{persp3d}}.
 #' @export
 display_slice <- function(brain, slice, ...) {
   UseMethod("display_slice")

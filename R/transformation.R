@@ -16,24 +16,22 @@ mirror_reg<-function(brain, ...) {
 #'   direction and then rescanned for the opposite direction if nothing is
 #'   found.
 #'
-#' @section registration direction: When mapping points from JFRC2 -> IS2 -> FCWB
-#'   (i.e. sample=JFRC2, via=IS2, ref=FCWB) the command line passed to CMTK's streamxform
-#'   should look like:
-#' \verb{streamxform -- JFRC2_IS2.list --inverse FCWB_IS2.list}
-#' However when mapping image data
-#' the command line for CMTK's reformatx should look like:
-#' \verb{reformatx -- JFRC2_IS2.list --inverse FCWB_IS2.list}
-#' and the corresponding output might look like \verb{
-#' list(JFRC2 = structure(
-#'        "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/JFRC2_IS2.list",
-#'        swapped = TRUE),
-#'      IS2 = "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/FCWB_IS2.list")
-#' }
+#' @section Registration direction: When mapping points from JFRC2 -> IS2 ->
+#'   FCWB (i.e. sample=JFRC2, via=IS2, ref=FCWB) the command line passed to
+#'   CMTK's streamxform should look like: \verb{streamxform -- JFRC2_IS2.list
+#'   --inverse FCWB_IS2.list} However when mapping image data the command line
+#'   for CMTK's reformatx should look like: \verb{reformatx -- JFRC2_IS2.list
+#'   --inverse FCWB_IS2.list} and the corresponding output might look like
+#'   \verb{ list(JFRC2 = structure(
+#'   "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/JFRC2_IS2.list",
+#'    swapped = TRUE), IS2 =
+#'   "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/FCWB_IS2.list")
+#'   }
 #' @inheritParams xform_brain
-#' @param checkboth Whether to look for registrations in both directions. The
-#'   default (\code{checkboth=FALSE}) will only return registrations in the
-#'   forward direction (see details).
-#' @param mustWork Whether to error out if appropriate registrations are not
+#' @param checkboth whether to look for registrations in both
+#'   directions. The default (\code{checkboth=FALSE}) will only return
+#'   registrations in the forward direction (see details).
+#' @param mustWork whether to error out if appropriate registrations are not
 #'   found.
 #' @export
 #' @examples
@@ -154,7 +152,7 @@ xform_brain <- function(x, sample, reference, via=NULL, ...) {
 #' # Simple mirror along the x i.e. medio-lateral axis
 #' kcs20.flip=mirror_brain(kcs20, FCWB.demo, transform='flip')
 #'
-#' ## full non-rigid mirroring to account for differences in shape/centering of
+#' ## Full non-rigid mirroring to account for differences in shape/centering of
 #' ## template brain.
 #' ## Depends on nat.flybrains package and system CMTK installation
 #' \dontrun{
@@ -165,24 +163,24 @@ xform_brain <- function(x, sample, reference, via=NULL, ...) {
 #' # include surface plot of brain
 #' plot3d(FCWB)
 #'
-#' # compare simple flip with full mirror
-#' # this template brain is highly symmetric so these are almost identical
+#' # Compare simple flip with full mirror
+#' # This template brain is highly symmetric so these are almost identical
 #' clear3d()
 #' plot3d(kcs20.flip, col='blue')
 #' plot3d(kcs20.right, col='green')
 #'
-#' # convert to JFRC2 and do the same
+#' # Convert to JFRC2 and do the same
 #' kcs20.jfrc2=xform_brain(kcs20, sample = FCWB, reference=JFRC2, .progress='text')
 #' kcs20.jfrc2.right=mirror_brain(kcs20.jfrc2, JFRC2, .progress='text')
 #' kcs20.jfrc2.flip=mirror_brain(kcs20.jfrc2, JFRC2, transform='flip')
 #' clear3d()
-#' # this time there is a bigger difference between the two transformations
+#' # This time there is a bigger difference between the two transformations
 #' plot3d(kcs20.jfrc2.flip, col='blue')
 #' plot3d(kcs20.jfrc2.right, col='green')
 #' # plot mushroom body neuropils as well
 #' plot3d(JFRC2NP.surf, "MB.*_R", alpha=0.3, col='grey')
 #'
-#' # compare Euclidean distance between corresponding points in all neurons
+#' # Compare Euclidean distance between corresponding points in all neurons
 #' diffs=xyzmatrix(kcs20.jfrc2.flip)-xyzmatrix(kcs20.jfrc2.right)
 #' hist(sqrt(rowSums(diffs^2)), xlab='Distance /microns')
 #' }

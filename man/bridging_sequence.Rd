@@ -15,11 +15,11 @@ transformed into.}
 \item{via}{optional intermediate brain to use when there is no direct
 bridging registration.}
 
-\item{checkboth}{Whether to look for registrations in both directions. The
-default (\code{checkboth=FALSE}) will only return registrations in the
-forward direction (see details).}
+\item{checkboth}{whether to look for registrations in both
+directions. The default (\code{checkboth=FALSE}) will only return
+registrations in the forward direction (see details).}
 
-\item{mustWork}{Whether to error out if appropriate registrations are not
+\item{mustWork}{whether to error out if appropriate registrations are not
 found.}
 }
 \description{
@@ -34,20 +34,18 @@ When \code{checkboth=FALSE}, only registrations that can be directly
   direction and then rescanned for the opposite direction if nothing is
   found.
 }
-\section{registration direction}{
- When mapping points from JFRC2 -> IS2 -> FCWB
-  (i.e. sample=JFRC2, via=IS2, ref=FCWB) the command line passed to CMTK's streamxform
-  should look like:
-\verb{streamxform -- JFRC2_IS2.list --inverse FCWB_IS2.list}
-However when mapping image data
-the command line for CMTK's reformatx should look like:
-\verb{reformatx -- JFRC2_IS2.list --inverse FCWB_IS2.list}
-and the corresponding output might look like \verb{
-list(JFRC2 = structure(
-       "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/JFRC2_IS2.list",
-       swapped = TRUE),
-     IS2 = "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/FCWB_IS2.list")
-}
+\section{Registration direction}{
+ When mapping points from JFRC2 -> IS2 ->
+  FCWB (i.e. sample=JFRC2, via=IS2, ref=FCWB) the command line passed to
+  CMTK's streamxform should look like: \verb{streamxform -- JFRC2_IS2.list
+  --inverse FCWB_IS2.list} However when mapping image data the command line
+  for CMTK's reformatx should look like: \verb{reformatx -- JFRC2_IS2.list
+  --inverse FCWB_IS2.list} and the corresponding output might look like
+  \verb{ list(JFRC2 = structure(
+  "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/JFRC2_IS2.list",
+   swapped = TRUE), IS2 =
+  "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/FCWB_IS2.list")
+  }
 }
 \examples{
 \dontrun{

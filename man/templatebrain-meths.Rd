@@ -28,16 +28,16 @@ is.templatebrain(x)
 \method{boundingbox}{templatebrain}(x, ...)
 }
 \arguments{
-\item{x}{An object (usually a templatebrain)}
+\item{x}{an object (usually a \code{templatebrain}).}
 
-\item{field}{Which field to use (defaults to \code{'regName'})}
+\item{field}{which field to use (defaults to \code{'regName'}).}
 
-\item{...}{additional arguments for methods}
+\item{...}{additional arguments for methods.}
 }
 \value{
-logical
+A logical indicating whether or not the object is a \code{templatebrain}.
 
-character vector
+Character vector.
 }
 \description{
 \code{is.templatebrain} tests if object is of class templatebrain
@@ -52,14 +52,14 @@ character vector
 \code{as.im3d} converts a template brain to a \code{nat::im3d}
   object; this is probably useful for developers.
 
-\code{origin} extracts the space origin of a templatebrain
+\code{origin} extracts the space origin of a \code{templatebrain}
   object.
 
 \code{dim} extracts the dimensions (in number of pixels) of the
-  image associated with a templatebrain object.
+  image associated with a \code{templatebrain} object.
 
 \code{voxdims} extracts the dimensions (in number of pixels) of
-  the image associated with a templatebrain object.
+  the image associated with a \code{templatebrain} object.
 
 \code{boundingbox} extracts the boundingbox (in calibrated
   spatial units, typically microns) of the image associated with a
