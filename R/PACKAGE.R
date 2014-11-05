@@ -30,8 +30,13 @@
 #' @keywords package registration template
 #' @examples
 #' \dontrun{
+#' # add a new directory containing registrations to the search list
 #' options(nat.templatebrains.regdirs=union(
 #'   getOption('nat.templatebrains.regdirs'), "/my/new/path"))
+#' ## same, but override any built-in registration by putitng the new path
+#' # at the first position in the search list
+#' options(nat.templatebrains.regdirs=union("/my/new/path"),
+#'   getOption('nat.templatebrains.regdirs'))
 #' }
 NULL
 
