@@ -1,9 +1,9 @@
 #' NeuroAnatomy Toolbox add-on package for handling template brains
 #'
 #' This package provides a class \code{templatebrain} that stores key
-#' information about referennce brains along with helpfer functions to simplify
+#' information about reference brains along with helper functions to simplify
 #' transformation of data between template brains (a.k.a bridging) and mirroring
-#' of data within a template brain. Presently there
+#' of data within a template brain.
 #'
 #' @section Helper functions: Easy-to-use functions for transforming data from
 #'   one template brain to another, displaying slices alongside 3D data, etc.
