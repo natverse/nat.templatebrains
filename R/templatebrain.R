@@ -6,9 +6,9 @@
 #' convenient to use  \code{\link{as.templatebrain}} methods to convert an image
 #' file or an im3d object into a \code{templatebrain}}.
 #'
-#' A variety of methods are availabe to work on templatebrain objects. See
+#' A variety of methods are available to work on \code{templatebrain} objects. See
 #' \code{\link{templatebrain-meths}} for basic methods. The two main functions
-#' that are availavle for using templatebrains are \code{\link{xform_brain}} and
+#' that are availavle for using template brains are \code{\link{xform_brain}} and
 #' \code{\link{mirror_brain}}.
 #'
 #' \code{templatebrain} objects are only useful for transformation processes
@@ -16,7 +16,7 @@
 #' volume. We use the definition of the Amira 3D visualisation and analysis
 #' software. This corresponds to the \strong{node} centers option in the
 #' \href{http://teem.sourceforge.net/nrrd/format.html}{NRRD format}. The
-#' bounding box can be obtained from nrrd or amiramesh format files. See
+#' bounding box can be obtained from NRRD or AmiraMesh format files. See
 #' \code{\link[nat]{boundingbox}} for details.
 #'
 #' @param name the full name of the template.
@@ -28,15 +28,15 @@
 #'   of multiple images.
 #' @param sex the sex of the template brain. For templates with
 #'   \code{type=='average'}, the possibility of \code{sex='intersex'} exists.
-#' @param dims dimensions of the image (number of voxels)
+#' @param dims dimensions of the image (number of voxels).
 #' @param BoundingBox physical dimensions of the image (see
-#'   \code{\link[nat]{boundingbox}})
-#' @param voxdims physical spacing between voxels
-#' @param units units of physical measurements (e.g. microns)
+#'   \code{\link[nat]{boundingbox}}).
+#' @param voxdims physical spacing between voxels.
+#' @param units units of physical measurements (e.g. microns).
 #' @param description details of the template.
 #' @rdname templatebrain
 #' @param ... additional named arguments that will be added as fields to the
-#'   \code{templatebrain} object
+#'   \code{templatebrain} object.
 #' @return A list with class \code{templatebrain}.
 #' @export
 #' @seealso \code{\link{as.templatebrain}}, \code{\link{templatebrain-meths}},
@@ -99,8 +99,8 @@ as.templatebrain.im3d <- function(x, name=NULL, regName=NULL, ...) {
 
 #' Template brain methods
 #' @description \code{is.templatebrain} tests if object is of class templatebrain
-#' @param x An object (usually a templatebrain)
-#' @return logical
+#' @param x an object (usually a \code{templatebrain}).
+#' @return A logical indicating whether or not the object is a \code{templatebrain}.
 #' @export
 #' @name templatebrain-meths
 #' @aliases is.templatebrain
@@ -117,9 +117,9 @@ is.templatebrain<-function(x) inherits(x, 'templatebrain')
 #'   character vector representation (normally used to extract the short name
 #'   i.e. \code{regName}).
 #'
-#' @param field Which field to use (defaults to \code{'regName'})
-#' @param ... additional arguments for methods
-#' @return character vector
+#' @param field which field to use (defaults to \code{'regName'}).
+#' @param ... additional arguments for methods.
+#' @return Character vector.
 #' @export
 #' @rdname templatebrain-meths
 as.character.templatebrain<-function(x, field=c('regName','name'), ...){
@@ -164,7 +164,7 @@ as.im3d.templatebrain <- function(x, ...) {
 }
 
 #' @export
-#' @description \code{origin} extracts the space origin of a templatebrain
+#' @description \code{origin} extracts the space origin of a \code{templatebrain}
 #'   object.
 #' @method origin templatebrain
 #' @importFrom nat origin
@@ -175,7 +175,7 @@ origin.templatebrain <- function(x, ...) {
 }
 
 #' @description \code{dim} extracts the dimensions (in number of pixels) of the
-#'   image associated with a templatebrain object.
+#'   image associated with a \code{templatebrain} object.
 #' @export
 #' @method dim templatebrain
 #' @rdname templatebrain-meths
@@ -184,7 +184,7 @@ dim.templatebrain <- function(x, ...) {
 }
 
 #' @description \code{voxdims} extracts the dimensions (in number of pixels) of
-#'   the image associated with a templatebrain object.
+#'   the image associated with a \code{templatebrain} object.
 #' @export
 #' @method voxdims templatebrain
 #' @importFrom nat voxdims

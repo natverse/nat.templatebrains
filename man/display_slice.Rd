@@ -10,7 +10,7 @@ display_slice(brain, slice, ...)
 
 \item{slice}{path to the slice PNG image to display.}
 
-\item{...}{extra arguments to pass to persp3d.}
+\item{...}{extra arguments to pass to \code{\link[rgl]{persp3d}}.}
 }
 \description{
 Display an image slice in 3D

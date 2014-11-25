@@ -15,11 +15,11 @@ transformed into.}
 \item{via}{optional intermediate brain to use when there is no direct
 bridging registration.}
 
-\item{checkboth}{Whether to look for registrations in both directions. The
-default (\code{checkboth=FALSE}) will only return registrations in the
-forward direction (see details).}
+\item{checkboth}{whether to look for registrations in both
+directions. The default (\code{checkboth=FALSE}) will only return
+registrations in the forward direction (see details).}
 
-\item{mustWork}{Whether to error out if appropriate registrations are not
+\item{mustWork}{whether to error out if appropriate registrations are not
 found.}
 }
 \description{
@@ -34,7 +34,7 @@ When \code{checkboth=FALSE}, only registrations that can be directly
   direction and then rescanned for the opposite direction if nothing is
   found.
 }
-\section{registration direction}{
+\section{Registration direction}{
  When mapping points from JFRC2 -> IS2 -> FCWB
   (i.e. sample=JFRC2, via=IS2, ref=FCWB) the command line passed to CMTK's streamxform
   should look like:

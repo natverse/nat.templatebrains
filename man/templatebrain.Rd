@@ -21,19 +21,19 @@ of multiple images.}
 \item{sex}{the sex of the template brain. For templates with
 \code{type=='average'}, the possibility of \code{sex='intersex'} exists.}
 
-\item{dims}{dimensions of the image (number of voxels)}
+\item{dims}{dimensions of the image (number of voxels).}
 
 \item{BoundingBox}{physical dimensions of the image (see
-\code{\link[nat]{boundingbox}})}
+\code{\link[nat]{boundingbox}}).}
 
-\item{voxdims}{physical spacing between voxels}
+\item{voxdims}{physical spacing between voxels.}
 
-\item{units}{units of physical measurements (e.g. microns)}
+\item{units}{units of physical measurements (e.g. microns).}
 
 \item{description}{details of the template.}
 
 \item{...}{additional named arguments that will be added as fields to the
-\code{templatebrain} object}
+\code{templatebrain} object.}
 }
 \value{
 A list with class \code{templatebrain}.
@@ -46,9 +46,9 @@ convenient to use  \code{\link{as.templatebrain}} methods to convert an image
 file or an im3d object into a \code{templatebrain}}.
 }
 \details{
-A variety of methods are availabe to work on templatebrain objects. See
+A variety of methods are available to work on \code{templatebrain} objects. See
 \code{\link{templatebrain-meths}} for basic methods. The two main functions
-that are availavle for using templatebrains are \code{\link{xform_brain}} and
+that are availavle for using template brains are \code{\link{xform_brain}} and
 \code{\link{mirror_brain}}.
 
 \code{templatebrain} objects are only useful for transformation processes
@@ -56,7 +56,7 @@ when the \code{BoundingBox} is specified to define the physical extent of the
 volume. We use the definition of the Amira 3D visualisation and analysis
 software. This corresponds to the \strong{node} centers option in the
 \href{http://teem.sourceforge.net/nrrd/format.html}{NRRD format}. The
-bounding box can be obtained from nrrd or amiramesh format files. See
+bounding box can be obtained from NRRD or AmiraMesh format files. See
 \code{\link[nat]{boundingbox}} for details.
 }
 \seealso{
