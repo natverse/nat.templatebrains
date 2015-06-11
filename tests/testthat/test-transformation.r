@@ -45,11 +45,11 @@ test_that("we can find bridging registrations",{
   # now try equivalence of bridging_sequence and bridging_reg
   expect_equivalent(bridging_sequence(ref="rhubarb", sample = "crumble"),
                as.list(bridging_reg(ref='rhubarb', sample='crumble')))
-  expect_equivalent(bridging_sequence(ref="crumble", sample = "rhubarb"),
-                    as.list(bridging_reg(ref='crumble', sample='rhubarb')))
+  expect_equivalent(bridging_sequence(ref="crumble", sample = "rhubarb", checkboth = F),
+                    as.list(bridging_reg(ref='crumble', sample='rhubarb', checkboth = F)))
   expect_equivalent(bridging_sequence(ref="crumble", sample = "rhubarb", checkboth=T),
                     as.list(bridging_reg(ref='crumble', sample='rhubarb', checkboth=T)))
-  expect_error(bridging_sequence(ref='crumble', sample='rhubarb', mustWork=T))
+  expect_error(bridging_sequence(ref='crumble', sample='rhubarb', checkboth = F, mustWork=T))
 })
 
 context("Transformation")
