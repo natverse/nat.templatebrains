@@ -127,8 +127,8 @@ shortest_path<-function(sample, reference, checkboth=FALSE, ...){
     if(!is.finite(sp)) {
       stop("No path between: ", reference, " and ", sample,"! ", "Can you use both directions (for points or _small_ image volumes)?")
     }
-    gsp=igraph::get.shortest.paths(g,from = sample, to=reference, mode='out', output = 'egraph')
-    return(igraph::E[gsp$epath[[1]]]$path)
+    gsp=igraph::get.shortest.paths(g,from = sample, to=reference, mode='out', output = 'epath')
+    return(igraph::E(g)[gsp$epath[[1]]]$path)
   }
   stop("I don't yet know how to handle paths with inversion!")
 }
