@@ -93,6 +93,20 @@ find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs'), mus
   ""
 }
 
+# data.frame with details of all registrations
+allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
+  df=data.frame(path=dir(regdirs, pattern = 'list$', full.names = T),
+                stringsAsFactors = F)
+  df$name=basename(df$path)
+  df$dup=duplicated(df$name)
+  df$bridge=!grepl("(mirror|imgflip)\\.list",df$name)
+  df$reference=gsub("^([^_]+)_.*","\\1", df$name)
+  df$sample=gsub("^[^_]+_([^.]+).*","\\1", df$name)
+  # set mirroring registration sample brain to NA
+  df$sample[!df$bridge]=NA_character_
+  df
+}
+
 #' Transform 3D object between template brains
 #'
 #' @details NB the \code{sample}, \code{reference} and \code{via} brains can
