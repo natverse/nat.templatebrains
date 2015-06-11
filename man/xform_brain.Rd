@@ -4,18 +4,22 @@
 \alias{xform_brain}
 \title{Transform 3D object between template brains}
 \usage{
-xform_brain(x, sample, reference, via = NULL, ...)
+xform_brain(x, sample, reference, via = NULL, imagedata = is.character(x),
+  ...)
 }
 \arguments{
 \item{x}{the 3D object to be transformed}
 
-\item{sample}{source template brain (e.g. IS2) that data is currently in.}
+\item{sample}{Source template brain (e.g. IS2) that data is currently in.}
 
-\item{reference}{target template brain (e.g. IS2) that data should be
+\item{reference}{Target template brain (e.g. IS2) that data should be
 transformed into.}
 
 \item{via}{optional intermediate brain to use when there is no direct
 bridging registration.}
+
+\item{imagedata}{Whether \code{x} should be treated as image data (presently
+only supported as a file on disk or 3D object vertices - see details).}
 
 \item{...}{extra arguments to pass to \code{\link[nat]{xform}}.}
 }
@@ -23,9 +27,14 @@ bridging registration.}
 Transform 3D object between template brains
 }
 \details{
-NB the sample and reference brains can either be
-  \code{templatebrain} objects or a character string containing the short
-  name of the template e.g. \code{"IS2"}.
+NB the \code{sample}, \code{reference} and \code{via} brains can
+  either be \code{templatebrain} objects or a character string containing the
+  short name of the template e.g. \code{"IS2"}.
+
+  The significance of the \code{imagedata} argument is that CMTK
+  registrations are not directly invertible although they can be numerically
+  inverted in most cases (unless there are regions where folding occurred).
+  Numerical inversion is \emph{much} slower than
 }
 \examples{
 ## depends on nat.flybrains package and system CMTK installation
