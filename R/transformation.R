@@ -42,8 +42,8 @@ mirror_reg<-function(brain, ...) {
 #' bridging_sequence(sample=JFRC2, ref=FCWB, checkboth = T)
 #' bridging_sequence(sample=JFRC2, via=IS2, ref=FCWB, checkboth = T)
 #' }
-bridging_sequence<-function(sample, reference, via=NULL, checkboth=FALSE,
-                            mustWork=FALSE) {
+bridging_sequence<-function(sample, reference, via=NULL, imagedata=FALSE,
+                            checkboth=!imagedata, mustWork=FALSE) {
   if(!is.null(via)) {
     if(is.templatebrain(via)) via=list(via)
     via=sapply(via, as.character, USE.NAMES = F)
@@ -95,15 +95,22 @@ find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs'), mus
 
 #' Transform 3D object between template brains
 #'
-#' @details NB the sample and reference brains can either be
-#'   \code{templatebrain} objects or a character string containing the short
-#'   name of the template e.g. \code{"IS2"}.
+#' @details NB the \code{sample}, \code{reference} and \code{via} brains can
+#'   either be \code{templatebrain} objects or a character string containing the
+#'   short name of the template e.g. \code{"IS2"}.
+#'
+#'   The significance of the \code{imagedata} argument is that CMTK
+#'   registrations are not directly invertible although they can be numerically
+#'   inverted in most cases (unless there are regions where folding occurred).
+#'   Numerical inversion is \emph{much} slower than
 #' @param x the 3D object to be transformed
-#' @param sample source template brain (e.g. IS2) that data is currently in.
-#' @param reference target template brain (e.g. IS2) that data should be
+#' @param sample Source template brain (e.g. IS2) that data is currently in.
+#' @param reference Target template brain (e.g. IS2) that data should be
 #'   transformed into.
 #' @param via optional intermediate brain to use when there is no direct
 #'   bridging registration.
+#' @param imagedata Whether \code{x} should be treated as image data (presently
+#'   only supported as a file on disk or 3D object vertices - see details).
 #' @param ... extra arguments to pass to \code{\link[nat]{xform}}.
 #' @export
 #' @examples
@@ -133,7 +140,8 @@ find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs'), mus
 #' plot3d(FCWBNP.surf, "MB.*_L", alpha=0.3)
 #'
 #' }
-xform_brain <- function(x, sample, reference, via=NULL, ...) {
+xform_brain <- function(x, sample, reference, via=NULL,
+                        imagedata=is.character(x), ...) {
   regs <- bridging_sequence(reference=reference, sample=sample, via=via,
                             checkboth = T, mustWork = T)
   directions <- sapply(regs, function(reg)
