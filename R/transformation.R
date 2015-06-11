@@ -107,6 +107,15 @@ allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
   df
 }
 
+bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs')) {
+  df=allreg_dataframe(regdirs)
+  # just keep the bridging registrations
+  df=df[df$bridge & !df$dup,]
+  g=igraph::graph.edgelist(as.matrix(df[,c("sample","reference")]), directed = T)
+  igraph::E(g)$path=df$path
+  g
+}
+
 #' Transform 3D object between template brains
 #'
 #' @details NB the \code{sample}, \code{reference} and \code{via} brains can

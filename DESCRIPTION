@@ -13,4 +13,5 @@ Depends:
     rgl,
     nat (>= 1.5.9)
 Suggests:
+    igraph,
     testthat
