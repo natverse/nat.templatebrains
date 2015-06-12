@@ -50,11 +50,21 @@ bridging_sequence<-function(sample, reference, via=NULL, imagedata=FALSE,
   }
   # TODO check this order carefully, especially with multiple via brains
   all_brains=c(as.character(sample), via, as.character(reference))
-  mapply(bridging_reg,
+  seq=mapply(bridging_reg,
          sample=all_brains[-length(all_brains)],
          reference=all_brains[-1],
          MoreArgs = list(checkboth=checkboth, mustWork=mustWork),
          SIMPLIFY = FALSE)
+  simplify_bridging_sequence(seq)
+}
+
+# convert to character vector with swapped attribute if required
+simplify_bridging_sequence<-function(x){
+  if(!is.list(x)) stop("simplify_bridging_sequence expects a list!")
+  outseq=as.character(x)
+  swapped=as.logical(lapply(x, function(x) isTRUE(attr(x,'swapped'))))
+  if(any(swapped)) attr(outseq, 'swapped')=swapped
+  outseq
 }
 
 # return path to bridging registration between template brains
@@ -218,12 +228,13 @@ shortest_bridging_seq <-
       g, from = sample, to = reference, mode = 'out', output = 'epath'
     )
     epath = gsp$epath[[1]]
-    mapply(function(x,y) {
+    seq=mapply(function(x,y) {
       if (y)
         attr(x,'swapped') = y;x
     },
     E(g)[epath]$path, E(g)[epath]$swapped,
     USE.NAMES = F, SIMPLIFY = F)
+    simplify_bridging_sequence(seq)
   }
 
 #' Transform 3D object between template brains
