@@ -1,4 +1,4 @@
-context("Registrations")
+context("Find Bridging Registrations")
 
 test_that("we can find registrations",{
 
@@ -24,6 +24,33 @@ test_that("we can find registrations",{
   expect_equal(find_reg("crumble.list"), file.path(td2,"crumble.list"))
   unlink(td, recursive = TRUE)
   unlink(td2, recursive = TRUE)
+})
+
+
+test_that("we can find bridging registrations",{
+  td=tempfile(pattern = 'extrabridge')
+  dir.create(td)
+  op=options(nat.templatebrains.regdirs=td)
+  on.exit(options(op))
+
+  rcreg=file.path(td,"rhubarb_crumble.list")
+  dir.create(rcreg, recursive = T)
+  expect_true(nzchar(bridging_reg(ref='rhubarb', sample='crumble')))
+  expect_error(bridging_reg(ref='crumble', sample='rhubarb', mustWork = T))
+  expect_false(nzchar(bridging_reg(ref='crumble', sample='rhubarb')))
+
+  br<-bridging_reg(reference ='crumble', sample='rhubarb', checkboth = TRUE)
+  expect_true(nzchar(br))
+  expect_true(attr(br,'swapped'))
+
+  # now try equivalence of bridging_sequence and bridging_reg
+  expect_equivalent(bridging_sequence(ref="rhubarb", sample = "crumble"),
+                    bridging_reg(ref='rhubarb', sample='crumble'))
+  expect_equivalent(bridging_sequence(ref="crumble", sample = "rhubarb", checkboth = F),
+                    bridging_reg(ref='crumble', sample='rhubarb', checkboth = F))
+  expect_equivalent(bridging_sequence(ref="crumble", sample = "rhubarb", checkboth=T),
+                    bridging_reg(ref='crumble', sample='rhubarb', checkboth=T))
+  expect_error(bridging_sequence(ref='crumble', sample='rhubarb', checkboth = F, mustWork=T))
 })
 
 context("Bridging Graph")
@@ -54,43 +81,18 @@ test_that("bridging graph and friends work",{
   df=df[match(df$path, df2$path),]
   expect_equal(df2, df)
 
-  baseline=list(structure(file.path(td, "/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/FCWB_IS2.list"),
-    swapped = TRUE))
+  baseline=structure(file.path(td, "/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/FCWB_IS2.list"),
+    swap = TRUE)
   expect_equal(shortest_bridging_seq('FCWB', 'IS2'), baseline)
-  expect_is(shortest_bridging_seq('FCWB', 'IBN'), 'list')
+  expect_is(shortest_bridging_seq('FCWB', 'IBN'), 'character')
   expect_warning(fcwb_ibn<-shortest_bridging_seq('FCWB', 'IBN', imagedata = T),
                  'very slow for image data')
-  bl=list(file.path(td,"/Users/jefferis/Library/Application Support/rpkg-nat.flybrains/regrepos/BridgingRegistrations/JFRC2_FCWB.list"),
-       structure(file.path(td,"/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/JFRC2_IBNWB.list"), swapped = TRUE),
-       structure(file.path(td,"/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/IBNWB_IBN.list"), swapped = TRUE))
+  bl=structure(c(file.path(td,"/Users/jefferis/Library/Application Support/rpkg-nat.flybrains/regrepos/BridgingRegistrations/JFRC2_FCWB.list"),
+                 file.path(td,"/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/JFRC2_IBNWB.list"),
+                 file.path(td,"/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/IBNWB_IBN.list")),
+               swap = c(F, T, T))
   expect_equal(fcwb_ibn, bl)
   expect_error(shortest_bridging_seq('FCWB', 'crumble'))
-})
-
-test_that("we can find bridging registrations",{
-  td=tempfile(pattern = 'extrabridge')
-  dir.create(td)
-  op=options(nat.templatebrains.regdirs=td)
-  on.exit(options(op))
-
-  rcreg=file.path(td,"rhubarb_crumble.list")
-  dir.create(rcreg, recursive = T)
-  expect_true(nzchar(bridging_reg(ref='rhubarb', sample='crumble')))
-  expect_error(bridging_reg(ref='crumble', sample='rhubarb', mustWork = T))
-  expect_false(nzchar(bridging_reg(ref='crumble', sample='rhubarb')))
-
-  br<-bridging_reg(reference ='crumble', sample='rhubarb', checkboth = TRUE)
-  expect_true(nzchar(br))
-  expect_true(attr(br,'swapped'))
-
-  # now try equivalence of bridging_sequence and bridging_reg
-  expect_equivalent(bridging_sequence(ref="rhubarb", sample = "crumble"),
-               as.list(bridging_reg(ref='rhubarb', sample='crumble')))
-  expect_equivalent(bridging_sequence(ref="crumble", sample = "rhubarb", checkboth = F),
-                    as.list(bridging_reg(ref='crumble', sample='rhubarb', checkboth = F)))
-  expect_equivalent(bridging_sequence(ref="crumble", sample = "rhubarb", checkboth=T),
-                    as.list(bridging_reg(ref='crumble', sample='rhubarb', checkboth=T)))
-  expect_error(bridging_sequence(ref='crumble', sample='rhubarb', checkboth = F, mustWork=T))
 })
 
 context("Transformation")
@@ -98,7 +100,6 @@ context("Transformation")
 if(is.null(cmtk.bindir())){
   message("skipping transformation tests since CMTK is not installed")
 } else {
-context("Transformation.cmtk")
 test_that("can use a bridging registration in regdirs",{
   td=tempfile(pattern = 'extrabridge')
   dir.create(td)
