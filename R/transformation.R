@@ -225,10 +225,23 @@ shortest_bridging_seq <-
 #'   either be \code{templatebrain} objects or a character string containing the
 #'   short name of the template e.g. \code{"IS2"}.
 #'
-#'   The significance of the \code{imagedata} argument is that CMTK
-#'   registrations are not directly invertible although they can be numerically
-#'   inverted in most cases (unless there are regions where folding occurred).
-#'   Numerical inversion is \emph{much} slower than
+#'   The significance of the \code{imagedata} and \code{checkboth} arguments is
+#'   that CMTK registrations are not directly invertible although they can be
+#'   numerically inverted in most cases (unless there are regions where folding
+#'   occurred). For image data, numerical inversion is \emph{much} slower.
+#'
+#'   You can control whether you want to allow inverse registrations manually by
+#'   setting \code{checkboth} explicitly. Otherwise when \code{checkboth=NULL}
+#'   the following default behaviour occurs: \itemize{
+#'
+#'   \item when \code{via=NULL} \code{checkboth=T} but a warning will be given
+#'   if an inversion must be used.
+#'
+#'   \item when \code{via} is specified then \code{checkboth=T} but a warning
+#'   will be given if an inversion must be used.
+#'
+#'   }
+#'
 #' @param x the 3D object to be transformed
 #' @param sample Source template brain (e.g. IS2) that data is currently in.
 #' @param reference Target template brain (e.g. IS2) that data should be
@@ -237,6 +250,8 @@ shortest_bridging_seq <-
 #'   bridging registration.
 #' @param imagedata Whether \code{x} should be treated as image data (presently
 #'   only supported as a file on disk or 3D object vertices - see details).
+#' @param checkboth When \code{TRUE} will look for registrations in both
+#'   directions. See details.
 #' @param ... extra arguments to pass to \code{\link[nat]{xform}}.
 #' @export
 #' @examples
@@ -267,14 +282,20 @@ shortest_bridging_seq <-
 #'
 #' }
 xform_brain <- function(x, sample, reference, via=NULL,
-                        imagedata=is.character(x), ...) {
+                        imagedata=is.character(x), checkboth=NULL, ...) {
   if(is.null(via)) {
-    # use bridging_graph
+    # use bridging_graph, with checkboth = TRUE
+    if(is.null(checkboth)) checkboth=TRUE
     # use imagedata to choose reciprocal weight
+    regs<-shortest_bridging_seq(sample = sample, reference = reference,
+                          checkboth = checkboth, imagedata = imagedata)
+  } else {
+    if(is.null(checkboth))
+      checkboth=!imagedata
+    regs <- bridging_sequence(reference=reference, sample=sample, via=via,
+                              checkboth = checkboth, mustWork = T)
   }
   # otherwise use bridging_seq
-  regs <- bridging_sequence(reference=reference, sample=sample, via=via,
-                            checkboth = T, mustWork = T)
   directions <- sapply(regs, function(reg)
     ifelse(isTRUE(attr(reg,'swapped')), 'forward', 'inverse'))
   nat::xform(x, reg=as.character(regs), direction=directions, ...)

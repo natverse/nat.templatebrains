@@ -5,7 +5,7 @@
 \title{Transform 3D object between template brains}
 \usage{
 xform_brain(x, sample, reference, via = NULL, imagedata = is.character(x),
-  ...)
+  checkboth = NULL, ...)
 }
 \arguments{
 \item{x}{the 3D object to be transformed}
@@ -21,6 +21,9 @@ bridging registration.}
 \item{imagedata}{Whether \code{x} should be treated as image data (presently
 only supported as a file on disk or 3D object vertices - see details).}
 
+\item{checkboth}{When \code{TRUE} will look for registrations in both
+directions. See details.}
+
 \item{...}{extra arguments to pass to \code{\link[nat]{xform}}.}
 }
 \description{
@@ -31,10 +34,22 @@ NB the \code{sample}, \code{reference} and \code{via} brains can
   either be \code{templatebrain} objects or a character string containing the
   short name of the template e.g. \code{"IS2"}.
 
-  The significance of the \code{imagedata} argument is that CMTK
-  registrations are not directly invertible although they can be numerically
-  inverted in most cases (unless there are regions where folding occurred).
-  Numerical inversion is \emph{much} slower than
+  The significance of the \code{imagedata} and \code{checkboth} arguments is
+  that CMTK registrations are not directly invertible although they can be
+  numerically inverted in most cases (unless there are regions where folding
+  occurred). For image data, numerical inversion is \emph{much} slower.
+
+  You can control whether you want to allow inverse registrations manually by
+  setting \code{checkboth} explicitly. Otherwise when \code{checkboth=NULL}
+  the following default behaviour occurs: \itemize{
+
+  \item when \code{via=NULL} \code{checkboth=T} but a warning will be given
+  if an inversion must be used.
+
+  \item when \code{via} is specified then \code{checkboth=T} but a warning
+  will be given if an inversion must be used.
+
+  }
 }
 \examples{
 ## depends on nat.flybrains package and system CMTK installation
