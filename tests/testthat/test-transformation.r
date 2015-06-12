@@ -104,9 +104,10 @@ test_that("can use a bridging registration in regdirs",{
   library(rgl)
   library(nat)
   rcreg=file.path(td,"rhubarb_crumble.list")
-  expect_error(xform_brain(c(1,1,1), ref='rhubarb',sample='crumble') )
-  i=identityMatrix()
   m=matrix(c(1,1,1),ncol=3)
+  expect_error(xform_brain(m, ref='rhubarb',sample='crumble'),
+               'No bridging registrations')
+  i=identityMatrix()
   cmtk.mat2dof(identityMatrix(), rcreg)
   expect_equal(xform_brain(m, ref='rhubarb',sample='crumble'), m)
 
