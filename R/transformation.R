@@ -131,7 +131,30 @@ allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
   df
 }
 
-# reciprocal signals that we want to create a graph with reciprocal edge weights
+#' Make or query connected graph of bridging registrations
+#'
+#' @description These functions are designed for expert use. In general it is
+#'   recommended to use \code{xform_brain}.
+#'
+#'   \code{bridging_graph} creates an igraph::graph representing all known
+#'   template brains (vertices) and the bridging registrations connecting them
+#'   (edges).
+#' @details When \code{reciprocal} != NAwe create a graph where each forward
+#'   transformation is matched by a corresponding inverse transformation with
+#'   the specified edge weight. The edge weight for forward transforms will
+#'   always be 1.0.
+#' @rdname shortest_bridging_seq
+#' @param reciprocal Sets the weight of reciprocal edges in the graph (and
+#'   thereby whether inverse registrations will be considered).
+#' @seealso \code{\link{allreg_dataframe}}
+#' @export
+#' @importFrom igraph E E<- graph.edgelist
+#' @examples
+#' \dontrun{
+#' plot(bridging_graph(reciprocal=3), vertex.size=25)
+#' # the same including
+#' plot(bridging_graph(), vertex.size=25)
+#' }
 bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs'), reciprocal=NA) {
   if(!requireNamespace('igraph', quietly = TRUE)) {
     stop("Please install.packages(\"igraph\") to use this function!")
@@ -141,20 +164,24 @@ bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs'), reci
   df=df[df$bridge & !df$dup,]
   el=as.matrix(df[,c("sample","reference")])
   if(is.na(reciprocal)){
-    g=igraph::graph.edgelist(el, directed = T)
-    igraph::E(g)$path=df$path
-    igraph::E(g)$swapped=FALSE
+    g=graph.edgelist(el, directed = T)
+    E(g)$path=df$path
+    E(g)$swapped=FALSE
   } else {
     # make reciprocal edges
     el2=rbind(el,el[,2:1])
     g=igraph::graph.edgelist(el2, directed = T)
-    igraph::E(g)$weight=rep(c(1, reciprocal), rep(nrow(el), 2))
-    igraph::E(g)$swapped=rep(c(FALSE, TRUE), rep(nrow(el), 2))
-    igraph::E(g)$path=c(df$path,df$path)
+    E(g)$weight=rep(c(1, reciprocal), rep(nrow(el), 2))
+    E(g)$swapped=rep(c(FALSE, TRUE), rep(nrow(el), 2))
+    E(g)$path=c(df$path,df$path)
   }
   g
 }
 
+#' @description \code{shortest_bridging_seq} finds the shortest bridging
+#'   sequence on a graph of all available bridging registrations, subject to
+#'   constraints defined by graph connectivity and the \code{reciprocal
+#'   parameter}.
 #' @importFrom igraph shortest.paths get.shortest.paths E
 #' @export
 #' @inheritParams xform_brain
@@ -165,12 +192,11 @@ bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs'), reci
 #' shortest_bridging_seq('FCWB', 'IS2')
 #' }
 shortest_bridging_seq <-
-  function(sample, reference, checkboth = TRUE, imagedata = FALSE, ...) {
-    recip_weight <- if (checkboth) {
+  function(sample, reference, checkboth = TRUE, imagedata = FALSE, reciprocal=NA, ...) {
+    reciprocal <- if (checkboth && is.na(reciprocal)) {
       ifelse(imagedata, 100, 1.01)
-    } else
-      NA
-    g = bridging_graph(reciprocal = recip_weight, ...)
+    } else NA
+    g = bridging_graph(reciprocal = reciprocal, ...)
 
     sample = as.character(sample)
     reference = as.character(reference)
