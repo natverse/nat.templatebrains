@@ -26,10 +26,35 @@ test_that("we can find registrations",{
   unlink(td2, recursive = TRUE)
 })
 
+context("Bridging Graph")
+
+test_that("bridging graph and friends work",{
+  # make a new registration directory for testing purposes
+  dir.create(td<-tempfile())
+  on.exit(unlink(td, recursive = TRUE))
+
+  # set up fake registrations under that directory
+  # originally made as:
+  # df=subset(allreg_dataframe(), !dup)
+  # saveRDS(df, 'testdata/allreg_dataframe.rds', compress='xz')
+  df=readRDS("testdata/allreg_dataframe.rds")
+  df$path=file.path(td, df$path)
+  sapply(df$path, dir.create, recursive = TRUE, showWarnings = F)
+
+  # note that dirs are not searched recursively - only the top level is listed
+  op=options(nat.templatebrains.regdirs=unique(dirname(df$path)))
+  on.exit(options(op), add = TRUE)
+
+  expect_is(df2<-allreg_dataframe(), 'data.frame')
+  # maybe dangerous to assume sort order ...
+  df=df[match(df$path, df2$path),]
+  expect_equal(df2, df)
+})
+
 test_that("we can find bridging registrations",{
   td=tempfile(pattern = 'extrabridge')
   dir.create(td)
-  op=options('nat.templatebrains.regdirs'=td)
+  op=options(nat.templatebrains.regdirs=td)
   on.exit(options(op))
 
   rcreg=file.path(td,"rhubarb_crumble.list")
