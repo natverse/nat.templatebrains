@@ -12,6 +12,7 @@ Depends:
     R (>= 2.10),
     rgl,
     nat (>= 1.5.9)
+Imports:
+    igraph
 Suggests:
-    igraph,
     testthat
