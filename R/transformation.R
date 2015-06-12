@@ -313,10 +313,7 @@ xform_brain <- function(x, sample, reference, via=NULL,
     regs <- bridging_sequence(reference=reference, sample=sample, via=via,
                               checkboth = checkboth, mustWork = T)
   }
-  # otherwise use bridging_seq
-  directions <- sapply(regs, function(reg)
-    ifelse(isTRUE(attr(reg,'swapped')), 'forward', 'inverse'))
-  nat::xform(x, reg=as.character(regs), direction=directions, ...)
+  nat::xform(x, reg=regs, ...)
 }
 
 #' Mirror 3D object around a given axis, optionally using a warping registration
