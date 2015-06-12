@@ -155,20 +155,45 @@ bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs'), reci
   g
 }
 
-shortest_path<-function(sample, reference, checkboth=FALSE, ...){
-  # TODO 1 + 1/nvertices
-  g=bridging_graph(reciprocal=ifelse(checkboth, 1.01, NA), ...)
-  # treat as directed
-  sp=igraph::shortest.paths(g, v = sample, to=reference, mode='out')
-  if(!is.finite(sp)) {
-    stop("No path between: ", reference, " and ", sample,"!")
+#' @importFrom igraph shortest.paths get.shortest.paths E
+#' @export
+#' @inheritParams xform_brain
+#' @examples
+#' \dontrun{
+#' shortest_bridging_seq(FCWB, IS2)
+#' # or
+#' shortest_bridging_seq('FCWB', 'IS2')
+#' }
+shortest_bridging_seq <-
+  function(sample, reference, checkboth = TRUE, imagedata = FALSE, ...) {
+    recip_weight <- if (checkboth) {
+      ifelse(imagedata, 100, 1.01)
+    } else
+      NA
+    g = bridging_graph(reciprocal = recip_weight, ...)
+
+    sample = as.character(sample)
+    reference = as.character(reference)
+
+    # treat as directed
+    sp = shortest.paths(g, v = sample, to = reference, mode = 'out')
+    if (!is.finite(sp))
+      stop("No path between: ", reference, " and ", sample, "!")
+
+    if (sp > 100)
+      warning("Bridging seq requires an inversion. This is very slow for image data!")
+
+    gsp = get.shortest.paths(
+      g, from = sample, to = reference, mode = 'out', output = 'epath'
+    )
+    epath = gsp$epath[[1]]
+    mapply(function(x,y) {
+      if (y)
+        attr(x,'swapped') = y;x
+    },
+    E(g)[epath]$path, E(g)[epath]$swapped,
+    USE.NAMES = F, SIMPLIFY = F)
   }
-  gsp=igraph::get.shortest.paths(g,from = sample, to=reference, mode='out', output = 'epath')
-  epath=gsp$epath[[1]]
-  mapply(function(x,y) {if(y) attr(x,'swapped')=y;x},
-         igraph::E(g)[epath]$path, igraph::E(g)[epath]$swapped,
-         USE.NAMES = F,SIMPLIFY = F)
-}
 
 #' Transform 3D object between template brains
 #'
