@@ -107,30 +107,43 @@ allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
   df
 }
 
-bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs')) {
+# reciprocal signals that we want to create a graph with reciprocal edge weights
+bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs'), reciprocal=NA) {
   if(!requireNamespace('igraph', quietly = TRUE)) {
     stop("Please install.packages(\"igraph\") to use this function!")
   }
   df=allreg_dataframe(regdirs)
   # just keep the bridging registrations
   df=df[df$bridge & !df$dup,]
-  g=igraph::graph.edgelist(as.matrix(df[,c("sample","reference")]), directed = T)
-  igraph::E(g)$path=df$path
+  el=as.matrix(df[,c("sample","reference")])
+  if(is.na(reciprocal)){
+    g=igraph::graph.edgelist(el, directed = T)
+    igraph::E(g)$path=df$path
+    igraph::E(g)$swapped=FALSE
+  } else {
+    # make reciprocal edges
+    el2=rbind(el,el[,2:1])
+    g=igraph::graph.edgelist(el2, directed = T)
+    igraph::E(g)$weight=rep(c(1, reciprocal), rep(nrow(el), 2))
+    igraph::E(g)$swapped=rep(c(FALSE, TRUE), rep(nrow(el), 2))
+    igraph::E(g)$path=c(df$path,df$path)
+  }
   g
 }
 
 shortest_path<-function(sample, reference, checkboth=FALSE, ...){
-  g=bridging_graph(...)
-  if(!checkboth){
-    # treat as directed
-    sp=igraph::shortest.paths(g, v = sample, to=reference, mode='out')
-    if(!is.finite(sp)) {
-      stop("No path between: ", reference, " and ", sample,"! ", "Can you use both directions (for points or _small_ image volumes)?")
-    }
-    gsp=igraph::get.shortest.paths(g,from = sample, to=reference, mode='out', output = 'epath')
-    return(igraph::E(g)[gsp$epath[[1]]]$path)
+  # TODO 1 + 1/nvertices
+  g=bridging_graph(reciprocal=ifelse(checkboth, 1.01, NA), ...)
+  # treat as directed
+  sp=igraph::shortest.paths(g, v = sample, to=reference, mode='out')
+  if(!is.finite(sp)) {
+    stop("No path between: ", reference, " and ", sample,"!")
   }
-  stop("I don't yet know how to handle paths with inversion!")
+  gsp=igraph::get.shortest.paths(g,from = sample, to=reference, mode='out', output = 'epath')
+  epath=gsp$epath[[1]]
+  mapply(function(x,y) {if(y) attr(x,'swapped')=y;x},
+         igraph::E(g)[epath]$path, igraph::E(g)[epath]$swapped,
+         USE.NAMES = F,SIMPLIFY = F)
 }
 
 #' Transform 3D object between template brains
@@ -182,6 +195,11 @@ shortest_path<-function(sample, reference, checkboth=FALSE, ...){
 #' }
 xform_brain <- function(x, sample, reference, via=NULL,
                         imagedata=is.character(x), ...) {
+  if(is.null(via)) {
+    # use bridging_graph
+    # use imagedata to choose reciprocal weight
+  }
+  # otherwise use bridging_seq
   regs <- bridging_sequence(reference=reference, sample=sample, via=via,
                             checkboth = T, mustWork = T)
   directions <- sapply(regs, function(reg)
