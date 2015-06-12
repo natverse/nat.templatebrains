@@ -157,6 +157,7 @@ allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
 #' }
 bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs'), reciprocal=NA) {
   df=allreg_dataframe(regdirs)
+  if(nrow(df)==0) return(NULL)
   # just keep the bridging registrations
   df=df[df$bridge & !df$dup,]
   el=as.matrix(df[,c("sample","reference")])
@@ -194,7 +195,7 @@ shortest_bridging_seq <-
       ifelse(imagedata, 100, 1.01)
     } else NA
     g = bridging_graph(reciprocal = reciprocal, ...)
-
+    if(is.null(g)) stop("No bridging registrations available!")
     sample = as.character(sample)
     reference = as.character(reference)
 
