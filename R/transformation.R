@@ -97,7 +97,8 @@ find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs'), mus
 #'
 #' @param regdirs Character vector of directories to search for registrations
 #'   (see details)
-#' @details by default \code{regdirs} is set to getOption('nat.templatebrains.regdirs')
+#' @details by default \code{regdirs} is set to
+#'   getOption('nat.templatebrains.regdirs')
 #' @return data.frame with one row for each observed registration and columns
 #'   \itemize{
 #'
@@ -112,13 +113,16 @@ find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs'), mus
 #'   \item reference
 #'
 #'   \item sample }
+#'
+#'   If there are no registrations, there will be a data.frame with 0 rows and
+#'   these columns.
 #' @export
 #' @examples
 #' \dontrun{
 #' allreg_dataframe()
 #' }
 allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
-  if(!length(regdirs)) stop("No registration directories are available")
+  if(!length(regdirs)) regdirs=character()
   df=data.frame(path=dir(regdirs, pattern = 'list$', full.names = T),
                 stringsAsFactors = F)
   df$name=basename(df$path)

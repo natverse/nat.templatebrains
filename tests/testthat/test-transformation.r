@@ -29,6 +29,10 @@ test_that("we can find registrations",{
 context("Bridging Graph")
 
 test_that("bridging graph and friends work",{
+
+  expect_is(emptydf<-allreg_dataframe(NULL), 'data.frame')
+  expect_equal(nrow(emptydf), 0L)
+
   # make a new registration directory for testing purposes
   dir.create(td<-tempfile())
   on.exit(unlink(td, recursive = TRUE))

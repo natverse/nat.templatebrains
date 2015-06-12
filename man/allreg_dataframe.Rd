@@ -25,12 +25,16 @@ data.frame with one row for each observed registration and columns
   \item reference
 
   \item sample }
+
+  If there are no registrations, there will be a data.frame with 0 rows and
+  these columns.
 }
 \description{
 Make data.frame with details of all registrations
 }
 \details{
-by default \code{regdirs} is set to getOption('nat.templatebrains.regdirs')
+by default \code{regdirs} is set to
+  getOption('nat.templatebrains.regdirs')
 }
 \examples{
 \dontrun{
