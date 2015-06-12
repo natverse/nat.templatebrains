@@ -147,9 +147,12 @@ allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
 #'   transformation is matched by a corresponding inverse transformation with
 #'   the specified edge weight. The edge weight for forward transforms will
 #'   always be 1.0.
+#'
+#'   By default \code{regdirs} is set to getOption('nat.templatebrains.regdirs')
 #' @rdname shortest_bridging_seq
 #' @param reciprocal Sets the weight of reciprocal edges in the graph (and
 #'   thereby whether inverse registrations will be considered).
+#' @inheritParams allreg_dataframe
 #' @seealso \code{\link{allreg_dataframe}}
 #' @export
 #' @importFrom igraph E E<- graph.edgelist

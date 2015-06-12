@@ -12,6 +12,9 @@ shortest_bridging_seq(sample, reference, checkboth = TRUE,
   imagedata = FALSE, reciprocal = NA, ...)
 }
 \arguments{
+\item{regdirs}{Character vector of directories to search for registrations
+(see details)}
+
 \item{reciprocal}{Sets the weight of reciprocal edges in the graph (and
 thereby whether inverse registrations will be considered).}
 
@@ -46,6 +49,8 @@ When \code{reciprocal} != NAwe create a graph where each forward
   transformation is matched by a corresponding inverse transformation with
   the specified edge weight. The edge weight for forward transforms will
   always be 1.0.
+
+  By default \code{regdirs} is set to getOption('nat.templatebrains.regdirs')
 }
 \examples{
 \dontrun{
