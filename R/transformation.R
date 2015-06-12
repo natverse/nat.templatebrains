@@ -156,9 +156,6 @@ allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
 #' plot(bridging_graph(), vertex.size=25)
 #' }
 bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs'), reciprocal=NA) {
-  if(!requireNamespace('igraph', quietly = TRUE)) {
-    stop("Please install.packages(\"igraph\") to use this function!")
-  }
   df=allreg_dataframe(regdirs)
   # just keep the bridging registrations
   df=df[df$bridge & !df$dup,]
