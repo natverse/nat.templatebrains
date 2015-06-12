@@ -63,7 +63,7 @@ simplify_bridging_sequence<-function(x){
   if(!is.list(x)) stop("simplify_bridging_sequence expects a list!")
   outseq=as.character(x)
   swapped=as.logical(lapply(x, function(x) isTRUE(attr(x,'swapped'))))
-  if(any(swapped)) attr(outseq, 'swapped')=swapped
+  if(any(swapped)) attr(outseq, 'swap')=swapped
   outseq
 }
 
