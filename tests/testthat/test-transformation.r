@@ -103,8 +103,9 @@ if(is.null(cmtk.bindir())){
 test_that("can use a bridging registration in regdirs",{
   td=tempfile(pattern = 'extrabridge')
   dir.create(td)
+  on.exit(unlink(td, recursive = TRUE))
   op=options('nat.templatebrains.regdirs'=td)
-  on.exit(options(op))
+  on.exit(options(op), add = TRUE)
 
   library(rgl)
   library(nat)
@@ -116,7 +117,7 @@ test_that("can use a bridging registration in regdirs",{
   cmtk.mat2dof(identityMatrix(), rcreg)
   expect_equal(xform_brain(m, ref='rhubarb',sample='crumble'), m)
 
-  # rouund trip test based on affine component of JFRC2_IS2
+  # round trip test based on affine component of JFRC2_IS2
   # x=read.cmtkreg(nat.templatebrains:::bridging_reg(ref=JFRC2, sample=IS2))
   # m=cmtkparams2affmat(x$registration$affine_xform, legacy = T)
 
@@ -127,9 +128,11 @@ test_that("can use a bridging registration in regdirs",{
                 0, -105.309000027786, 15.6708999995602, -7.7248100042806, 1),
               .Dim = c(4L, 4L))
   cmtk.mat2dof(aff, jfrc_is2_reg)
+  cmtk.mat2dof(solve(aff), file.path(td,"IS2_JFRC2.list"))
   points=matrix(c(100, 100, 50), ncol=3)
   expect_equal(xform_brain(points, ref='JFRC2',sample='JFRC2', via='IS2'), points)
   unlink(td, recursive = TRUE)
+
 })
 
 }
