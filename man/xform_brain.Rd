@@ -54,6 +54,8 @@ NB the \code{sample}, \code{reference} and \code{via} brains can
 \examples{
 ## depends on nat.flybrains package and system CMTK installation
 \dontrun{
+## reformat neurons
+##
 library(nat.flybrains)
 # Plot Kenyon cells in their original FCWB template brain
 nopen3d()
@@ -77,6 +79,9 @@ nopen3d()
 plot3d(kcs20)
 plot3d(FCWBNP.surf, "MB.*_L", alpha=0.3)
 
+
+## reformat images example
+xform_brain('in.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd', Verbose=F)
 }
 }
 
