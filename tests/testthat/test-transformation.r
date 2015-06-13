@@ -128,11 +128,32 @@ test_that("can use a bridging registration in regdirs",{
                 0, -105.309000027786, 15.6708999995602, -7.7248100042806, 1),
               .Dim = c(4L, 4L))
   cmtk.mat2dof(aff, jfrc_is2_reg)
-  cmtk.mat2dof(solve(aff), file.path(td,"IS2_JFRC2.list"))
   points=matrix(c(100, 100, 50), ncol=3)
-  expect_equal(xform_brain(points, ref='JFRC2',sample='JFRC2', via='IS2'), points)
-  unlink(td, recursive = TRUE)
+  expect_equal(xform_brain(points, ref='JFRC2',sample='JFRC2', via='IS2', checkboth = T), points)
 
+  # round trip test with neuron and image data representing the neuron
+  kc1=kcs20[[1]]
+  kc1.rt=xform_brain(kc1, ref='JFRC2',sample='JFRC2', via='IS2')
+  kcim=as.im3d(xyzmatrix(kc1), voxdims=c(1, 1, 1),
+               BoundingBox=c(250, 410, 0, 130, 0, 120))
+  dir.create(td2<-tempfile())
+  on.exit(unlink(td2, recursive = TRUE))
+  imfile=file.path(td2, 'kcim.nrrd')
+  outfile=file.path(td2, 'kcim_roundtrip.nrrd')
+  write.im3d(kcim, imfile, dtype='byte')
+  expect_error(xform_brain(imfile, ref='JFRC2',sample='JFRC2', via='IS2', output=outfile,
+              target=imfile, checkboth = TRUE),
+              'cmtk.reformatx .* inverse')
+
+  # write an inverted registraion
+  cmtk.mat2dof(solve(aff), file.path(td,"IS2_JFRC2.list"))
+  # check we can now xform image
+  xform_brain(imfile, ref='JFRC2',sample='JFRC2', via='IS2', output=outfile,
+              target=imfile, checkboth = TRUE)
+  kc2=dotprops(outfile)
+  # check mean distance between points
+  if(require(nabor))
+    expect_true(mean(knn(xyzmatrix(kc2), xyzmatrix(kc1), k = 1)$nn.dists)<1.0)
 })
 
 }
