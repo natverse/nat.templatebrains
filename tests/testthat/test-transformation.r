@@ -137,23 +137,29 @@ test_that("can use a bridging registration in regdirs",{
   kcim=as.im3d(xyzmatrix(kc1), voxdims=c(1, 1, 1),
                BoundingBox=c(250, 410, 0, 130, 0, 120))
   dir.create(td2<-tempfile())
-  on.exit(unlink(td2, recursive = TRUE))
+  owd=setwd(td2)
+  on.exit(setwd(owd), add = TRUE)
+  on.exit(unlink(td2, recursive = TRUE), add = TRUE)
+
   imfile=file.path(td2, 'kcim.nrrd')
   outfile=file.path(td2, 'kcim_roundtrip.nrrd')
   write.im3d(kcim, imfile, dtype='byte')
-  expect_error(xform_brain(imfile, ref='JFRC2',sample='JFRC2', via='IS2', output=outfile,
-              target=imfile, checkboth = TRUE),
-              'cmtk.reformatx .* inverse')
-
+  xform_brain(imfile, ref='JFRC2',sample='JFRC2', via='IS2', output=outfile,
+              target=imfile, checkboth = TRUE, Verbose=F)
+  kc2=dotprops(outfile)
   # write an inverted registraion
   cmtk.mat2dof(solve(aff), file.path(td,"IS2_JFRC2.list"))
-  # check we can now xform image
-  xform_brain(imfile, ref='JFRC2',sample='JFRC2', via='IS2', output=outfile,
-              target=imfile, checkboth = TRUE)
-  kc2=dotprops(outfile)
+  outfile2=file.path(td2, 'kcim_roundtrip2.nrrd')
+  # check we can still xform image
+  xform_brain(imfile, ref='JFRC2',sample='JFRC2', via='IS2', output=outfile2,
+              target=imfile, checkboth = TRUE, Verbose=F)
+  kc3=dotprops(outfile2)
   # check mean distance between points
-  if(require(nabor))
-    expect_true(mean(knn(xyzmatrix(kc2), xyzmatrix(kc1), k = 1)$nn.dists)<1.0)
+  library(nabor)
+  expect_true(mean(knn(xyzmatrix(kc2), xyzmatrix(kc1), k = 1)$nn.dists)<1.0,
+              "round trip with cmtk reformatx inversion")
+  expect_true(mean(knn(xyzmatrix(kc3), xyzmatrix(kc1), k = 1)$nn.dists)<1.0,
+              "round trip with pre-inverted registration")
 })
 
 }
