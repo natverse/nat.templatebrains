@@ -301,9 +301,15 @@ shortest_bridging_seq <-
 #' plot3d(FCWBNP.surf, "MB.*_L", alpha=0.3)
 #'
 #'
-#' ## reformat image example
+#' ## reformat image examples
 #' # see ?cmtk.reformatx for details of all additional arguments
 #' xform_brain('in.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd', Verbose=F)
+#'
+#' # use nearest neighbour interpolation for label field
+#' xform_brain('labels.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd', interpolation='nn')
+#'
+#' # use binary mask to restrict (and speed up) reformatting
+#' xform_brain('in.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd', mask='neuropil.nrrd')
 #' }
 xform_brain <- function(x, sample, reference, via=NULL,
                         imagedata=is.character(x), checkboth=NULL, ...) {
