@@ -8,8 +8,8 @@ before_install:
   - ./travis-tool.sh install_github jefferis/nat
   - bash <(wget -q -O- http://neuro.debian.net/_files/neurodebian-travis.sh)
   - sudo apt-get install cmtk --no-install-recommends
+  ./travis-tool.sh install_github jefferis/nat
 install:
-  - ./travis-tool.sh github_package jefferis/nat
   - ./travis-tool.sh install_deps
 notifications:
   email:
