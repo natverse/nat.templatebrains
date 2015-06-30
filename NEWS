@@ -1,3 +1,15 @@
+nat.templatebrains 0.5
+======================
+* xform_brain can now find the best available path from one template to another
+  automatically.
+* this uses new functions bridging_graph, shortest_bridging_seq and
+  allreg_dataframe
+* xform_brain now has an imagedata argument (to set sensible defaults for
+  handling of inverse registrations, which are very slow for image data)
+* fix: mirror_brain passes on transform argument
+* dev: now imports igraph
+* dev: requires nat >=1.7.0
+
 nat.templatebrains 0.4.1
 ========================
 * fix handling of regName in templatebrain
