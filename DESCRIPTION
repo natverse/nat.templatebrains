@@ -11,6 +11,8 @@ License: GPL-3
 Depends:
     R (>= 2.10),
     rgl,
-    nat (>= 1.5.9)
+    nat (>= 1.7.0)
+Imports:
+    igraph
 Suggests:
     testthat
