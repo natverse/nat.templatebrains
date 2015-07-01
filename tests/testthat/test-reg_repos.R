@@ -25,3 +25,17 @@ test_that("add works",{
 
   expect_null(add_reg_folders(character(0)))
 })
+
+test_that("cloning registrations works", {
+  skip_on_cran()
+  skip_if_not_installed('git2r')
+  op=options(nat.templatebrains.regdirs=NULL)
+  on.exit(options(op), add = TRUE)
+  # remove it in case it was already there!
+  unlink(local_reg_dir_for_url('https://github.com/jefferislab/TestRegRepo'), recursive = TRUE)
+  download_reg_repo("jefferislab/TestRegRepo")
+  expect_equal(getOption('nat.templatebrains.regdirs'),
+               local_reg_dir_for_url('https://github.com/jefferislab/TestRegRepo'))
+  expect_true(update_result<-update_reg_repos()@up_to_date)
+  unlink(local_reg_dir_for_url('https://github.com/jefferislab/TestRegRepo'), recursive = TRUE)
+})
