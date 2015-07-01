@@ -49,9 +49,9 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
 #' @description This sets options('nat.templatebrains.regdirs') appropriately so
 #'   that registrations can be found by e.g. \code{xform_brain}.
 #'
-#' @section File layout: The idea is that you should pass a folder containing
-#'   one or more registrations, not the registration folder itself. So if you
-#'   have this situation on disk \itemize{
+#' @section File layout: You must pass a folder containing one or more
+#'   registrations, not the registration folder itself. So if you have this
+#'   situation on disk \itemize{
 #'
 #'   \item myregistrations/
 #'
@@ -63,13 +63,18 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
 #'
 #'   you will be passing \code{add_reg_folder("/path/to/registrations")}
 #'
-#' @param dir Path to a folder containing registrations
-#' @param first
-#'
-#' @return
+#' @param dir Path to one or more folders containing registrations (Please see
+#'   \bold{File layout} section for details)
+#' @param first Whether the new folder should be added to the start (default) or
+#'   end of the search list.
 #' @export
-#'
 #' @examples
+#'
+#' \dontrun{
+#'   add_reg_folder("myextraregistrations")
+#' }
+#' # addiing a non-existent folder will generate an error
+#' tools::assertError(add_reg_folder(tempfile()))
 add_reg_folder<-function(dir, first=TRUE) {
   dir=normalizePath(dir, mustWork = TRUE)
   if(first) {
@@ -80,6 +85,7 @@ add_reg_folder<-function(dir, first=TRUE) {
     options(nat.templatebrains.regdirs=union(
       getOption('nat.templatebrains.regdirs'), dir))
   }
+  invisible(NULL)
 }
 
 #' Update local copy of git repository containing registrations
