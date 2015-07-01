@@ -25,5 +25,9 @@ When called without any argument returns the root directory that
   Note that this folder will always be the same place on a machine i.e. this
   defines a consistent, persistent location on disk to store data across
   sesssions.
+
+  When called with a url, a SHA1 hash will be calculated for the URL and
+  appended to the basepath. This should ensure that locations derived from
+  different URLs do not clash.
 }
 

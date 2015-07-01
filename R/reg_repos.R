@@ -137,12 +137,21 @@ make_reg_url<-function(url) {
 #'   defines a consistent, persistent location on disk to store data across
 #'   sesssions.
 #'
+#'   When called with a url, a SHA1 hash will be calculated for the URL and
+#'   appended to the basepath. This should ensure that locations derived from
+#'   different URLs do not clash.
+#'
 #' @param url Character vector containing a url. When \code{url=NULL} defaults
 #'   to giving the base path.
 #' @export
+#' @importFrom digest digest
 local_reg_dir_for_url<-function(url=NULL) {
   basedir=file.path(rappdirs::user_data_dir("rpkg-nat.templatebrains"), "regfolders")
-  if(length(url)) file.path(basedir, basename(url))
+
+  if(length(url)) {
+    sha1s=sapply(url, digest, algo="sha1", serialize=FALSE)
+    file.path(basedir, sha1s)
+  }
   else basedir
 }
 

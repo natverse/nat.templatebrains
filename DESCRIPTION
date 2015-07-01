@@ -12,6 +12,7 @@ Depends:
     rgl,
     nat (>= 1.7.0)
 Imports:
-    igraph
+    igraph,
+    digest
 Suggests:
     testthat
