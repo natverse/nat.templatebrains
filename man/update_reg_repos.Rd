@@ -16,6 +16,6 @@ options(nat.templatebrains.regdirs) are checked to see if they are git
 repositories and, if yes, they are pulled to update.
 }
 \seealso{
-\code{\link{add_reg_repo}}
+\code{\link{download_reg_repo}}
 }
 

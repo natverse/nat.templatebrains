@@ -103,7 +103,7 @@ add_reg_folder<-function(dir, first=TRUE) {
 #' @param x Path to local checkout of a registration git repository. See details
 #'   for meaning of default.
 #' @export
-#' @seealso \code{\link{add_reg_repo}}
+#' @seealso \code{\link{download_reg_repo}}
 #' @importFrom rappdirs user_data_dir
 update_reg_repos<-function(x=NULL) {
   if(is.null(x)) {
@@ -125,15 +125,17 @@ make_reg_url<-function(url) {
 
 #' Standard local checkout location for extra registration directories
 #'
-#' When called without any argument returns the root directory that will be
-#' inspected for extra registrations. You can put them there yourself manually,
-#' but you are better off in general using \code{\link{add_reg_repo}} to install
-#' those that can be found in our github repos e.g.
-#' \href{https://github.com/jefferislab/BridgingRegistrations}{jefferislab/BridgingRegistrations}
+#' @details When called without any argument returns the root directory that
+#'   will be inspected for extra registrations. You can put a sub-folder
+#'   yourself there manually and then call add_reg_folder, but you are much
+#'   better off in general using \code{\link{download_reg_repo}} to install from
+#'   a github repository such as this one of ours:.
+#'   \href{https://github.com/jefferislab/BridgingRegistrations}{jefferislab/BridgingRegistrations}
 #'
-#' Note that this location will always be the same place on a machine i.e. this
-#' defines a consistent, persistent location on disk to store data across
-#' sesssions.
+#'
+#'   Note that this folder will always be the same place on a machine i.e. this
+#'   defines a consistent, persistent location on disk to store data across
+#'   sesssions.
 #'
 #' @param url Character vector containing a url. When \code{url=NULL} defaults
 #'   to giving the base path.
