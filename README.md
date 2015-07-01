@@ -1,4 +1,6 @@
 # nat.templatebrains
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/nat.templatebrains)](http://cran.r-project.org/web/packages/nat.templatebrains) 
+[![Release Version](https://img.shields.io/github/release/jefferislab/nat.templatebrains.svg)](https://github.com/jefferislab/nat.templatebrains/releases/latest) 
 [![Build Status](https://travis-ci.org/jefferislab/nat.templatebrains.svg)](https://travis-ci.org/jefferislab/nat.templatebrains)
 [![Coverage Status](https://img.shields.io/coveralls/jefferislab/nat.templatebrains.svg)](https://coveralls.io/r/jefferislab/nat.templatebrains?branch=master)
 
