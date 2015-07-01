@@ -7,8 +7,8 @@
 download_reg_repo(url, localdir = NULL, ...)
 }
 \arguments{
-\item{url}{Location of one or more remote git repository. Can accept partial
-github specifications of the form "<user>/<repo>".}
+\item{url}{Location of one or more remote git repositories. Can accept
+partial github specifications of the form "<user>/<repo>".}
 
 \item{localdir}{Full path to local checkout location of git repository. When
 \code{localdir=NULL}, the default, a sensible location is chosen using the
