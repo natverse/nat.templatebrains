@@ -30,4 +30,7 @@ When called without any argument returns the root directory that
   appended to the basepath. This should ensure that locations derived from
   different URLs do not clash.
 }
+\seealso{
+\code{\link{download_reg_repo}}
+}
 

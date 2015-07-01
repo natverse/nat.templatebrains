@@ -2,9 +2,12 @@
 % Please edit documentation in R/reg_repos.R
 \name{add_reg_folders}
 \alias{add_reg_folders}
+\alias{extra_reg_folders}
 \title{Set or list local folders containing registrations for nat.templatebrains}
 \usage{
 add_reg_folders(dir = extra_reg_folders(), first = TRUE)
+
+extra_reg_folders(full.names = TRUE)
 }
 \arguments{
 \item{dir}{Path to one or more folders containing registrations. Default
@@ -13,11 +16,16 @@ see \bold{Details} and \bold{File layout} sections)}
 
 \item{first}{Whether the new folder should be added to the start (default) or
 end of the search list.}
+
+\item{full.names}{Whether to list full path to registration folders}
 }
 \description{
 \code{add_reg_folders} sets
   options('nat.templatebrains.regdirs') appropriately so that registrations
   can be found by e.g. \code{xform_brain}.
+
+\code{extra_reg_folders} lists extra registration folders
+  present in standard location
 }
 \details{
 When \code{dir} is unset then it will default to the value of

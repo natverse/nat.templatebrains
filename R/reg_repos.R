@@ -2,7 +2,7 @@
 #'
 #' Note that these extra registrations will be downloaded to a standard location
 #' on your hard drive that will be used for one session to the next. See
-#' examples.
+#' examples and \code{\link{local_reg_dir_for_url}}.
 #'
 #' @param url Location of remote git repository. Can accept partial github
 #'   specifications of the form "<user>/<repo>".
@@ -14,6 +14,8 @@
 #' @seealso \code{\link{add_reg_folders}}, \code{\link{local_reg_dir_for_url}},
 #'   \code{git2r::\link[git2r]{clone}}
 #' @examples
+#' ## find the root location of all registration directories
+#' local_reg_dir_for_url()
 #' \dontrun{
 #' ## Add the two main jefferislab bridging and mirroring registration
 #' # collections for Drosophila brains from github.com.
@@ -22,9 +24,6 @@
 #'
 #' ## update all current registration repositories
 #' update_reg_repos()
-#'
-#' ## find the root location of all registration directories
-#' local_reg_dir_for_url()
 #' }
 #' @seealso \code{\link{update_reg_repos}}
 #' @export
@@ -46,10 +45,12 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
 
 #' Set or list local folders containing registrations for nat.templatebrains
 #'
-#' @description \code{add_reg_folders} sets options('nat.templatebrains.regdirs')
-#'   appropriately so that registrations can be found by e.g.
-#'   \code{xform_brain}.
-#'
+#' @description \code{add_reg_folders} sets
+#'   options('nat.templatebrains.regdirs') appropriately so that registrations
+#'   can be found by e.g. \code{xform_brain}.
+#' @details When \code{dir} is unset then it will default to the value of
+#'   \code{extra_reg_folders()} i.e. any folders / cloned repositories in the
+#'   standard location
 #' @section File layout: You must pass a folder containing one or more
 #'   registrations, not the registration folder itself. So if you have this
 #'   situation on disk \itemize{
@@ -64,8 +65,9 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
 #'
 #'   you should write \code{add_reg_folders("/path/to/registrations")}
 #'
-#' @param dir Path to one or more folders containing registrations (Please see
-#'   \bold{File layout} section for details)
+#' @param dir Path to one or more folders containing registrations. Default
+#'   value will scan for registration folders in a standard location. (Please
+#'   see \bold{Details} and \bold{File layout} sections)
 #' @param first Whether the new folder should be added to the start (default) or
 #'   end of the search list.
 #' @export
@@ -76,7 +78,7 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
 #' }
 #' # adding a non-existent folder will generate an error
 #' tools::assertError(add_reg_folders(tempfile()))
-add_reg_folders<-function(dir, first=TRUE) {
+add_reg_folders<-function(dir=extra_reg_folders(), first=TRUE) {
   if(!length(dir))
     return(invisible(NULL))
   if(length(dir)>1)
@@ -151,6 +153,7 @@ make_reg_url<-function(url) {
 #' @param url Character vector containing a url. When \code{url=NULL} defaults
 #'   to giving the base path.
 #' @export
+#' @seealso \code{\link{download_reg_repo}}
 #' @importFrom digest digest
 #' @importFrom rappdirs user_data_dir
 local_reg_dir_for_url<-function(url=NULL) {
@@ -163,7 +166,11 @@ local_reg_dir_for_url<-function(url=NULL) {
   else basedir
 }
 
-# list of extra registration repositories checked out in standard location
-extra_reg_repos<-function(full.names=TRUE) {
-  dir(local_reg_dir_for_url(), full.names=full.names)
+#' @description \code{extra_reg_folders} lists extra registration folders
+#'   present in standard location
+#' @param full.names Whether to list full path to registration folders
+#' @export
+#' @rdname add_reg_folders
+extra_reg_folders<-function(full.names=TRUE) {
+  list.dirs(local_reg_dir_for_url(), full.names=full.names, recursive = FALSE)
 }

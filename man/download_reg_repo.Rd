@@ -20,9 +20,11 @@ credentials for private repo.}
 \description{
 Note that these extra registrations will be downloaded to a standard location
 on your hard drive that will be used for one session to the next. See
-examples.
+examples and \code{\link{local_reg_dir_for_url}}.
 }
 \examples{
+## find the root location of all registration directories
+local_reg_dir_for_url()
 \dontrun{
 ## Add the two main jefferislab bridging and mirroring registration
 # collections for Drosophila brains from github.com.
@@ -31,13 +33,11 @@ download_reg_repo("jefferislab/MirrorRegistrations")
 
 ## update all current registration repositories
 update_reg_repos()
-
-## find the root location of all registration directories
-local_reg_dir_for_url()
 }
 }
 \seealso{
-\code{\link{local_reg_dir_for_url}}, \code{git2r::\link[git2r]{clone}}
+\code{\link{add_reg_folders}}, \code{\link{local_reg_dir_for_url}},
+  \code{git2r::\link[git2r]{clone}}
 
 \code{\link{update_reg_repos}}
 }
