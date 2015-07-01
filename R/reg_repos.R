@@ -145,8 +145,9 @@ make_reg_url<-function(url) {
 #'   to giving the base path.
 #' @export
 #' @importFrom digest digest
+#' @importFrom rappdirs user_data_dir
 local_reg_dir_for_url<-function(url=NULL) {
-  basedir=file.path(rappdirs::user_data_dir("rpkg-nat.templatebrains"), "regfolders")
+  basedir=file.path(user_data_dir("rpkg-nat.templatebrains"), "regfolders")
 
   if(length(url)) {
     sha1s=sapply(url, digest, algo="sha1", serialize=FALSE)

@@ -13,6 +13,8 @@ Depends:
     nat (>= 1.7.0)
 Imports:
     igraph,
-    digest
+    digest,
+    rappdirs
 Suggests:
-    testthat
+    testthat,
+    git2r
