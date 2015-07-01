@@ -4,8 +4,8 @@
 #' on your hard drive that will be used for one session to the next. See
 #' examples and \code{\link{local_reg_dir_for_url}}.
 #'
-#' @param url Location of one or more remote git repository. Can accept partial
-#'   github specifications of the form "<user>/<repo>".
+#' @param url Location of one or more remote git repositories. Can accept
+#'   partial github specifications of the form "<user>/<repo>".
 #' @param localdir Full path to local checkout location of git repository. When
 #'   \code{localdir=NULL}, the default, a sensible location is chosen using the
 #'   rappdirs function.
