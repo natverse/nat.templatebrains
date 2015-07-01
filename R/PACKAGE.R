@@ -19,9 +19,20 @@
 #'
 #'   }
 #'
-#'   Note that registration directories should be specified as full paths and
-#'   will be searched in the order that they are listed. Registrations should
-#'   therefore have globally unique names.
+#'   It is strongly recommended \itemize{
+#'
+#'   \item to use the \code{\link{download_reg_repo}} to download
+#'   registration folders where possible. This will automatically add the new
+#'   folders to this option both in the current session and on package startup.
+#'
+#'   \item to use \code{\link{add_reg_folder}} to add additional directories
+#'   to the search list.
+#'
+#'   }
+#'
+#'   Note that registration directories will be searched in the order that they
+#'   are listed. It is therefore strongly recommended that individual
+#'   registrations have globally unique names.
 #'
 #' @name nat.templatebrains-package
 #' @aliases nat.templatebrains
@@ -30,9 +41,13 @@
 #' @keywords package registration template
 #' @examples
 #' \dontrun{
-#' # add a new directory containing registrations to the search list
+#' #
+#'
+#' # manually add a new directory containing registrations to the search list
 #' options(nat.templatebrains.regdirs=union(
 #'   getOption('nat.templatebrains.regdirs'), "/my/new/path"))
+#'
+#'
 #' ## same, but override any built-in registration by putitng the new path
 #' # at the first position in the search list
 #' options(nat.templatebrains.regdirs=union("/my/new/path"),

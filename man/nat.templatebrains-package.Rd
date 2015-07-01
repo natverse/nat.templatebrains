@@ -28,9 +28,20 @@ of data within a template brain.
 
   }
 
-  Note that registration directories should be specified as full paths and
-  will be searched in the order that they are listed. Registrations should
-  therefore have globally unique names.
+  It is strongly recommended \itemize{
+
+  \item to use the \code{\link{download_reg_repo}} to download
+  registration folders where possible. This will automatically add the new
+  folders to this option both in the current session and on package startup.
+
+  \item to use \code{\link{add_reg_folder}} to add additional directories
+  to the search list.
+
+  }
+
+  Note that registration directories will be searched in the order that they
+  are listed. It is therefore strongly recommended that individual
+  registrations have globally unique names.
 }
 \examples{
 \dontrun{
