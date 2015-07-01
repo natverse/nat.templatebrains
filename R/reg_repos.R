@@ -75,6 +75,8 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
 #' # adding a non-existent folder will generate an error
 #' tools::assertError(add_reg_folder(tempfile()))
 add_reg_folder<-function(dir, first=TRUE) {
+  if(!length(dir)) return(invisible(NULL))
+
   dir=normalizePath(dir, mustWork = TRUE)
 
   if(isTRUE(try(nat::is.cmtkreg(dir, filecheck = 'magic'), silent = TRUE))) {

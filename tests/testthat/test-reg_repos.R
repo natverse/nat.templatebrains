@@ -22,4 +22,6 @@ test_that("add works",{
   options(nat.templatebrains.regdirs='testing')
   add_reg_folder(regroot, first = FALSE)
   expect_equal(getOption('nat.templatebrains.regdirs'), rev(rop))
+
+  expect_null(add_reg_folder(character(0)))
 })
