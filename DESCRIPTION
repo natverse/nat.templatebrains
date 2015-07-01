@@ -12,6 +12,9 @@ Depends:
     rgl,
     nat (>= 1.7.0)
 Imports:
-    igraph
+    igraph,
+    digest,
+    rappdirs
 Suggests:
-    testthat
+    testthat,
+    git2r
