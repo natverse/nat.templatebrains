@@ -141,7 +141,7 @@ make_reg_url<-function(url) {
 #'   to giving the base path.
 #' @export
 local_reg_dir_for_url<-function(url=NULL) {
-  basedir=file.path(rappdirs::user_data_dir("rpkg-nat.flybrains"),"regrepos")
+  basedir=file.path(rappdirs::user_data_dir("rpkg-nat.templatebrains"), "regfolders")
   if(length(url)) file.path(basedir, basename(url))
   else basedir
 }
