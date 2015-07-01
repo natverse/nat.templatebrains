@@ -31,7 +31,7 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
   if(!requireNamespace('git2r'))
     stop("Please:\n  install.packages('git2r')\nin order to use this function!")
   if(length(url)>1)
-    return(sapply(url, download_reg_repo, localdir=localdir, ...=...))
+    return(sapply(url, download_reg_repo, localdir=localdir, ...=..., simplify = FALSE))
   url=make_reg_url(url)
   if(is.null(localdir))
     localdir = local_reg_dir_for_url(url)
@@ -84,7 +84,7 @@ add_reg_folders<-function(dir=extra_reg_folders(), first=TRUE) {
   if(!length(dir))
     return(invisible(NULL))
   if(length(dir)>1)
-    return(sapply(dir, add_reg_folders, first=first))
+    return(sapply(dir, add_reg_folders, first=first, simplify = FALSE))
 
   dir=normalizePath(dir, mustWork = TRUE)
 
