@@ -30,9 +30,9 @@
 download_reg_repo<-function(url, localdir=NULL, ...) {
   if(!requireNamespace('git2r'))
     stop("Please:\n  install.packages('git2r')\nin order to use this function!")
+  url=make_reg_url(url)
   if(length(url)>1)
     return(sapply(url, download_reg_repo, localdir=localdir, ...=..., simplify = FALSE))
-  url=make_reg_url(url)
   if(is.null(localdir))
     localdir = local_reg_dir_for_url(url)
 
