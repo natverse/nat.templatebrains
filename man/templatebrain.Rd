@@ -6,7 +6,7 @@
 \usage{
 templatebrain(name, regName = name, type = NULL, sex = NULL,
   dims = NULL, BoundingBox = NULL, voxdims = NULL, units = NULL,
-  description = NULL, ...)
+  description = NULL, doi = NULL, ...)
 }
 \arguments{
 \item{name}{the full name of the template.}
@@ -32,6 +32,8 @@ of multiple images.}
 \item{units}{units of physical measurements (e.g. microns).}
 
 \item{description}{details of the template.}
+
+\item{doi}{a DOI for the original template brain image.}
 
 \item{...}{additional named arguments that will be added as fields to the
 \code{templatebrain} object.}

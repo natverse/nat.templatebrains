@@ -34,6 +34,7 @@
 #' @param voxdims physical spacing between voxels.
 #' @param units units of physical measurements (e.g. microns).
 #' @param description details of the template.
+#' @param doi a DOI for the original template brain image.
 #' @rdname templatebrain
 #' @param ... additional named arguments that will be added as fields to the
 #'   \code{templatebrain} object.
@@ -43,11 +44,11 @@
 #'   \code{\link{xform_brain}}, \code{\link{mirror_brain}}.
 templatebrain<-function(name, regName=name, type=NULL, sex=NULL, dims=NULL,
                         BoundingBox=NULL, voxdims=NULL, units=NULL,
-                        description=NULL, ...) {
+                        description=NULL, doi=NULL, ...) {
   template <- structure(list(name=name, regName=regName, type=type, sex=sex,
                              dims=dims, voxdims=voxdims, origin=origin,
                              BoundingBox=BoundingBox, units=units,
-                             description=description),
+                             description=description, doi=doi),
                         class="templatebrain")
   if(!missing(...)) {
     apl=pairlist(...)
@@ -144,7 +145,8 @@ print.templatebrain <- function(x, ...) {
   cat(paste0("Bounding box (", x$units[1], "):\n"))
   cat("  x =", paste0(x$BoundingBox[1, 1], ", y = ", x$BoundingBox[1, 2], ", z = ", x$BoundingBox[1, 3], ",\n"))
   cat("  x =", paste0(x$BoundingBox[2, 1], ", y = ", x$BoundingBox[2, 2], ", z = ", x$BoundingBox[2, 3], ".\n"))
-  cat("Description:", x$description)
+  cat("Description:", x$description, "\n")
+  cat("DOI:", x$doi)
   if(exists('...')) {
     cat("\n")
     cat(...)
