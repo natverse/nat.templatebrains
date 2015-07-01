@@ -16,8 +16,8 @@
 #' \dontrun{
 #' ## Add the two main jefferislab bridging and mirroring registration
 #' # collections for Drosophila brains from github.com.
-#' add_reg_repo("jefferislab/BridgingRegistrations")
-#' add_reg_repo("jefferislab/MirrorRegistrations")
+#' download_reg_repo("jefferislab/BridgingRegistrations")
+#' download_reg_repo("jefferislab/MirrorRegistrations")
 #'
 #' ## update all current registration repositories
 #' update_reg_repos()
@@ -27,7 +27,7 @@
 #' }
 #' @seealso \code{\link{update_reg_repos}}
 #' @export
-add_reg_repo<-function(url, localdir=NULL, ...) {
+download_reg_repo<-function(url, localdir=NULL, ...) {
   if(!requireNamespace('git2r'))
     stop("Please:\n  install.packages('git2r')\nin order to use this function!")
   url=make_reg_url(url)
