@@ -34,7 +34,7 @@ of data within a template brain.
   registration folders where possible. This will automatically add the new
   folders to this option both in the current session and on package startup.
 
-  \item to use \code{\link{add_reg_folder}} to add additional directories
+  \item to use \code{\link{add_reg_folders}} to add additional directories
   to the search list.
 
   }
@@ -45,9 +45,13 @@ of data within a template brain.
 }
 \examples{
 \dontrun{
-# add a new directory containing registrations to the search list
+#
+
+# manually add a new directory containing registrations to the search list
 options(nat.templatebrains.regdirs=union(
   getOption('nat.templatebrains.regdirs'), "/my/new/path"))
+
+
 ## same, but override any built-in registration by putitng the new path
 # at the first position in the search list
 options(nat.templatebrains.regdirs=union("/my/new/path"),

@@ -16,7 +16,7 @@ Standard local checkout location for extra registration directories
 \details{
 When called without any argument returns the root directory that
   will be inspected for extra registrations. You can put a sub-folder
-  yourself there manually and then call add_reg_folder, but you are much
+  yourself there manually and then call add_reg_folders, but you are much
   better off in general using \code{\link{download_reg_repo}} to install from
   a github repository such as this one of ours:.
   \href{https://github.com/jefferislab/BridgingRegistrations}{jefferislab/BridgingRegistrations}

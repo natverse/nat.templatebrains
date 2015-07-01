@@ -11,7 +11,8 @@
 #'   rappdirs function.
 #' @param ... additional arguments passed to \code{git2r::clone} e.g.
 #'   credentials for private repo.
-#' @seealso \code{\link{local_reg_dir_for_url}}, \code{git2r::\link[git2r]{clone}}
+#' @seealso \code{\link{add_reg_folders}}, \code{\link{local_reg_dir_for_url}},
+#'   \code{git2r::\link[git2r]{clone}}
 #' @examples
 #' \dontrun{
 #' ## Add the two main jefferislab bridging and mirroring registration
@@ -38,15 +39,16 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
     update_reg_repos(localdir)
   } else {
     git2r::clone(url, localdir, ...)
-    add_reg_folder(localdir)
+    add_reg_folders(localdir)
   }
 }
 
 
-#' Tell nat.templatebrains about local folder containing registrations
+#' Set or list local folders containing registrations for nat.templatebrains
 #'
-#' @description This sets options('nat.templatebrains.regdirs') appropriately so
-#'   that registrations can be found by e.g. \code{xform_brain}.
+#' @description \code{add_reg_folders} sets options('nat.templatebrains.regdirs')
+#'   appropriately so that registrations can be found by e.g.
+#'   \code{xform_brain}.
 #'
 #' @section File layout: You must pass a folder containing one or more
 #'   registrations, not the registration folder itself. So if you have this
@@ -60,7 +62,7 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
 #'
 #'   }
 #'
-#'   you should write \code{add_reg_folder("/path/to/registrations")}
+#'   you should write \code{add_reg_folders("/path/to/registrations")}
 #'
 #' @param dir Path to one or more folders containing registrations (Please see
 #'   \bold{File layout} section for details)
@@ -70,22 +72,22 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
 #' @examples
 #'
 #' \dontrun{
-#'   add_reg_folder("myextraregistrations")
+#'   add_reg_folders("myextraregistrations")
 #' }
 #' # adding a non-existent folder will generate an error
-#' tools::assertError(add_reg_folder(tempfile()))
-add_reg_folder<-function(dir, first=TRUE) {
+#' tools::assertError(add_reg_folders(tempfile()))
+add_reg_folders<-function(dir, first=TRUE) {
   if(!length(dir))
     return(invisible(NULL))
   if(length(dir)>1)
-    return(sapply(dir, add_reg_folder, first=first))
+    return(sapply(dir, add_reg_folders, first=first))
 
   dir=normalizePath(dir, mustWork = TRUE)
 
   if(isTRUE(try(nat::is.cmtkreg(dir, filecheck = 'magic'), silent = TRUE))) {
     stop("You passed me CMTK registration folder: ", dir,
          "but I really want its parent folder, so do:\n",
-         "add_reg_folder(",dirname(dir),")")
+         "add_reg_folders(",dirname(dir),")")
   }
 
   if(first) {
@@ -132,7 +134,7 @@ make_reg_url<-function(url) {
 #'
 #' @details When called without any argument returns the root directory that
 #'   will be inspected for extra registrations. You can put a sub-folder
-#'   yourself there manually and then call add_reg_folder, but you are much
+#'   yourself there manually and then call add_reg_folders, but you are much
 #'   better off in general using \code{\link{download_reg_repo}} to install from
 #'   a github repository such as this one of ours:.
 #'   \href{https://github.com/jefferislab/BridgingRegistrations}{jefferislab/BridgingRegistrations}

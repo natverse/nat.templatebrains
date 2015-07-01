@@ -25,7 +25,7 @@
 #'   registration folders where possible. This will automatically add the new
 #'   folders to this option both in the current session and on package startup.
 #'
-#'   \item to use \code{\link{add_reg_folder}} to add additional directories
+#'   \item to use \code{\link{add_reg_folders}} to add additional directories
 #'   to the search list.
 #'
 #'   }
