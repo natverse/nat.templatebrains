@@ -38,8 +38,7 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
     update_reg_repos(localdir)
   } else {
     git2r::clone(url, localdir, ...)
-    options(nat.templatebrains.regdirs=union(
-      getOption('nat.templatebrains.regdirs'), localdir))
+    add_reg_folder(localdir)
   }
 }
 
@@ -61,7 +60,7 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
 #'
 #'   }
 #'
-#'   you will be passing \code{add_reg_folder("/path/to/registrations")}
+#'   you should write \code{add_reg_folder("/path/to/registrations")}
 #'
 #' @param dir Path to one or more folders containing registrations (Please see
 #'   \bold{File layout} section for details)
@@ -73,7 +72,7 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
 #' \dontrun{
 #'   add_reg_folder("myextraregistrations")
 #' }
-#' # addiing a non-existent folder will generate an error
+#' # adding a non-existent folder will generate an error
 #' tools::assertError(add_reg_folder(tempfile()))
 add_reg_folder<-function(dir, first=TRUE) {
   dir=normalizePath(dir, mustWork = TRUE)

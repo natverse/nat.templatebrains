@@ -30,13 +30,13 @@ This sets options('nat.templatebrains.regdirs') appropriately so
 
   }
 
-  you will be passing \code{add_reg_folder("/path/to/registrations")}
+  you should write \code{add_reg_folder("/path/to/registrations")}
 }
 \examples{
 \dontrun{
   add_reg_folder("myextraregistrations")
 }
-# addiing a non-existent folder will generate an error
+# adding a non-existent folder will generate an error
 tools::assertError(add_reg_folder(tempfile()))
 }
 
