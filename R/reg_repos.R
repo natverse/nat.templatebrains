@@ -77,6 +77,13 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
 #' tools::assertError(add_reg_folder(tempfile()))
 add_reg_folder<-function(dir, first=TRUE) {
   dir=normalizePath(dir, mustWork = TRUE)
+
+  if(isTRUE(try(nat::is.cmtkreg(dir, filecheck = 'magic'), silent = TRUE))) {
+    stop("You passed me CMTK registration folder: ", dir,
+         "but I really want its parent folder, so do:\n",
+         "add_reg_folder(",dirname(dir),")")
+  }
+
   if(first) {
     options(nat.templatebrains.regdirs=union(dir,
       getOption('nat.templatebrains.regdirs')))
