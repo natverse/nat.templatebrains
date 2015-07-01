@@ -4,8 +4,8 @@
 #' on your hard drive that will be used for one session to the next. See
 #' examples and \code{\link{local_reg_dir_for_url}}.
 #'
-#' @param url Location of remote git repository. Can accept partial github
-#'   specifications of the form "<user>/<repo>".
+#' @param url Location of one or more remote git repository. Can accept partial
+#'   github specifications of the form "<user>/<repo>".
 #' @param localdir Full path to local checkout location of git repository. When
 #'   \code{localdir=NULL}, the default, a sensible location is chosen using the
 #'   rappdirs function.
@@ -30,6 +30,8 @@
 download_reg_repo<-function(url, localdir=NULL, ...) {
   if(!requireNamespace('git2r'))
     stop("Please:\n  install.packages('git2r')\nin order to use this function!")
+  if(length(url)>1)
+    return(sapply(url, download_reg_repo, localdir=localdir, ...=...))
   url=make_reg_url(url)
   if(is.null(localdir))
     localdir = local_reg_dir_for_url(url)
