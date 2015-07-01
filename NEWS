@@ -6,6 +6,7 @@ nat.templatebrains 0.5
   allreg_dataframe
 * xform_brain now has an imagedata argument (to set sensible defaults for
   handling of inverse registrations, which are very slow for image data)
+* add doi field to templatebrain object
 * fix: mirror_brain passes on transform argument
 * dev: now imports igraph
 * dev: requires nat >=1.7.0
