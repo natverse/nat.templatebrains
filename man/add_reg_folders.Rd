@@ -45,7 +45,7 @@ When \code{dir} is unset then it will default to the value of
 
   }
 
-  you should write \code{add_reg_folders("/path/to/registrations")}
+  you should write \code{add_reg_folders("/path/to/myregistrations")}
 }
 \examples{
 \dontrun{

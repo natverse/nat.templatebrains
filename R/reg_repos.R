@@ -65,7 +65,7 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
 #'
 #'   }
 #'
-#'   you should write \code{add_reg_folders("/path/to/registrations")}
+#'   you should write \code{add_reg_folders("/path/to/myregistrations")}
 #'
 #' @param dir Path to one or more folders containing registrations. Default
 #'   value will scan for registration folders in a standard location. (Please
