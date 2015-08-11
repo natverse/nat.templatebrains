@@ -16,5 +16,5 @@ Imports:
     digest,
     rappdirs
 Suggests:
-    testthat,
+    testthat (>= 0.10),
     git2r
