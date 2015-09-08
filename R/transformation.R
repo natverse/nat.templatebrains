@@ -380,6 +380,6 @@ mirror_brain <- function(x, brain, mirrorAxis=c("X","Y","Z"),
   warpfile <- if(transform=="flip") NULL else mirror_reg(brain)
   mirrorAxis <- match.arg(mirrorAxis)
   axisCol <- which(mirrorAxis == c("X", "Y", "Z"))
-  mirrorAxisSize <- brain$BoundingBox[2, axisCol] - brain$BoundingBox[1, axisCol]
+  mirrorAxisSize <- sum(brain$BoundingBox[1:2, axisCol])
   nat::mirror(x, mirrorAxisSize=mirrorAxisSize, mirrorAxis=mirrorAxis, warpfile=warpfile, transform=transform, ...)
 }
