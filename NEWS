@@ -1,3 +1,7 @@
+nat.templatebrains 0.6.1
+========================
+* fix bug in mirror_brain for non-zero origin (#14)
+
 nat.templatebrains 0.6
 ======================
 * add functions to download new registrations from git repositories:
