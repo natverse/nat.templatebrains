@@ -115,7 +115,6 @@ add_reg_folders<-function(dir=extra_reg_folders(), first=TRUE) {
 #'   for meaning of default.
 #' @export
 #' @seealso \code{\link{download_reg_repo}}
-#' @importFrom rappdirs user_data_dir
 update_reg_repos<-function(x=NULL) {
   if(is.null(x)) {
     x=getOption('nat.templatebrains.regdirs')
