@@ -39,6 +39,8 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
   if(file.exists(localdir)) {
     update_reg_repos(localdir)
   } else {
+    # ensure that the root directory exists
+    dir.create(dirname(localdir), showWarnings = FALSE, recursive = TRUE)
     git2r::clone(url, localdir, ...)
     add_reg_folders(localdir)
   }
