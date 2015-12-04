@@ -125,7 +125,17 @@ update_reg_repos<-function(x=NULL) {
   if(length(x)>1) return(sapply(x, update_reg_repos))
   repo=try(git2r::repository(x), silent = TRUE)
   if(!inherits(repo, 'try-error'))
-    git2r::pull(repo)
+    git_pull_helper(repo)
+}
+
+git_pull_helper<-function(repo){
+  sig=try(default_signature(repo), silent = TRUE)
+  if(inherits(sig, 'try-error')){
+    # just make up a user config since we only ever want to pull this repo
+    git2r::config(repo, user.name="Anonymous NAT User",
+                  user.email="nat@anon.org")
+  }
+  git2r::pull(repo)
 }
 
 # make registration url from partial specification to github repository
