@@ -2,7 +2,7 @@ Package: nat.templatebrains
 Type: Package
 Title: NeuroAnatomy Toolbox (nat) Extension for Handling Template Brains
 Maintainer: James Manton <ajd.manton@googlemail.com>
-Version: 0.6.1
+Version: 0.6.2
 Author: James Manton and Gregory Jefferis
 Description: Extends package nat (NeuroAnatomy Toolbox) by providing objects
     and functions for handling template brains.
