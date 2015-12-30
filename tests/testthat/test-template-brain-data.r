@@ -53,3 +53,7 @@ test_that("as.templatebrain.im3d works", {
   fields=c("name","sex", "regName", "type","dims","voxdims", "origin","BoundingBox","units")
   expect_equal(FCWB.test[fields], FCWB.demo[fields])
 })
+
+test_that("print.templatebrain",{
+  expect_output(print(FCWB.demo), "Name: FlyCircuit Whole Brain")
+})
