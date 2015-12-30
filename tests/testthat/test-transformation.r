@@ -97,10 +97,10 @@ test_that("bridging graph and friends work",{
 
 context("Transformation")
 
-if(is.null(cmtk.bindir())){
-  message("skipping transformation tests since CMTK is not installed")
-} else {
 test_that("can use a bridging registration in regdirs",{
+  if(is.null(cmtk.bindir()))
+    skip("skipping transformation tests since CMTK is not installed")
+
   td=tempfile(pattern = 'extrabridge')
   dir.create(td)
   on.exit(unlink(td, recursive = TRUE))
@@ -155,11 +155,9 @@ test_that("can use a bridging registration in regdirs",{
               target=imfile, checkboth = TRUE, Verbose=F)
   kc3=dotprops(outfile2)
   # check mean distance between points
-  library(nabor)
-  expect_true(mean(knn(xyzmatrix(kc2), xyzmatrix(kc1), k = 1)$nn.dists)<1.0,
+  expect_true(mean(nabor::knn(xyzmatrix(kc2), xyzmatrix(kc1), k = 1)$nn.dists)<1.0,
               "round trip with cmtk reformatx inversion")
-  expect_true(mean(knn(xyzmatrix(kc3), xyzmatrix(kc1), k = 1)$nn.dists)<1.0,
+  expect_true(mean(nabor::knn(xyzmatrix(kc3), xyzmatrix(kc1), k = 1)$nn.dists)<1.0,
               "round trip with pre-inverted registration")
 })
 
-}
