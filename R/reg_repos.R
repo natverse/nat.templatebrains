@@ -129,7 +129,7 @@ update_reg_repos<-function(x=NULL) {
 }
 
 git_pull_helper<-function(repo){
-  sig=try(default_signature(repo), silent = TRUE)
+  sig=try(git2r::default_signature(repo), silent = TRUE)
   if(inherits(sig, 'try-error')){
     # just make up a user config since we only ever want to pull this repo
     git2r::config(repo, user.name="Anonymous NAT User",
