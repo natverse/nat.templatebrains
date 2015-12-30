@@ -20,6 +20,7 @@ env:
     - secure: enuHyjS3QdAyNTn03zj2sL4jbAh1pJ7vzCC4m674KdTG0tYB7ApiLEiu/PxT88Ub4UficJtutas3qLHhOpjL6ZW/Z18RYRIzwGHwimvVMRLYg2G1R8BPgsWtMSA3GynlOCHjiFxLeoGPW0mPJ4+5wzWJXD6tKWvZPHOngki/658=
     - WARNINGS_ARE_ERRORS=1
     - _R_CHECK_FORCE_SUGGESTS_=0
+    - RGL_USE_NULL=TRUE
 after_success:
   - Rscript -e 'library(covr);coveralls(exlusions="R/zzz.R")'
   - chmod 755 ./travisbuildchildren.sh
