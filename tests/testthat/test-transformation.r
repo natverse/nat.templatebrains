@@ -161,3 +161,10 @@ test_that("can use a bridging registration in regdirs",{
               "round trip with pre-inverted registration")
 })
 
+test_that("mirror using a template brain",{
+  data(FCWB.demo)
+  # Simple mirror along the x i.e. medio-lateral axis
+  expect_is(kcs20.flip <- mirror_brain(kcs20, FCWB.demo, transform='flip'), 'neuronlist')
+  # should be untouched along other 2 axes
+  expect_equal(xyzmatrix(kcs20.flip)[,2:3], xyzmatrix(kcs20)[,2:3])
+})
