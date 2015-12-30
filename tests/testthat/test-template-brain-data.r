@@ -20,6 +20,10 @@ test_that("voxdims returns correct result", {
   expect_equal(vd, vd.expected)
 })
 
+test_that("origin returns correct result", {
+  expect_equal(origin(FCWB.demo), rep(0, 3))
+})
+
 test_that("boundingbox returns correct result", {
   bb <- boundingbox(FCWB.demo)
   bb.expected <- structure(matrix(c(0, 563.9342, 0, 326.3877, 0, 107), nrow=2),
