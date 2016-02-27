@@ -18,3 +18,4 @@ Imports:
 Suggests:
     testthat (>= 0.10),
     git2r
+RoxygenNote: 5.0.1.9000
