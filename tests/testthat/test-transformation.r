@@ -41,7 +41,7 @@ test_that("we can find bridging registrations",{
 
   br<-bridging_reg(reference ='crumble', sample='rhubarb', checkboth = TRUE)
   expect_true(nzchar(br))
-  expect_true(attr(br,'swapped'))
+  expect_true(attr(br,'swap'))
 
   # now try equivalence of bridging_sequence and bridging_reg
   expect_equivalent(bridging_sequence(ref="rhubarb", sample = "crumble"),

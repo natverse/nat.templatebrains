@@ -26,7 +26,7 @@ mirror_reg<-function(brain, ...) {
 #' \code{bridging_sequence} produces output like \verb{
 #' list(JFRC2 = structure(
 #'        "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/JFRC2_IS2.list",
-#'        swapped = TRUE),
+#'        swap = TRUE),
 #'      IS2 = "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/FCWB_IS2.list")
 #' }
 #' in these circumstances, which xformpoints.cmtkreg turns into "-- JFRC2_IS2.list --inverse FCWB_IS2.list".
@@ -58,7 +58,7 @@ bridging_sequence<-function(sample, reference, via=NULL, imagedata=FALSE,
   simplify_bridging_sequence(seq)
 }
 
-# convert to character vector with swapped attribute if required
+# convert to character vector with swap attribute if required
 simplify_bridging_sequence<-function(x){
   if(!is.list(x)) stop("simplify_bridging_sequence expects a list!")
   outseq=as.character(x)
@@ -78,7 +78,7 @@ bridging_reg <- function(sample, reference, checkboth=FALSE, mustWork=FALSE) {
       if(reg==""){
         # try again, marking the registration as swapped
         regname=paste0(sample, "_", reference, ".list")
-        structure(find_reg(regname, mustWork=TRUE), swapped=TRUE)
+        structure(find_reg(regname, mustWork=TRUE), swap=TRUE)
       } else reg
     } else {
       find_reg(regname, mustWork=mustWork)
@@ -181,13 +181,13 @@ bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs'), reci
   if(is.na(reciprocal)){
     g=graph.edgelist(el, directed = T)
     E(g)$path=df$path
-    E(g)$swapped=FALSE
+    E(g)$swap=FALSE
   } else {
     # make reciprocal edges
     el2=rbind(el,el[,2:1])
     g=igraph::graph.edgelist(el2, directed = T)
     E(g)$weight=rep(c(1, reciprocal), rep(nrow(el), 2))
-    E(g)$swapped=rep(c(FALSE, TRUE), rep(nrow(el), 2))
+    E(g)$swap=rep(c(FALSE, TRUE), rep(nrow(el), 2))
     E(g)$path=c(df$path,df$path)
   }
   g
@@ -230,9 +230,9 @@ shortest_bridging_seq <-
     epath = gsp$epath[[1]]
     seq=mapply(function(x,y) {
       if (y)
-        attr(x,'swapped') = y;x
+        attr(x,'swap') = y;x
     },
-    E(g)[epath]$path, E(g)[epath]$swapped,
+    E(g)[epath]$path, E(g)[epath]$swap,
     USE.NAMES = F, SIMPLIFY = F)
     simplify_bridging_sequence(seq)
   }
