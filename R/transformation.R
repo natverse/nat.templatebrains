@@ -58,13 +58,13 @@ bridging_sequence<-function(sample, reference, via=NULL, imagedata=FALSE,
   simplify_bridging_sequence(seq)
 }
 
-# convert to character vector with swap attribute if required
-simplify_bridging_sequence<-function(x){
+# convert to well behaved nat::reglist
+simplify_bridging_sequence<-function(x) {
   if(!is.list(x)) stop("simplify_bridging_sequence expects a list!")
-  outseq=as.character(x)
-  swapped=as.logical(lapply(x, function(x) isTRUE(attr(x,'swapped'))))
-  if(any(swapped)) attr(outseq, 'swap')=swapped
-  outseq
+  # convert all elements of x to reglists ...
+  rlx = lapply(x, function (r) if(inherits(r, 'reglist')) r else nat::reglist(r))
+  # and then join them together into a single reglist
+  do.call(c, rlx)
 }
 
 # return path to bridging registration between template brains
