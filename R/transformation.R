@@ -95,7 +95,7 @@ find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs'), mus
   } else {
     for(regdir in regdirs){
       reg <- file.path(regdir,regname)
-      if(file.exists(reg)) return(reg)
+      if(file.exists(reg)) return(normalizePath(reg))
     }
   }
   if(mustWork) stop("Unable to find registration: ", regname, ' in folders: ',
@@ -232,7 +232,7 @@ shortest_bridging_seq <-
       if (y)
         attr(x,'swapped') = y;x
     },
-    E(g)[epath]$path, E(g)[epath]$swapped,
+    normalizePath(E(g)[epath]$path), E(g)[epath]$swapped,
     USE.NAMES = F, SIMPLIFY = F)
     simplify_bridging_sequence(seq)
   }
