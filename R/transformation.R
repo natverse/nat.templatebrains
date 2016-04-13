@@ -62,7 +62,13 @@ bridging_sequence<-function(sample, reference, via=NULL, imagedata=FALSE,
 simplify_bridging_sequence<-function(x) {
   if(!is.list(x)) stop("simplify_bridging_sequence expects a list!")
   # convert all elements of x to reglists ...
-  rlx = lapply(x, function (r) if(inherits(r, 'reglist')) r else nat::reglist(r))
+  make_reglist <- function(r) {
+    if(is.character(r) && tools::file_ext(r)=="rds"){
+      r=readRDS(r)
+    }
+    nat::reglist(r)
+  }
+  rlx = lapply(x, make_reglist)
   # and then join them together into a single reglist
   do.call(c, rlx)
 }
@@ -133,7 +139,7 @@ find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs'), mus
 #' }
 allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
   if(!length(regdirs)) regdirs=character()
-  df=data.frame(path=dir(regdirs, pattern = 'list$', full.names = T),
+  df=data.frame(path=dir(regdirs, pattern = '\\.(list|rds)$', full.names = T),
                 stringsAsFactors = F)
   df$name=basename(df$path)
   df$dup=duplicated(df$name)
