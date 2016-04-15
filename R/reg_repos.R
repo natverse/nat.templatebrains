@@ -86,7 +86,7 @@ add_reg_folders<-function(dir=extra_reg_folders(), first=TRUE) {
   if(!length(dir))
     return(invisible(NULL))
   if(length(dir)>1)
-    return(sapply(dir, add_reg_folders, first=first, simplify = FALSE))
+    return(sapply(rev(dir), add_reg_folders, first=first, simplify = FALSE))
 
   dir=normalizePath(dir, mustWork = TRUE)
 
