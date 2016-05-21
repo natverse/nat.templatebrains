@@ -159,7 +159,7 @@ allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
 #'   \code{bridging_graph} creates an igraph::graph representing all known
 #'   template brains (vertices) and the bridging registrations connecting them
 #'   (edges).
-#' @details When \code{reciprocal} != NAwe create a graph where each forward
+#' @details When \code{reciprocal != NA} we create a graph where each forward
 #'   transformation is matched by a corresponding inverse transformation with
 #'   the specified edge weight. The edge weight for forward transforms will
 #'   always be 1.0.
