@@ -49,7 +49,7 @@ the command line for CMTK's reformatx should look like:
 \code{bridging_sequence} produces output like \verb{
 list(JFRC2 = structure(
        "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/JFRC2_IS2.list",
-       swapped = TRUE),
+       swap = TRUE),
      IS2 = "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/FCWB_IS2.list")
 }
 in these circumstances, which xformpoints.cmtkreg turns into "-- JFRC2_IS2.list --inverse FCWB_IS2.list".

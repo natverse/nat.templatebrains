@@ -26,6 +26,19 @@ test_that("add works",{
   expect_null(add_reg_folders(character(0)))
 })
 
+test_that("add multiple works",{
+  dir.create(regroot<-tempfile())
+  on.exit(unlink(regroot, recursive = TRUE))
+  op=options(nat.templatebrains.regdirs=NULL)
+  on.exit(options(op), add = TRUE)
+  tfs=replicate(3, tempfile(tmpdir = regroot))
+  sapply(tfs, dir.create)
+  add_reg_folders(tfs)
+  # note that we just take the basename because the path gets normalised into
+  # canonical form inside add_reg_folders
+  expect_equal(basename(getOption('nat.templatebrains.regdirs')), basename(tfs))
+})
+
 test_that("cloning registrations works", {
   skip_on_cran()
   skip_if_not_installed('git2r')

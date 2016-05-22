@@ -1,3 +1,8 @@
+nat.templatebrains 0.6.3
+========================
+* add support for reglist objects containing one or more arbitrary transforms
+  as bridging or mirroring registrations.
+
 nat.templatebrains 0.6.2
 ========================
 * fix issues with git repository cloning on Windows

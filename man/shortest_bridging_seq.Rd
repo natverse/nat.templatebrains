@@ -45,7 +45,7 @@ These functions are designed for expert use. In general it is
   parameter}.
 }
 \details{
-When \code{reciprocal} != NAwe create a graph where each forward
+When \code{reciprocal != NA} we create a graph where each forward
   transformation is matched by a corresponding inverse transformation with
   the specified edge weight. The edge weight for forward transforms will
   always be 1.0.

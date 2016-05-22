@@ -26,6 +26,22 @@ test_that("we can find registrations",{
   unlink(td2, recursive = TRUE)
 })
 
+test_that("we can work with reglist objects on disk",{
+  op <- options()
+  on.exit(options(op))
+
+  m1=t(rgl::translationMatrix(10, 20, 30))
+  m2=t(rgl::rotationMatrix(10, 1, 2, 3))
+  add_reglist(reglist(m1, m2), reference = "rhubarb", sample="crumble")
+
+  pts=matrix(rnorm(12), ncol=3)
+  m=m2 %*% m1
+
+  expect_equal(xform_brain(pts, reference = 'rhubarb', sample='crumble'),
+    xform(pts, m))
+
+  expect_error(add_reglist(sample='rhubarb'), "reference and sample")
+})
 
 test_that("we can find bridging registrations",{
   td=tempfile(pattern = 'extrabridge')
@@ -41,15 +57,15 @@ test_that("we can find bridging registrations",{
 
   br<-bridging_reg(reference ='crumble', sample='rhubarb', checkboth = TRUE)
   expect_true(nzchar(br))
-  expect_true(attr(br,'swapped'))
+  expect_true(attr(br,'swap'))
 
   # now try equivalence of bridging_sequence and bridging_reg
   expect_equivalent(bridging_sequence(ref="rhubarb", sample = "crumble"),
-                    bridging_reg(ref='rhubarb', sample='crumble'))
+                    reglist(bridging_reg(ref='rhubarb', sample='crumble')))
   expect_equivalent(bridging_sequence(ref="crumble", sample = "rhubarb", checkboth = F),
-                    bridging_reg(ref='crumble', sample='rhubarb', checkboth = F))
+                    reglist(bridging_reg(ref='crumble', sample='rhubarb', checkboth = F)))
   expect_equivalent(bridging_sequence(ref="crumble", sample = "rhubarb", checkboth=T),
-                    bridging_reg(ref='crumble', sample='rhubarb', checkboth=T))
+                    reglist(bridging_reg(ref='crumble', sample='rhubarb', checkboth=T)))
   expect_error(bridging_sequence(ref='crumble', sample='rhubarb', checkboth = F, mustWork=T))
 })
 
@@ -81,16 +97,20 @@ test_that("bridging graph and friends work",{
   df=df[match(df$path, df2$path),]
   expect_equal(df2, df)
 
-  baseline=structure(file.path(td, "/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/FCWB_IS2.list"),
+  baseline=reglist(file.path(td, "/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/FCWB_IS2.list"),
     swap = TRUE)
   expect_equal(shortest_bridging_seq('FCWB', 'IS2'), baseline)
-  expect_is(shortest_bridging_seq('FCWB', 'IBN'), 'character')
+  expect_is(shortest_bridging_seq('FCWB', 'IBN'), 'reglist')
   expect_warning(fcwb_ibn<-shortest_bridging_seq('FCWB', 'IBN', imagedata = T),
                  'very slow for image data')
-  bl=structure(c(file.path(td,"/Users/jefferis/Library/Application Support/rpkg-nat.flybrains/regrepos/BridgingRegistrations/JFRC2_FCWB.list"),
-                 file.path(td,"/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/JFRC2_IBNWB.list"),
-                 file.path(td,"/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/IBNWB_IBN.list")),
-               swap = c(F, T, T))
+
+  # TODO think about normalising hanlding of swap attribute by reglist and
+  # nat.templatbrains functions (always present? only when T?)
+  bl=reglist(file.path(td,"/Users/jefferis/Library/Application Support/rpkg-nat.flybrains/regrepos/BridgingRegistrations/JFRC2_FCWB.list"),
+             structure(file.path(td,"/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/JFRC2_IBNWB.list"),
+                       swap=TRUE),
+             structure(file.path(td,"/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/IBNWB_IBN.list"),
+                       swap=TRUE))
   expect_equal(fcwb_ibn, bl)
   expect_error(shortest_bridging_seq('FCWB', 'crumble'))
 })

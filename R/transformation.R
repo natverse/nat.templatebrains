@@ -26,7 +26,7 @@ mirror_reg<-function(brain, ...) {
 #' \code{bridging_sequence} produces output like \verb{
 #' list(JFRC2 = structure(
 #'        "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/JFRC2_IS2.list",
-#'        swapped = TRUE),
+#'        swap = TRUE),
 #'      IS2 = "/GD/dev/R/nat.flybrains/inst/extdata/bridgingregistrations/FCWB_IS2.list")
 #' }
 #' in these circumstances, which xformpoints.cmtkreg turns into "-- JFRC2_IS2.list --inverse FCWB_IS2.list".
@@ -58,13 +58,19 @@ bridging_sequence<-function(sample, reference, via=NULL, imagedata=FALSE,
   simplify_bridging_sequence(seq)
 }
 
-# convert to character vector with swapped attribute if required
-simplify_bridging_sequence<-function(x){
+# convert to well behaved nat::reglist
+simplify_bridging_sequence<-function(x) {
   if(!is.list(x)) stop("simplify_bridging_sequence expects a list!")
-  outseq=as.character(x)
-  swapped=as.logical(lapply(x, function(x) isTRUE(attr(x,'swapped'))))
-  if(any(swapped)) attr(outseq, 'swap')=swapped
-  outseq
+  # convert all elements of x to reglists ...
+  make_reglist <- function(r) {
+    if(is.character(r) && tools::file_ext(r)=="rds"){
+      r=readRDS(r)
+    }
+    nat::reglist(r)
+  }
+  rlx = lapply(x, make_reglist)
+  # and then join them together into a single reglist
+  do.call(c, rlx)
 }
 
 # return path to bridging registration between template brains
@@ -78,7 +84,7 @@ bridging_reg <- function(sample, reference, checkboth=FALSE, mustWork=FALSE) {
       if(reg==""){
         # try again, marking the registration as swapped
         regname=paste0(sample, "_", reference, ".list")
-        structure(find_reg(regname, mustWork=TRUE), swapped=TRUE)
+        structure(find_reg(regname, mustWork=TRUE), swap=TRUE)
       } else reg
     } else {
       find_reg(regname, mustWork=mustWork)
@@ -133,7 +139,7 @@ find_reg<-function(regname, regdirs=getOption('nat.templatebrains.regdirs'), mus
 #' }
 allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
   if(!length(regdirs)) regdirs=character()
-  df=data.frame(path=dir(regdirs, pattern = 'list$', full.names = T),
+  df=data.frame(path=dir(regdirs, pattern = '\\.(list|rds)$', full.names = T),
                 stringsAsFactors = F)
   df$name=basename(df$path)
   df$dup=duplicated(df$name)
@@ -153,7 +159,7 @@ allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
 #'   \code{bridging_graph} creates an igraph::graph representing all known
 #'   template brains (vertices) and the bridging registrations connecting them
 #'   (edges).
-#' @details When \code{reciprocal} != NAwe create a graph where each forward
+#' @details When \code{reciprocal != NA} we create a graph where each forward
 #'   transformation is matched by a corresponding inverse transformation with
 #'   the specified edge weight. The edge weight for forward transforms will
 #'   always be 1.0.
@@ -181,13 +187,13 @@ bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs'), reci
   if(is.na(reciprocal)){
     g=graph.edgelist(el, directed = T)
     E(g)$path=df$path
-    E(g)$swapped=FALSE
+    E(g)$swap=FALSE
   } else {
     # make reciprocal edges
     el2=rbind(el,el[,2:1])
     g=igraph::graph.edgelist(el2, directed = T)
     E(g)$weight=rep(c(1, reciprocal), rep(nrow(el), 2))
-    E(g)$swapped=rep(c(FALSE, TRUE), rep(nrow(el), 2))
+    E(g)$swap=rep(c(FALSE, TRUE), rep(nrow(el), 2))
     E(g)$path=c(df$path,df$path)
   }
   g
@@ -230,9 +236,9 @@ shortest_bridging_seq <-
     epath = gsp$epath[[1]]
     seq=mapply(function(x,y) {
       if (y)
-        attr(x,'swapped') = y;x
+        attr(x,'swap') = y;x
     },
-    E(g)[epath]$path, E(g)[epath]$swapped,
+    E(g)[epath]$path, E(g)[epath]$swap,
     USE.NAMES = F, SIMPLIFY = F)
     simplify_bridging_sequence(seq)
   }
