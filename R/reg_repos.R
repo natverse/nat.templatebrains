@@ -153,7 +153,7 @@ add_reglist <- function(x, reference=NULL, sample=NULL, mirror=NULL, temp=TRUE,
 
   # now save it with an appropriate name
   if(!is.null(mirror)) {
-    f=paste0(as.character(reference), "_", as.character(sample), ".rds")
+    f=paste0(as.character(mirror), "_mirror.rds")
   } else if(is.null(reference) || is.null(sample)) {
     stop("Must supply reference and sample brains to define a bridging registration")
   } else {
