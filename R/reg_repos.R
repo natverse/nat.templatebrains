@@ -107,6 +107,61 @@ add_reg_folders<-function(dir=extra_reg_folders(), first=TRUE) {
   invisible(NULL)
 }
 
+
+#' Add reglist object describing a bridging/mirroring registration
+#'
+#' @description By specifying either \code{reference, sample} \emph{or}
+#'   \code{mirror} arguments, you can add a bridging or mirroring registration,
+#'   respectively, to the list of those in use for \code{\link{xform_brain}} and
+#'   \code{\link{mirror_brain}}.
+#'
+#' @param x A single \code{\link[nat]{reglist}} object (which )
+#' @param reference,sample The reference and sample brains (in \code{character}
+#'   or \code{templatebrain} form) for a bridging registration.
+#' @param mirror The reference brain (in \code{character} or
+#'   \code{templatebrain} form) for a mirroring registration.
+#' @param temp Whether to store the on disk representation in a session-specific
+#'   temporary folder (that will be removed when R closes). Defaults to
+#'   \code{TRUE}.
+#' @param ... Additional arguments passed to \code{\link{saveRDS}} e.g. to
+#'   control compression when the reglist object is saved to disk.
+#' @export
+#' @seealso add_reg_folders
+#' @examples
+#' \dontrun{
+#' library(nat.flybrains)
+#' # mirroring registration for a specific template brain object
+#' add_reglist(mirroring, mirror=JFRC2013)
+#' # equivalent but withhout needing to construct the template
+#' add_reglist(mirroring, mirror="JFRC2013")
+#'
+#' # add a bridging registration between two brains
+#' add_reglist(bridging, reference=JFRC2, sample=JFRC2013)
+#'
+#' }
+add_reglist <- function(x, reference=NULL, sample=NULL, mirror=NULL, temp=TRUE,
+                        ...) {
+  # first make a place to store the registration
+  if(temp){
+    d <- file.path(tempdir(), 'nat.templatebrains', 'tempreglists')
+  } else {
+    d <- file.path(local_reg_dir_for_url(), "reglists")
+  }
+  if(!file.exists(d))
+    dir.create(d, recursive = TRUE)
+  add_reg_folders(d <- normalizePath(d), first = TRUE)
+
+  # now save it with an appropriate name
+  if(!is.null(mirror)) {
+    f=paste0(as.character(reference), "_", as.character(sample), ".rds")
+  } else if(is.null(reference) || is.null(sample)) {
+    stop("Must supply reference and sample brains to define a bridging registration")
+  } else {
+    f=paste0(as.character(reference), "_", as.character(sample), ".rds")
+  }
+  saveRDS(x, file=file.path(d, f), ...)
+}
+
 #' Update local copy of git repository containing registrations
 #'
 #' When \code{x=NULL} all repositories listed in

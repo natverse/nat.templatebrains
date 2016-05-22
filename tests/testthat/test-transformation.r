@@ -27,23 +27,20 @@ test_that("we can find registrations",{
 })
 
 test_that("we can work with reglist objects on disk",{
-
-  op=options(nat.templatebrains.regdirs=NULL)
+  op <- options()
   on.exit(options(op))
-
-  td=tempfile(pattern = 'regdir1')
-  dir.create(td)
-  options('nat.templatebrains.regdirs'=td)
 
   m1=t(rgl::translationMatrix(10, 20, 30))
   m2=t(rgl::rotationMatrix(10, 1, 2, 3))
+  add_reglist(reglist(m1, m2), reference = "rhubarb", sample="crumble")
 
-  saveRDS(reglist(m1, m2), file = file.path(td,'rhubarb_crumble.rds'))
   pts=matrix(rnorm(12), ncol=3)
   m=m2 %*% m1
 
   expect_equal(xform_brain(pts, reference = 'rhubarb', sample='crumble'),
     xform(pts, m))
+
+  expect_error(add_reglist(sample='rhubarb'), "reference and sample")
 })
 
 test_that("we can find bridging registrations",{
