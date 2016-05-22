@@ -1,7 +1,9 @@
 nat.templatebrains 0.6.3
 ========================
 * add support for reglist objects containing one or more arbitrary transforms
-  as bridging or mirroring registrations.
+  as bridging or mirroring registrations. A function add_reglist makes it easy
+  to add new in memory reglist objects to those that can be used for bridging
+  / mirroing between template brains (#21).
 
 nat.templatebrains 0.6.2
 ========================
