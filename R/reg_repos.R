@@ -104,7 +104,8 @@ add_reg_folders<-function(dir=extra_reg_folders(), first=TRUE) {
     options(nat.templatebrains.regdirs=union(
       getOption('nat.templatebrains.regdirs'), dir))
   }
-  invisible(NULL)
+  reset_cache()
+  invisible(dir)
 }
 
 
@@ -160,6 +161,7 @@ add_reglist <- function(x, reference=NULL, sample=NULL, mirror=NULL, temp=TRUE,
     f=paste0(as.character(reference), "_", as.character(sample), ".rds")
   }
   saveRDS(x, file=file.path(d, f), ...)
+  reset_cache()
 }
 
 #' Update local copy of git repository containing registrations
@@ -177,6 +179,7 @@ update_reg_repos<-function(x=NULL) {
     x=getOption('nat.templatebrains.regdirs')
     if(length(x)==0) return(NULL)
   }
+  reset_cache()
   if(length(x)>1) return(sapply(x, update_reg_repos))
   repo=try(git2r::repository(x), silent = TRUE)
   if(!inherits(repo, 'try-error'))

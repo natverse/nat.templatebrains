@@ -14,7 +14,8 @@ Depends:
 Imports:
     igraph,
     digest,
-    rappdirs
+    rappdirs,
+    memoise
 Suggests:
     testthat (>= 0.10),
     git2r
