@@ -317,7 +317,7 @@ shortest_bridging_seq <-
 #' # use binary mask to restrict (and speed up) reformatting
 #' xform_brain('in.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd', mask='neuropil.nrrd')
 #' }
-xform_brain <- function(x, sample, reference, via=NULL,
+xform_brain <- function(x, sample=regtemplate(x), reference, via=NULL,
                         imagedata=is.character(x), checkboth=NULL, ...) {
   if(is.null(via)) {
     # use bridging_graph, with checkboth = TRUE
@@ -331,7 +331,9 @@ xform_brain <- function(x, sample, reference, via=NULL,
     regs <- bridging_sequence(reference=reference, sample=sample, via=via,
                               checkboth = checkboth, mustWork = T)
   }
-  nat::xform(x, reg=regs, ...)
+  xt=nat::xform(x, reg=regs, ...)
+  regtemplate(xt)=regtemplate(x)
+  xt
 }
 
 #' Mirror 3D object around a given axis, optionally using a warping registration
@@ -380,12 +382,14 @@ xform_brain <- function(x, sample, reference, via=NULL,
 #' diffs=xyzmatrix(kcs20.jfrc2.flip)-xyzmatrix(kcs20.jfrc2.right)
 #' hist(sqrt(rowSums(diffs^2)), xlab='Distance /microns')
 #' }
-mirror_brain <- function(x, brain, mirrorAxis=c("X","Y","Z"),
+mirror_brain <- function(x, brain=regtemplate(x), mirrorAxis=c("X","Y","Z"),
                          transform = c("warp", "affine", "flip"), ...) {
   transform=match.arg(transform)
   warpfile <- if(transform=="flip") NULL else mirror_reg(brain)
   mirrorAxis <- match.arg(mirrorAxis)
   axisCol <- which(mirrorAxis == c("X", "Y", "Z"))
   mirrorAxisSize <- sum(brain$BoundingBox[1:2, axisCol])
-  nat::mirror(x, mirrorAxisSize=mirrorAxisSize, mirrorAxis=mirrorAxis, warpfile=warpfile, transform=transform, ...)
+  xm=nat::mirror(x, mirrorAxisSize=mirrorAxisSize, mirrorAxis=mirrorAxis, warpfile=warpfile, transform=transform, ...)
+  regtemplate(xm)=regtemplate(x)
+  xm
 }
