@@ -1,5 +1,5 @@
 # nat.templatebrains
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/nat.templatebrains)](http://cran.r-project.org/web/packages/nat.templatebrains) 
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/nat.templatebrains)](https://cran.r-project.org/package=nat.templatebrains) 
 [![Release Version](https://img.shields.io/github/release/jefferislab/nat.templatebrains.svg)](https://github.com/jefferislab/nat.templatebrains/releases/latest) 
 [![Build Status](https://travis-ci.org/jefferislab/nat.templatebrains.svg)](https://travis-ci.org/jefferislab/nat.templatebrains)
 [![Coverage Status](https://img.shields.io/coveralls/jefferislab/nat.templatebrains.svg)](https://coveralls.io/r/jefferislab/nat.templatebrains?branch=master)
@@ -45,14 +45,14 @@ This is a generic package, usable with data from any species. For _Drosophila_ s
 install/load **nat.templatebrains**.
 
 ## Installation
-This package has now been released to CRAN (v0.4.1), but since this is the first official
-release you may wish to install the development version from GitHub.
+This package has now been released to CRAN (since v0.4.1), but since there are 
+regular updates between CRAN releases you may wish to install the development 
+version from GitHub.
 
 ### CRAN release
 ```r
 install.packages("nat.templatebrains")
 ```
-
 
 ### Bleeding Edge
 You can install the development version by downloading the 
