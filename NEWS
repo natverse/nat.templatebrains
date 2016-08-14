@@ -1,3 +1,9 @@
+nat.templatebrains 0.6.4
+========================
+* Add regtemplate function and integrate it with xform_brain and mirror_brain.
+  It will often no longer be necessary to specify the initial space of objects
+  to be transformed - you'll still need to specify your target space though!
+
 nat.templatebrains 0.6.3
 ========================
 * add support for reglist objects containing one or more arbitrary transforms
