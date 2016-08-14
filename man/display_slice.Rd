@@ -9,7 +9,7 @@ display_slice(brain, slice, ...)
 \arguments{
 \item{brain}{template brain (e.g. IS2) of the slice.}
 
-\item{slice}{path to the slice PNG image to display.}
+\item{slice}{Path to PNG image containing slice to display.}
 
 \item{...}{extra arguments to pass to \code{\link[rgl]{persp3d}}.}
 }

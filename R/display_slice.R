@@ -1,7 +1,7 @@
 #' Display an image slice in 3D
 #'
 #' @param brain template brain (e.g. IS2) of the slice.
-#' @param slice path to the slice PNG image to display.
+#' @param slice Path to PNG image containing slice to display.
 #' @param ... extra arguments to pass to \code{\link[rgl]{persp3d}}.
 #' @export
 display_slice <- function(brain, slice, ...) {
@@ -14,6 +14,7 @@ display_slice.default <- function(brain, slice, ...) {
 
 #' @importFrom rgl persp3d
 #' @method display_slice templatebrain
+#' @export
 display_slice.templatebrain <- function(brain, slice, z=NULL, ...) {
   bbox <- brain$BoundingBox
 
