@@ -18,6 +18,5 @@ Imports:
 Suggests:
     testthat (>= 0.10),
     git2r
-Remotes:
-    jefferis/nat
-RoxygenNote: 5.0.1.9000
+Remotes: jefferis/nat
+RoxygenNote: 5.0.1

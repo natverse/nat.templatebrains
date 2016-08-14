@@ -7,8 +7,15 @@
 #'
 #' @section Helper functions: Easy-to-use functions for transforming data from
 #'   one template brain to another, displaying slices alongside 3D data, etc.
-#'   are provided. See especially \code{\link{xform_brain}},
-#'   \code{\link{mirror_brain}} and \code{\link{plot3d.templatebrain}}.
+#'   are provided.
+#'
+#'   For transforming between spaces, see especially \code{\link{xform_brain}},
+#'   \code{\link{mirror_brain}}. The \code{\link{regtemplate}} functions allow
+#'   an R object containing neuroanatomical data to be tagged as in a particular
+#'   template brain space.
+#'
+#'   \code{\link{plot3d.templatebrain}} provides a simple way to plot a surface
+#'   object representing a given template brain.
 #'
 #' @section Package options:
 #'
@@ -21,12 +28,12 @@
 #'
 #'   It is strongly recommended \itemize{
 #'
-#'   \item to use the \code{\link{download_reg_repo}} to download
-#'   registration folders where possible. This will automatically add the new
-#'   folders to this option both in the current session and on package startup.
+#'   \item to use the \code{\link{download_reg_repo}} to download registration
+#'   folders where possible. This will automatically add the new folders to this
+#'   option both in the current session and on package startup.
 #'
-#'   \item to use \code{\link{add_reg_folders}} to add additional directories
-#'   to the search list.
+#'   \item to use \code{\link{add_reg_folders}} to add additional directories to
+#'   the search list.
 #'
 #'   }
 #'
