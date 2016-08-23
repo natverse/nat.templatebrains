@@ -1,3 +1,13 @@
+nat.templatebrains 0.7
+======================
+This is the first public release since 0.6.2 and there are some significant
+changes under the hood, hence the major version bump.
+
+* fix inversion of reglist objects read from disk (so that xform_brain calls
+  depending on reglist objects work in both directions).
+* add support for memoisation of shortest_bridging_seq so that we do not need to
+  rescan registration directories / reload on disk reglist objects.
+
 nat.templatebrains 0.6.4
 ========================
 * Add regtemplate function and integrate it with xform_brain and mirror_brain.
