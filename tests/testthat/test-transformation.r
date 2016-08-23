@@ -40,6 +40,9 @@ test_that("we can work with reglist objects on disk",{
   expect_equal(xform_brain(pts, reference = 'rhubarb', sample='crumble'),
     xform(pts, m))
 
+  expect_equal(xform_brain(pts, reference = 'crumble', sample='rhubarb'),
+               xform(pts, solve(m)))
+
   expect_error(add_reglist(sample='rhubarb'), "reference and sample")
 })
 

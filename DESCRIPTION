@@ -10,7 +10,7 @@ License: GPL-3
 Depends:
     R (>= 2.10),
     rgl,
-    nat (>= 1.8.3)
+    nat (>= 1.8.6)
 Imports:
     igraph,
     digest,

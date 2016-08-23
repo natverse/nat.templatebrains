@@ -63,10 +63,14 @@ simplify_bridging_sequence<-function(x) {
   if(!is.list(x)) stop("simplify_bridging_sequence expects a list!")
   # convert all elements of x to reglists ...
   make_reglist <- function(r) {
+    swap=NULL
     if(is.character(r) && tools::file_ext(r)=="rds"){
+      swap=attr(r, 'swap')
       r=readRDS(r)
     }
-    nat::reglist(r)
+    rl=nat::reglist(r)
+    if(isTRUE(swap)) rl=nat::invert_reglist(rl)
+    rl
   }
   rlx = lapply(x, make_reglist)
   # and then join them together into a single reglist
