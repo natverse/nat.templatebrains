@@ -27,7 +27,7 @@ transformed into.}
 directions. See details.}
 
 \item{imagedata}{Whether \code{x} should be treated as image data (presently
-only supported as a file on disk or 3D object vertices - see details).}
+only supported as a file on disk) or 3D object vertices - see details.}
 
 \item{...}{extra arguments to pass to \code{\link[nat]{xform}}.}
 }

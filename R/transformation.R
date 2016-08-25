@@ -283,7 +283,7 @@ shortest_bridging_seq <-
 #' @param via optional intermediate brain to use when there is no direct
 #'   bridging registration.
 #' @param imagedata Whether \code{x} should be treated as image data (presently
-#'   only supported as a file on disk or 3D object vertices - see details).
+#'   only supported as a file on disk) or 3D object vertices - see details.
 #' @param checkboth When \code{TRUE} will look for registrations in both
 #'   directions. See details.
 #' @param ... extra arguments to pass to \code{\link[nat]{xform}}.

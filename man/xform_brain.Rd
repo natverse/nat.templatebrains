@@ -18,8 +18,12 @@ transformed into.}
 \item{via}{optional intermediate brain to use when there is no direct
 bridging registration.}
 
+\item{target}{Optional argument specifying an image file on disk or a
+\code{templatebrain} object that defines the space of the registered
+image data. This is only relevant for image data.}
+
 \item{imagedata}{Whether \code{x} should be treated as image data (presently
-only supported as a file on disk or 3D object vertices - see details).}
+only supported as a file on disk) or 3D object vertices - see details.}
 
 \item{checkboth}{When \code{TRUE} will look for registrations in both
 directions. See details.}
