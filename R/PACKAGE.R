@@ -80,7 +80,7 @@
 #' # the cache so that new registrations are actually used.
 #' nat.templatebrains:::reset_cache()
 #'
-#' ## same, but override any built-in registration by putitng the new path
+#' ## same, but override any built-in registration by putting the new path
 #' # at the first position in the search list
 #' options(nat.templatebrains.regdirs=union("/my/new/path"),
 #'   getOption('nat.templatebrains.regdirs'))
