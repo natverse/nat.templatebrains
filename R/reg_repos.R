@@ -162,6 +162,7 @@ add_reglist <- function(x, reference=NULL, sample=NULL, mirror=NULL, temp=TRUE,
   }
   saveRDS(x, file=file.path(d, f), ...)
   reset_cache()
+  return(invisible())
 }
 
 #' Update local copy of git repository containing registrations
