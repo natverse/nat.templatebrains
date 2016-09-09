@@ -20,4 +20,8 @@ test_that("mirroring can use regtemplate", {
   kcs3m2=mirror_brain(kcs3m, transform = 'flip')
   expect_equivalent(kcs3m2, kcs3)
   expect_equal(regtemplate(kcs3m2), regtemplate(kcs3))
+
+  expect_equal(mirror_brain(kcs20[1:3], brain=FCWB.demo, transform = 'flip'),
+               kcs3m)
 })
+

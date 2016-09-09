@@ -39,10 +39,12 @@ regtemplate <- function(x) {
 # TODO fancier way of finding brains that avoids the possibility of brains in
 # package being aliased by objects of the same name earlier in the search path
 # (e.g. in the Global environment)
-get_templatebrain <- function(x) {
+# when strict is FALSE we will return NULL if we can't find an actual template
+# brain - otherwise we could think about tagging with a character vector
+get_templatebrain <- function(x, strict=FALSE) {
   if(is.templatebrain(x) || is.null(x)) return(x)
   b = try(get(x, mode = 'list'), silent = T)
-  if (!is.templatebrain(b))
+  if (!is.templatebrain(b) && strict)
     stop("Unable to find template brain: ", b)
-  b
+  if(inherits(b, 'try-error')) NULL else b
 }
