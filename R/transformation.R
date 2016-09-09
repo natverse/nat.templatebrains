@@ -288,6 +288,7 @@ shortest_bridging_seq <-
 #'   directions. See details.
 #' @param ... extra arguments to pass to \code{\link[nat]{xform}}.
 #' @export
+#' @seealso \code{\link{mirror_brain}}, \code{\link{regtemplate}}
 #' @examples
 #' ## depends on nat.flybrains package and system CMTK installation
 #' \dontrun{
@@ -329,6 +330,9 @@ shortest_bridging_seq <-
 #' }
 xform_brain <- function(x, sample=regtemplate(x), reference, via=NULL,
                         imagedata=is.character(x), checkboth=NULL, ...) {
+  if(is.null(sample))
+    stop("Invalid sample argument!\n",
+         "Either specify manually or use regtemplate(x) <- to set space for x.")
   if(is.null(via)) {
     # use bridging_graph, with checkboth = TRUE
     if(is.null(checkboth)) checkboth=TRUE
@@ -354,6 +358,7 @@ xform_brain <- function(x, sample=regtemplate(x), reference, via=NULL,
 #' @param transform whether to use warp (default) or affine component of
 #'   registration, or simply flip about midplane of axis.
 #' @param ... extra arguments to pass to \code{\link[nat]{mirror}}.
+#' @seealso \code{\link{xform_brain}}, \code{\link{regtemplate}}
 #' @export
 #' @examples
 #' data(FCWB.demo)
@@ -395,6 +400,9 @@ xform_brain <- function(x, sample=regtemplate(x), reference, via=NULL,
 mirror_brain <- function(x, brain=regtemplate(x), mirrorAxis=c("X","Y","Z"),
                          transform = c("warp", "affine", "flip"), ...) {
   transform=match.arg(transform)
+  if(is.null(brain))
+    stop("Invalid brain argument!\n",
+         "Either specify manually or use regtemplate(x) <- to set space for x.")
   warpfile <- if(transform=="flip") NULL else mirror_reg(brain)
   mirrorAxis <- match.arg(mirrorAxis)
   axisCol <- which(mirrorAxis == c("X", "Y", "Z"))

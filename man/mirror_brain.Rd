@@ -60,4 +60,7 @@ diffs=xyzmatrix(kcs20.jfrc2.flip)-xyzmatrix(kcs20.jfrc2.right)
 hist(sqrt(rowSums(diffs^2)), xlab='Distance /microns')
 }
 }
+\seealso{
+\code{\link{xform_brain}}, \code{\link{regtemplate}}
+}
 
