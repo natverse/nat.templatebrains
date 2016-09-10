@@ -346,8 +346,8 @@ xform_brain <- function(x, sample=regtemplate(x), reference, via=NULL,
                               checkboth = checkboth, mustWork = T)
   }
   xt=nat::xform(x, reg=regs, ...)
-  # only set regtemplate on output if input had one
-  if(!is.null(regtemplate(x))) regtemplate(xt)=reference
+  # always set space if this is a complex object otherwise only on input
+  if(is.object(x) || !is.null(regtemplate(x))) regtemplate(xt)=reference
   xt
 }
 
@@ -409,6 +409,7 @@ mirror_brain <- function(x, brain=regtemplate(x), mirrorAxis=c("X","Y","Z"),
   axisCol <- which(mirrorAxis == c("X", "Y", "Z"))
   mirrorAxisSize <- sum(brain$BoundingBox[1:2, axisCol])
   xm=nat::mirror(x, mirrorAxisSize=mirrorAxisSize, mirrorAxis=mirrorAxis, warpfile=warpfile, transform=transform, ...)
-  regtemplate(xm)=regtemplate(x)
+  # always set space if this is a complex object otherwise only on input
+  regtemplate(xm) <- if(is.object(x)) brain else regtemplate(x)
   xm
 }
