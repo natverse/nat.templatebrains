@@ -103,7 +103,8 @@ test_that("bridging graph and friends work",{
   expect_is(df2<-allreg_dataframe(), 'data.frame')
   # maybe dangerous to assume sort order ...
   df=df[match(df$path, df2$path),]
-  expect_equal(df2, df)
+  # if sort order does change, mustn't check rownames or other attributes
+  expect_equivalent(df2, df)
 
   baseline=reglist(file.path(td, "/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/FCWB_IS2.list"),
     swap = TRUE)
