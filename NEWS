@@ -1,3 +1,17 @@
+nat.templatebrains 0.8
+========================
+This is another major version bump since there is significant new/changed
+behaviour in xform_brain brain and friends which will now tag transformed
+objects with a registration template space. This means that nat functions will
+typically not be need to told the space of an object such as a neuron list in
+many cases, but some objects will have a new regtemplate attribute.
+
+* xform_brain should tag objects with their space (#16)
+* add regtemplate function as part of this
+* fix xform_brain should give better error when sample unknown (#29)
+* fix: teach plot3d.templatebrain to work with regtemplate (#32)
+* fix: add_reglist should not return anything (visibly) (#30)
+
 nat.templatebrains 0.7
 ======================
 This is the first public release since 0.6.2 and there are some significant
