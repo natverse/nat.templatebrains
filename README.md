@@ -46,23 +46,20 @@ install/load **nat.templatebrains**.
 
 ## Installation
 This package has now been released to CRAN (since v0.4.1), but since there are 
-regular updates between CRAN releases you may wish to install the development 
-version from GitHub.
+regular updates between CRAN releases we generally recommend that you install 
+the development version from GitHub.
 
 ### CRAN release
 ```r
 install.packages("nat.templatebrains")
 ```
 
-### Bleeding Edge
-You can install the development version by downloading the 
-[tar ball](https://github.com/jefferislab/nat.templatebrains/tarball/master),
-and running `R CMD INSTALL` on it, or (**recommended**) using the **devtools** package:
+### Development version
 
   ```r
 if (!require("devtools")) install.packages("devtools")
 devtools::install_github("nat.templatebrains", "jefferislab")
 ```
 
-Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) and
-[devtools](http://CRAN.R-project.org/package=devtools) to install this way.
+Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) as 
+well as [devtools](http://CRAN.R-project.org/package=devtools) to install this way.
