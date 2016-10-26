@@ -56,7 +56,7 @@ install.packages("nat.templatebrains")
 
 ### Development version
 
-  ```r
+```r
 if (!require("devtools")) install.packages("devtools")
 devtools::install_github("nat.templatebrains", "jefferislab")
 ```
