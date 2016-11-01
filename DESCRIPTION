@@ -1,9 +1,9 @@
 Package: nat.templatebrains
 Type: Package
 Title: NeuroAnatomy Toolbox ('nat') Extension for Handling Template Brains
-Maintainer: James Manton <ajd.manton@googlemail.com>
 Version: 0.8
-Author: James Manton and Gregory Jefferis
+Authors@R: c(person("Gregory", "Jefferis", , "jefferis@gmail.com", role = c("aut")),
+    person("James", "Manton", , "ajd.manton@googlemail.com", role = c("aut", "cre")))
 Description: Extends package 'nat' (NeuroAnatomy Toolbox) by providing objects
     and functions for handling template brains.
 License: GPL-3
@@ -19,5 +19,6 @@ Imports:
 Suggests:
     testthat (>= 0.10),
     git2r
+URL: https://github.com/jefferislab/nat.templatebrains
 Remotes: jefferis/nat
 RoxygenNote: 5.0.1
