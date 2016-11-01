@@ -1,0 +1,42 @@
+reference:
+- title: Package Help
+  desc: Provides an overview of key functions and classes
+  contents:
+  - nat.templatebrains-package
+- title: Template Brains
+  desc: Functions that handle defining template brain spaces and setting
+    the space for objects.
+  contents:
+  - templatebrain
+  - templatebrain-meths
+  - regtemplate
+  - as.templatebrain
+  - plot3d.templatebrain
+  - display_slice
+- title: Transformations
+  desc: Functions that handle transformations of objects between
+    different template brain spaces
+  contents:
+  - xform_brain
+  - mirror_brain
+- title: Registration Sequences
+  desc: Functions that list available registrations or return
+    registration sequences between different template brains (used by xform_brain
+    and friends but may be useful in their own right).
+  contents:
+  - bridging_sequence
+  - bridging_graph
+  - allreg_dataframe
+- title: Managing Registrations
+  desc: Functions that inform the package of available bridging
+    registrations or download / update registrations from remote sources.
+  contents:
+  - add_reg_folders
+  - add_reglist
+  - download_reg_repo
+  - update_reg_repos
+  - local_reg_dir_for_url
+- title: Sample data
+  desc: Sample template brain (see nat.flybrains package for more examples)
+  contents:
+  - FCWB.demo
