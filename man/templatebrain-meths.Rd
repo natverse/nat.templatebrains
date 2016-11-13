@@ -50,8 +50,9 @@ Character vector.
 \code{print.templatebrain} prints templatebrain information in
   human-readable form
 
-\code{as.im3d} converts a template brain to a \code{nat::im3d}
-  object; this is probably useful for developers.
+\code{as.im3d} converts a template brain to a
+  \code{nat::\link[nat]{im3d}} object; this is probably useful for
+  developers.
 
 \code{origin} extracts the space origin of a \code{templatebrain}
   object.
@@ -59,12 +60,13 @@ Character vector.
 \code{dim} extracts the dimensions (in number of pixels) of the
   image associated with a \code{templatebrain} object.
 
-\code{voxdims} extracts the dimensions (in number of pixels) of
-  the image associated with a \code{templatebrain} object.
+\code{voxdims} extracts the dimensions (in calibrated spatial
+  units, e.g. microns) of voxels in the image associated with a
+  \code{templatebrain} object.
 
 \code{boundingbox} extracts the boundingbox (in calibrated
-  spatial units, typically microns) of the image associated with a
-  templatebrain object. See \code{\link[nat]{boundingbox}} for details.
+  spatial units, e.g. microns) of the image associated with a templatebrain
+  object. See \code{\link[nat]{boundingbox}} for details.
 }
 \examples{
 data(FCWB.demo)
@@ -73,6 +75,8 @@ origin(FCWB.demo)
 dim(FCWB.demo)
 voxdims(FCWB.demo)
 boundingbox(FCWB.demo)
+# print method
+FCWB.demo
 }
 \seealso{
 \code{\link[nat]{im3d}}

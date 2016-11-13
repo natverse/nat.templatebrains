@@ -84,8 +84,9 @@
     <p><code>print.templatebrain</code> prints templatebrain information in
   human-readable form</p>
 
-    <p><code>as.im3d</code> converts a template brain to a <code>nat::im3d</code>
-  object; this is probably useful for developers.</p>
+    <p><code>as.im3d</code> converts a template brain to a
+  <code>nat::<a href='http://www.rdocumentation.org/packages/nat/topics/im3d'>im3d</a></code> object; this is probably useful for
+  developers.</p>
 
     <p><code>origin</code> extracts the space origin of a <code>templatebrain</code>
   object.</p>
@@ -93,12 +94,13 @@
     <p><code>dim</code> extracts the dimensions (in number of pixels) of the
   image associated with a <code>templatebrain</code> object.</p>
 
-    <p><code>voxdims</code> extracts the dimensions (in number of pixels) of
-  the image associated with a <code>templatebrain</code> object.</p>
+    <p><code>voxdims</code> extracts the dimensions (in calibrated spatial
+  units, e.g. microns) of voxels in the image associated with a
+  <code>templatebrain</code> object.</p>
 
     <p><code>boundingbox</code> extracts the boundingbox (in calibrated
-  spatial units, typically microns) of the image associated with a
-  templatebrain object. See <code><a href='http://www.rdocumentation.org/packages/nat/topics/boundingbox'>boundingbox</a></code> for details.</p>
+  spatial units, e.g. microns) of the image associated with a templatebrain
+  object. See <code><a href='http://www.rdocumentation.org/packages/nat/topics/boundingbox'>boundingbox</a></code> for details.</p>
     
 
     <pre><span class='fu'>is.templatebrain</span>(<span class='no'>x</span>)
@@ -153,7 +155,22 @@
 #&gt; [1,]   0.0000   0.0000    0
 #&gt; [2,] 563.9342 326.3877  107
 #&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;boundingbox&quot;</div></pre>
+#&gt; [1] &quot;boundingbox&quot;</div><div class='input'><span class='co'># print method</span>
+<span class='no'>FCWB.demo</span></div><div class='output co'>#&gt; === Template Brain === 
+#&gt; Name: FlyCircuit Whole Brain (demonstration purposes) 
+#&gt; Short Name: FCWB 
+#&gt; Type: Average 
+#&gt; Sex:  Intersex 
+#&gt; Dimensions:1769 x 1026 x 108 voxels
+#&gt; Voxel size:
+#&gt;   x = 0.318967307692308 microns
+#&gt;   y = 0.318427024390244 microns
+#&gt;   z = 1 microns
+#&gt; Bounding box (microns):
+#&gt;   x = 0, y = 0, z = 0,
+#&gt;   x = 563.9342, y = 326.3877, z = 107.
+#&gt; Description: An intersex averaged brain formed from 17 female and 9 male brains from the FlyCircuit dataset. 
+#&gt; DOI:</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
