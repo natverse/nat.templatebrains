@@ -138,6 +138,7 @@ print.templatebrain <- function(x, ...) {
   cat("Short Name:", x$regName, "\n")
   cat("Type:", x$type, "\n")
   cat("Sex: ", x$sex, "\n")
+  cat(sprintf("Dimensions:%d x %d x %d voxels\n", x$dims[1], x$dims[2], x$dims[3]))
   cat(paste0("Voxel size:\n"))
   cat("  x =", paste0(x$voxdims[1], " ", x$units[1], "\n"))
   cat("  y =", paste0(x$voxdims[2], " ", x$units[2], "\n"))
