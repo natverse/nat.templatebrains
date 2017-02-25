@@ -37,4 +37,3 @@ as.templatebrain(nhdr, name = "FlyCircuit Whole Brain")
 \seealso{
 \code{\link[nat]{im3d}}
 }
-

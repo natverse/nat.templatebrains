@@ -9,4 +9,3 @@ This is a sample template brain for testing purposes which is equivalent to
 the FCWB template brain defined by the \code{nat.flybrains}, which should be
 considered the canonical version.
 }
-

@@ -47,6 +47,7 @@ When \code{dir} is unset then it will default to the value of
 
   you should write \code{add_reg_folders("/path/to/myregistrations")}
 }
+
 \examples{
 
 \dontrun{
@@ -55,4 +56,3 @@ When \code{dir} is unset then it will default to the value of
 # adding a non-existent folder will generate an error
 tools::assertError(add_reg_folders(tempfile()))
 }
-

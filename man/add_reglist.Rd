@@ -45,4 +45,3 @@ add_reglist(bridging, reference=JFRC2, sample=JFRC2013)
 \seealso{
 add_reg_folders
 }
-

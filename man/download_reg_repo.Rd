@@ -41,4 +41,3 @@ update_reg_repos()
 
 \code{\link{update_reg_repos}}
 }
-

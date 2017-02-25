@@ -94,4 +94,3 @@ xform_brain('in.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd', mask='neuropil
 \seealso{
 \code{\link{mirror_brain}}, \code{\link{regtemplate}}
 }
-

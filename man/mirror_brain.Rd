@@ -63,4 +63,3 @@ hist(sqrt(rowSums(diffs^2)), xlab='Distance /microns')
 \seealso{
 \code{\link{xform_brain}}, \code{\link{regtemplate}}
 }
-

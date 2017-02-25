@@ -25,4 +25,3 @@ This function will work immediately for the standard
   containing the surface information. If you follow this naming convention
   for user-defined refbrains it will work for them as well.
 }
-

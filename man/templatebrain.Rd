@@ -66,4 +66,3 @@ bounding box can be obtained from NRRD or AmiraMesh format files. See
 \code{\link{as.templatebrain}}, \code{\link{templatebrain-meths}},
   \code{\link{xform_brain}}, \code{\link{mirror_brain}}.
 }
-

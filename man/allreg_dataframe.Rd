@@ -41,4 +41,3 @@ by default \code{regdirs} is set to
 allreg_dataframe()
 }
 }
-

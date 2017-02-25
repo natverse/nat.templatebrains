@@ -16,4 +16,3 @@ display_slice(brain, slice, ...)
 \description{
 Display an image slice in 3D
 }
-

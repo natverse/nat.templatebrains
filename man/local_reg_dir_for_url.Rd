@@ -33,4 +33,3 @@ When called without any argument returns the root directory that
 \seealso{
 \code{\link{download_reg_repo}}
 }
-

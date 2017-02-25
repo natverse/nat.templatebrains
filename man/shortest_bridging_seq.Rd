@@ -67,4 +67,3 @@ shortest_bridging_seq('FCWB', 'IS2')
 \seealso{
 \code{\link{allreg_dataframe}}
 }
-

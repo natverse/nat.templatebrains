@@ -2,8 +2,8 @@
 % Please edit documentation in R/PACKAGE.R
 \docType{package}
 \name{nat.templatebrains-package}
-\alias{nat.templatebrains}
 \alias{nat.templatebrains-package}
+\alias{nat.templatebrains}
 \title{NeuroAnatomy Toolbox add-on package for handling template brains}
 \description{
 This package provides a class \code{templatebrain} that stores key
@@ -73,6 +73,7 @@ of data within a template brain.
   are listed. It is therefore strongly recommended that individual
   registrations have globally unique names.
 }
+
 \examples{
 \dontrun{
 # Plot all known registrations
@@ -98,4 +99,3 @@ options(nat.templatebrains.regdirs=union("/my/new/path"),
 \keyword{package}
 \keyword{registration}
 \keyword{template}
-

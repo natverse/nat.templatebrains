@@ -18,4 +18,3 @@ repositories and, if yes, they are pulled to update.
 \seealso{
 \code{\link{download_reg_repo}}
 }
-

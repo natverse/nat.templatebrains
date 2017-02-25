@@ -54,10 +54,10 @@ list(JFRC2 = structure(
 }
 in these circumstances, which xformpoints.cmtkreg turns into "-- JFRC2_IS2.list --inverse FCWB_IS2.list".
 }
+
 \examples{
 \dontrun{
 bridging_sequence(sample=JFRC2, ref=FCWB, checkboth = T)
 bridging_sequence(sample=JFRC2, via=IS2, ref=FCWB, checkboth = T)
 }
 }
-

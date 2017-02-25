@@ -40,4 +40,3 @@ plot3d(kcs3, col='red')
 plot3d(kcs3m, col='green')
 }
 }
-
