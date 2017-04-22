@@ -79,6 +79,7 @@ test_that("we can find bridging registrations",{
 context("Bridging Graph")
 
 test_that("bridging graph and friends work",{
+  skip_on_cran()
 
   expect_is(emptydf<-allreg_dataframe(NULL), 'data.frame')
   expect_equal(nrow(emptydf), 0L)
