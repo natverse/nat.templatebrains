@@ -62,4 +62,4 @@ devtools::install_github("nat.templatebrains", "jefferislab")
 ```
 
 Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) as 
-well as [devtools](http://CRAN.R-project.org/package=devtools) to install this way.
+well as [devtools](https://CRAN.R-project.org/package=devtools) to install this way.
