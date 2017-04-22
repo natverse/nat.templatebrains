@@ -20,5 +20,4 @@ Suggests:
     testthat (>= 0.10),
     git2r
 URL: https://github.com/jefferislab/nat.templatebrains
-Remotes: jefferis/nat
 RoxygenNote: 6.0.1

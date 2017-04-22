@@ -55,10 +55,14 @@ install.packages("nat.templatebrains")
 ```
 
 ### Development version
+If you want to install the development version of nat.templatebrains, you can do
+this using devtools. You will probably also wish to install the development
+version of the nat package if you do this.
 
 ```r
 if (!require("devtools")) install.packages("devtools")
-devtools::install_github("nat.templatebrains", "jefferislab")
+devtools::install_github("jefferislab/nat")
+devtools::install_github("jefferislab/nat.templatebrains")
 ```
 
 Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) as 
