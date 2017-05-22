@@ -52,6 +52,14 @@ test_that("as.templatebrain.im3d works", {
                                         sex="Intersex", type="Average"), 'templatebrain')
   fields=c("name","sex", "regName", "type","dims","voxdims", "origin","BoundingBox","units")
   expect_equal(FCWB.test[fields], FCWB.demo[fields])
+
+  expect_equal(as.templatebrain(fcwb.nhdr)$name, 'FCWB')
+
+  expect_is(as.templatebrain(im3d(dims = c(3,4),voxdims = c(2,3,4)), regName="FAFB", name='Full Adult'),
+            'templatebrain')
+
+  expect_equal(as.templatebrain(im3d(dims = c(3,4),voxdims = c(2,3,4)), regName="FAFB")$name,
+            'FAFB')
 })
 
 test_that("print.templatebrain",{
