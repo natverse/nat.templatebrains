@@ -2,5 +2,6 @@
 ^\.Rproj\.user$
 ^\.travis\.yml$
 travisbuildchildren.sh
+^build-cmtk.sh$
 ^_pkgdown\.yml$
 ^docs$

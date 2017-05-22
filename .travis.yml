@@ -1,27 +1,32 @@
-language: c
-script: ./travis-tool.sh run_tests
+language: r
+sudo: required
+dist: trusty
+cache:
+  packages: true
+  directories:
+  - $HOME/usr/local
+warnings_are_errors: true
 before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-  - ./travis-tool.sh r_binary_install rgl RANN igraph filehash digest testthat RCurl stringi stringr
-  - ./travis-tool.sh install_github jefferis/nat
-  - bash <(wget -q -O- http://neuro.debian.net/_files/neurodebian-travis.sh)
-  - sudo apt-get install cmtk --no-install-recommends
-install:
-  - ./travis-tool.sh github_package jimhester/covr
-  - ./travis-tool.sh install_deps
-notifications:
-  email:
-    on_success: change
-    on_failure: change
+  - curl -OL https://raw.githubusercontent.com/jefferis/nat/master/build-cmtk.sh
+  - bash build-cmtk.sh
+before_script:
+  - export PATH=$PATH:$HOME/usr/local/bin
+r_binary_packages:
+  - rgl
+  - RANN
+  - igraph
+  - filehash
+  - digest
+  - testthat
+  - RCurl
+  - stringi
+  - stringr
+r_github_packages:
+  - jimhester/covr
 env:
   global:
     - secure: enuHyjS3QdAyNTn03zj2sL4jbAh1pJ7vzCC4m674KdTG0tYB7ApiLEiu/PxT88Ub4UficJtutas3qLHhOpjL6ZW/Z18RYRIzwGHwimvVMRLYg2G1R8BPgsWtMSA3GynlOCHjiFxLeoGPW0mPJ4+5wzWJXD6tKWvZPHOngki/658=
-    - WARNINGS_ARE_ERRORS=1
-    - _R_CHECK_FORCE_SUGGESTS_=0
     - RGL_USE_NULL=TRUE
 after_success:
   - Rscript -e 'library(covr);coveralls(exlusions="R/zzz.R")'
-  - chmod 755 ./travisbuildchildren.sh
-  - ./travisbuildchildren.sh
+  - bash travisbuildchildren.sh
