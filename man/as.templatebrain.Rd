@@ -14,20 +14,26 @@ as.templatebrain(x, ...)
 }
 \arguments{
 \item{x}{object used to construct the templatebrain, either a character
-vector with the path to a file or an \code{im3d} object.}
+vector with the path to a file or an \code{\link[nat]{im3d}} object.}
 
 \item{...}{additional named arguments passed to methods and then on to
-\code{templatebrain} that will be added as fields to the
+\code{\link{templatebrain}} that will be added as fields to the
 \code{templatebrain} object.}
 
 \item{name, regName}{name and short name of the template brain. Will use the
 filename (minus final extension) by default for both fields.}
 }
 \value{
-A list with class \code{templatebrain}.
+A list with class \code{\link{templatebrain}}
 }
 \description{
 Use image file or other object to initialise template brain
+}
+\details{
+\code{as.templatebrain} can extract the key fields defining an
+  template space from an image file. This is generally a much more convenient
+  apprach to defining a \code{templatebrain} object than specifying all
+  fields by hand.
 }
 \examples{
 # Make templatebrain object using image info from the template brain NRRD file
@@ -35,5 +41,5 @@ nhdr=system.file('images','FCWB.nhdr', package='nat.templatebrains')
 as.templatebrain(nhdr, name = "FlyCircuit Whole Brain")
 }
 \seealso{
-\code{\link[nat]{im3d}}
+\code{\link{templatebrain}}, \code{\link[nat]{im3d}}
 }

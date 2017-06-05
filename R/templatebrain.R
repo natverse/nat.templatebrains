@@ -60,13 +60,18 @@ templatebrain<-function(name, regName=name, type=NULL, sex=NULL, dims=NULL,
 #' Use image file or other object to initialise template brain
 #'
 #' @param x object used to construct the templatebrain, either a character
-#'   vector with the path to a file or an \code{im3d} object.
+#'   vector with the path to a file or an \code{\link[nat]{im3d}} object.
 #' @param ... additional named arguments passed to methods and then on to
-#'   \code{templatebrain} that will be added as fields to the
+#'   \code{\link{templatebrain}} that will be added as fields to the
 #'   \code{templatebrain} object.
-#' @return A list with class \code{templatebrain}.
+#' @return A list with class \code{\link{templatebrain}}
+#' @details \code{as.templatebrain} can extract the key fields defining an
+#'   template space from an image file. This is generally a much more convenient
+#'   apprach to defining a \code{templatebrain} object than specifying all
+#'   fields by hand.
+#'
 #' @export
-#' @seealso  \code{\link[nat]{im3d}}
+#' @seealso \code{\link{templatebrain}}, \code{\link[nat]{im3d}}
 #' @rdname as.templatebrain
 as.templatebrain <- function(x, ...) UseMethod("as.templatebrain")
 
@@ -102,9 +107,12 @@ as.templatebrain.im3d <- function(x, regName=NULL, name=regName, ...) {
 }
 
 #' Template brain methods
-#' @description \code{is.templatebrain} tests if object is of class templatebrain
+#'
+#' @description \code{is.templatebrain} tests if object is of class
+#'   templatebrain
 #' @param x an object (usually a \code{templatebrain}).
-#' @return A logical indicating whether or not the object is a \code{templatebrain}.
+#' @return A logical indicating whether or not the object is a
+#'   \code{templatebrain}.
 #' @export
 #' @name templatebrain-meths
 #' @aliases is.templatebrain

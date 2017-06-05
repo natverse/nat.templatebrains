@@ -36,12 +36,14 @@ is.templatebrain(x)
 \item{...}{additional arguments for methods.}
 }
 \value{
-A logical indicating whether or not the object is a \code{templatebrain}.
+A logical indicating whether or not the object is a
+  \code{templatebrain}.
 
 Character vector.
 }
 \description{
-\code{is.templatebrain} tests if object is of class templatebrain
+\code{is.templatebrain} tests if object is of class
+  templatebrain
 
 \code{as.character.templatebrain} converts template brain to
   character vector representation (normally used to extract the short name
