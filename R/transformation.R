@@ -213,7 +213,7 @@ reset_cache <- function() {
 #'   sequence on a graph of all available bridging registrations, subject to
 #'   constraints defined by graph connectivity and the \code{reciprocal
 #'   parameter}.
-#' @importFrom igraph shortest.paths get.shortest.paths E
+#' @importFrom igraph shortest.paths get.shortest.paths E vertex_attr
 #' @export
 #' @inheritParams xform_brain
 #' @examples
@@ -231,6 +231,14 @@ shortest_bridging_seq <-
     if(is.null(g)) stop("No bridging registrations available!")
     sample = as.character(sample)
     reference = as.character(reference)
+
+    vertex_names <- vertex_attr(g, "name")
+    if (!sample %in% vertex_names)
+      stop("Sample template: ", sample,
+           " has no known bridging registrations!")
+    if (!reference %in% vertex_names)
+      stop("Reference template: ", reference,
+           " has no known bridging registrations!")
 
     # treat as directed
     sp = shortest.paths(g, v = sample, to = reference, mode = 'out')

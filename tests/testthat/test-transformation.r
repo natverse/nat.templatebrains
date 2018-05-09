@@ -76,6 +76,11 @@ test_that("we can find bridging registrations",{
   expect_error(bridging_sequence(reference='crumble', sample='rhubarb', checkboth = F, mustWork=T))
 })
 
+test_that("appropriate error for non-existent template", {
+  expect_error(xform_brain(kcs20, sample='wurgle', ref='rhubarb'),
+               regexp = "no known bridging registrations")
+})
+
 context("Bridging Graph")
 
 test_that("bridging graph and friends work",{
