@@ -197,6 +197,13 @@ test_that("can use a bridging registration in regdirs",{
               "round trip with pre-inverted registration")
 })
 
+test_that("xform doesn't try to transform when sample==reference", {
+  data("FCWB.demo")
+  kcs3=kcs20[1:3]
+  regtemplate(kcs3)=FCWB.demo
+  expect_equivalent(kcs3t <- xform_brain(kcs3, reference = FCWB.demo), kcs3)
+})
+
 test_that("mirror using a template brain",{
   data(FCWB.demo)
   # Simple mirror along the x i.e. medio-lateral axis

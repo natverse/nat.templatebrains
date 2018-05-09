@@ -50,6 +50,8 @@ bridging_sequence<-function(sample, reference, via=NULL, imagedata=FALSE,
   }
   # TODO check this order carefully, especially with multiple via brains
   all_brains=c(as.character(sample), via, as.character(reference))
+  if(length(unique(all_brains))==1)
+    return(NULL) # nothing to do
   seq=mapply(bridging_reg,
          sample=all_brains[-length(all_brains)],
          reference=all_brains[-1],
@@ -232,6 +234,10 @@ shortest_bridging_seq <-
     sample = as.character(sample)
     reference = as.character(reference)
 
+    # nothing to do ...
+    if(isTRUE(all.equal(sample, reference, check.attributes=FALSE)))
+      return(NULL)
+
     vertex_names <- vertex_attr(g, "name")
     if (!sample %in% vertex_names)
       stop("Sample template: ", sample,
@@ -353,7 +359,7 @@ xform_brain <- function(x, sample=regtemplate(x), reference, via=NULL,
     regs <- bridging_sequence(reference=reference, sample=sample, via=via,
                               checkboth = checkboth, mustWork = T)
   }
-  xt=nat::xform(x, reg=regs, ...)
+  xt <- if(is.null(regs)) x else nat::xform(x, reg=regs, ...)
   # always set space if this is a complex object otherwise only on input
   if(is.object(x) || !is.null(regtemplate(x))) regtemplate(xt)=reference
   xt
