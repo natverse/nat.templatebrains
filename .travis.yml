@@ -1,6 +1,5 @@
 language: r
 sudo: required
-dist: trusty
 cache:
   packages: true
   directories:
@@ -11,16 +10,6 @@ before_install:
   - bash build-cmtk.sh
 before_script:
   - export PATH=$PATH:$HOME/usr/local/bin
-r_binary_packages:
-  - rgl
-  - RANN
-  - igraph
-  - filehash
-  - digest
-  - testthat
-  - RCurl
-  - stringi
-  - stringr
 r_github_packages:
   - jimhester/covr
 env:
