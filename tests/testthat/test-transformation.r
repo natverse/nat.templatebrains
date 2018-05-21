@@ -198,6 +198,9 @@ test_that("can use a bridging registration in regdirs",{
 })
 
 test_that("xform doesn't try to transform when sample==reference", {
+  op=options(nat.templatebrains.regdirs=NULL)
+  on.exit(options(op))
+
   data("FCWB.demo")
   kcs3=kcs20[1:3]
   regtemplate(kcs3)=FCWB.demo

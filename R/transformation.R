@@ -229,8 +229,7 @@ shortest_bridging_seq <-
     reciprocal <- if (checkboth && is.na(reciprocal)) {
       ifelse(imagedata, 100, 1.01)
     } else NA
-    g = bridging_graph(reciprocal = reciprocal, ...)
-    if(is.null(g)) stop("No bridging registrations available!")
+
     sample = as.character(sample)
     reference = as.character(reference)
 
@@ -238,6 +237,8 @@ shortest_bridging_seq <-
     if(isTRUE(all.equal(sample, reference, check.attributes=FALSE)))
       return(NULL)
 
+    g = bridging_graph(reciprocal = reciprocal, ...)
+    if(is.null(g)) stop("No bridging registrations available!")
     vertex_names <- vertex_attr(g, "name")
     if (!sample %in% vertex_names)
       stop("Sample template: ", sample,
