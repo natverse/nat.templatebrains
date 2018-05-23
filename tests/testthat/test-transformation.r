@@ -62,6 +62,9 @@ test_that("we can find bridging registrations",{
   expect_error(bridging_reg(reference = 'crumble', sample='rhubarb', mustWork = T))
   expect_false(nzchar(bridging_reg(reference = 'crumble', sample='rhubarb')))
 
+  expect_error(xform_brain(kcs20, sample='pie', ref='rhubarb'),
+               regexp = "no known bridging registrations")
+
   br<-bridging_reg(reference ='crumble', sample='rhubarb', checkboth = TRUE)
   expect_true(nzchar(br))
   expect_true(attr(br,'swap'))
@@ -74,11 +77,6 @@ test_that("we can find bridging registrations",{
   expect_equivalent(bridging_sequence(reference="crumble", sample = "rhubarb", checkboth=T),
                     reglist(bridging_reg(reference='crumble', sample='rhubarb', checkboth=T)))
   expect_error(bridging_sequence(reference='crumble', sample='rhubarb', checkboth = F, mustWork=T))
-})
-
-test_that("appropriate error for non-existent template", {
-  expect_error(xform_brain(kcs20, sample='wurgle', ref='rhubarb'),
-               regexp = "no known bridging registrations")
 })
 
 context("Bridging Graph")
