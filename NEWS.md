@@ -1,3 +1,11 @@
+# nat.templatebrains 0.9
+
+* shortest_bridging_seq complains if template brain does not exist in graph (#34)
+* xform_brain does not transform when sample and reference are identical (#33)
+* templatebrain constructor does not need all boundingbox/origin etc fields
+  to be specified (#24)
+* as.templatebrain.im3d should not need an im3d made from a file (#25)
+
 # nat.templatebrains 0.8
 
 This is another major version bump since there is significant new/changed
