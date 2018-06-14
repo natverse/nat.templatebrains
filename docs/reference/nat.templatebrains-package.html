@@ -18,19 +18,34 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
+
+
+<meta property="og:title" content="NeuroAnatomy Toolbox add-on package for handling template brains — nat.templatebrains-package" />
+
+<meta property="og:description" content="This package provides a class templatebrain that stores key
+information about reference brains along with helper functions to simplify
+transformation of data between template brains (a.k.a bridging) and mirroring
+of data within a template brain." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -44,12 +59,25 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">nat.templatebrains</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">nat.templatebrains</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -61,6 +89,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -68,18 +97,22 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>NeuroAnatomy Toolbox add-on package for handling template brains</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jefferislab/nat.templatebrains/blob/master/R/PACKAGE.R'><code>R/PACKAGE.R</code></a></small>
+    <div class="hidden name"><code>nat.templatebrains-package.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This package provides a class <code>templatebrain</code> that stores key
 information about reference brains along with helper functions to simplify
 transformation of data between template brains (a.k.a bridging) and mirroring
 of data within a template brain.</p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="helper-functions"><a class="anchor" href="#helper-functions"></a>Helper functions</h2>
@@ -87,11 +120,11 @@ of data within a template brain.</p>
     <p>Easy-to-use functions for transforming data from
   one template brain to another, displaying slices alongside 3D data, etc.
   are provided.</p>
-    <p>For transforming between spaces, see especially <code><a href='xform_brain.html'>xform_brain</a></code>,
+<p>For transforming between spaces, see especially <code><a href='xform_brain.html'>xform_brain</a></code>,
   <code><a href='mirror_brain.html'>mirror_brain</a></code>. The <code><a href='regtemplate.html'>regtemplate</a></code> functions allow
   an R object containing neuroanatomical data to be tagged as in a particular
   template brain space.</p>
-    <p><code><a href='plot3d.templatebrain.html'>plot3d.templatebrain</a></code> provides a simple way to plot a surface
+<p><code><a href='plot3d.templatebrain.html'>plot3d.templatebrain</a></code> provides a simple way to plot a surface
   object representing a given template brain.</p>
     
     <h2 class="hasAnchor" id="registrations"><a class="anchor" href="#registrations"></a>Registrations</h2>
@@ -100,24 +133,20 @@ of data within a template brain.</p>
   by <code>nat.templatebrains</code> are not very useful unless you tell the
   package about bridging/mirroring registrations that you have avilable.
   There are 4 supported ways to add registrations to the search list that
-  will be considered: <ul>
-<li> Install a package (e.g. nat.flybrains) that bundles registrations.</p>
-    <p></li>
-<li> <code><a href='download_reg_repo.html'>download_reg_repo</a></code> to download pre-packaged registration
+  will be considered:</p><ul>
+<li><p>Install a package (e.g. nat.flybrains) that bundles registrations.</p></li>
+<li><p><code><a href='download_reg_repo.html'>download_reg_repo</a></code> to download pre-packaged registration
   folders from github. This will automatically add the new folders to the
   registration search list both in the current session and on package
-  startup.</p>
-    <p></li>
-<li> <code><a href='add_reg_folders.html'>add_reg_folders</a></code> to add additional local directories to
+  startup.</p></li>
+<li><p><code><a href='add_reg_folders.html'>add_reg_folders</a></code> to add additional local directories to
   the registration search list. You will need to do this each time your start
-  an R session unless you add it to your <code><a href='http://www.rdocumentation.org/packages/base/topics/Startup'>Rprofile</a></code>.</p>
-    <p></li>
-<li> <code><a href='add_reglist.html'>add_reglist</a></code> to add an in-memory
+  an R session unless you add it to your <code><a href='http://www.rdocumentation.org/packages/base/topics/Startup'>Rprofile</a></code>.</p></li>
+<li><p><code><a href='add_reglist.html'>add_reglist</a></code> to add an in-memory
   <code><a href='http://www.rdocumentation.org/packages/nat/topics/reglist'>reglist</a></code> containing an arbitrary sequence of
   registrations. By default this will not persist across R sessions but this
-  behaviour can be changed.</p>
-    <p></li>
-</ul></p>
+  behaviour can be changed.</p></li>
+</ul>
     <p>Note that the package implements a cache to avoid rescanning the
   directories in the registration search list all the time. The functions
   mentioned above will automatically ensure that the cache is reset whenever
@@ -125,41 +154,40 @@ of data within a template brain.</p>
     
     <h2 class="hasAnchor" id="package-options"><a class="anchor" href="#package-options"></a>Package options</h2>
 
-    <p></p>
-    <p><ul>
-<li> options(&#39;nat.templatebrains.regdirs&#39;) specifies a character vector of
-  directories containing registrations i.e. a registration search list.</p>
-    <p></li>
-</ul></p>
+    
+    <p></p><ul>
+<li><p>options('nat.templatebrains.regdirs') specifies a character vector of
+  directories containing registrations i.e. a registration search list.</p></li>
+</ul>
     <p>It is strongly recommended that you use the functions mentioned above
   rather than manipulating the registration search list directly.</p>
-    <p>Note that registration directories will be searched in the order that they
+<p>Note that registration directories will be searched in the order that they
   are listed. It is therefore strongly recommended that individual
   registrations have globally unique names.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='http://www.rdocumentation.org/packages/nat/topics/nat-package'>nat</a></code></p>
+    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/nat/topics/nat-package'>nat</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># # Plot all known registrations</span>
-<span class='co'># plot(bridging_graph(), vertex.size=25)</span>
-<span class='co'># </span>
-<span class='co'># ## manually add a new directory containing registrations to the search list</span>
-<span class='co'># # Don't do this unless essential!</span>
-<span class='co'># options(nat.templatebrains.regdirs=union(</span>
-<span class='co'>#   getOption('nat.templatebrains.regdirs'), "/my/new/path"))</span>
-<span class='co'># # NB after mucking around with paths manually you must also manually update</span>
-<span class='co'># # the cache so that new registrations are actually used.</span>
-<span class='co'># nat.templatebrains:::reset_cache()</span>
-<span class='co'># </span>
-<span class='co'># ## same, but override any built-in registration by putting the new path</span>
-<span class='co'># # at the first position in the search list</span>
-<span class='co'># options(nat.templatebrains.regdirs=union("/my/new/path"),</span>
-<span class='co'>#   getOption('nat.templatebrains.regdirs'))</span>
-<span class='co'>## ---------------------------------------------</span></div></pre>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># Plot all known registrations</span>
+<span class='fu'>plot</span>(<span class='fu'><a href='shortest_bridging_seq.html'>bridging_graph</a></span>(), <span class='kw'>vertex.size</span><span class='kw'>=</span><span class='fl'>25</span>)
+
+<span class='co'>## manually add a new directory containing registrations to the search list</span>
+<span class='co'># Don't do this unless essential!</span>
+<span class='fu'>options</span>(<span class='kw'>nat.templatebrains.regdirs</span><span class='kw'>=</span><span class='fu'>union</span>(
+  <span class='fu'>getOption</span>(<span class='st'>'nat.templatebrains.regdirs'</span>), <span class='st'>"/my/new/path"</span>))
+<span class='co'># NB after mucking around with paths manually you must also manually update</span>
+<span class='co'># the cache so that new registrations are actually used.</span>
+<span class='kw pkg'>nat.templatebrains</span><span class='kw ns'>:::</span><span class='fu'>reset_cache</span>()
+
+<span class='co'>## same, but override any built-in registration by putting the new path</span>
+<span class='co'># at the first position in the search list</span>
+<span class='fu'>options</span>(<span class='kw'>nat.templatebrains.regdirs</span><span class='kw'>=</span><span class='fu'>union</span>(<span class='st'>"/my/new/path"</span>),
+  <span class='fu'>getOption</span>(<span class='st'>'nat.templatebrains.regdirs'</span>))
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -185,11 +213,14 @@ of data within a template brain.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
