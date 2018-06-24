@@ -3,6 +3,7 @@
 [![Release Version](https://img.shields.io/github/release/jefferislab/nat.templatebrains.svg)](https://github.com/jefferislab/nat.templatebrains/releases/latest) 
 [![Build Status](https://travis-ci.org/jefferislab/nat.templatebrains.svg)](https://travis-ci.org/jefferislab/nat.templatebrains)
 [![Coverage Status](https://img.shields.io/coveralls/jefferislab/nat.templatebrains.svg)](https://coveralls.io/r/jefferislab/nat.templatebrains?branch=master)
+[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](http://jefferislab.github.io/nat.templatebrains/reference/)
 
 ## Quick Start
 
