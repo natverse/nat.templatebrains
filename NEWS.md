@@ -5,6 +5,7 @@
 * templatebrain constructor does not need all boundingbox/origin etc fields
   to be specified (#24)
 * as.templatebrain.im3d should not need an im3d made from a file (#25)
+* Fix unstated dependencies in 'tests' error noted by CRAN r-devel for 0.8.2
 
 # nat.templatebrains 0.8
 
