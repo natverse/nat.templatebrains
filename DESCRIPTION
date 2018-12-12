@@ -22,7 +22,7 @@ Imports:
     memoise
 Suggests:
     testthat (>= 0.10),
-    git2r,
+    git2r (>= 0.22.1),
     nabor
 URL: https://github.com/jefferislab/nat.templatebrains
 RoxygenNote: 6.1.1

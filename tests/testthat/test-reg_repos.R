@@ -49,6 +49,6 @@ test_that("cloning registrations works", {
   download_reg_repo("jefferislab/TestRegRepo")
   expect_equal(getOption('nat.templatebrains.regdirs'),
                local_reg_dir_for_url('https://github.com/jefferislab/TestRegRepo'))
-  expect_true(update_result<-update_reg_repos()@up_to_date)
+  expect_true(update_result<-update_reg_repos()$up_to_date)
   unlink(local_reg_dir_for_url('https://github.com/jefferislab/TestRegRepo'), recursive = TRUE)
 })
