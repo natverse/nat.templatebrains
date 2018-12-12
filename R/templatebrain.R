@@ -95,10 +95,12 @@ as.templatebrain.character <- function(x, ...) {
 as.templatebrain.im3d <- function(x, regName=NULL, name=regName, ...) {
   # This will be incorrect if the directions are not rectilinear
   xfile=attr(x, 'file')
-  if(is.null(xfile)) {
-    if(is.null(regName)) stop("regName is null and x does not have a file attribute!")
+  if(is.null(regName)) {
+    if(is.null(xfile)) {
+      stop("regName is null and x does not have a file attribute!")
+    }
+    regName = sub("\\.[^.]+$", "", basename(xfile))
   }
-  else regName = sub("\\.[^.]+$", "", basename(xfile))
 
   units <- attr(x, 'header')$'space units'
   templatebrain(name=name, regName=regName, dims=dim(x), voxdims=voxdims(x),
