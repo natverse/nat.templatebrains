@@ -11,7 +11,6 @@
 #' @param alpha the alpha value of the surface.
 #' @param ... extra arguments to pass to \code{\link[rgl]{plot3d}}.
 #' @export
-#' @method plot3d templatebrain
 #' @importFrom rgl plot3d
 plot3d.templatebrain <- function(x, col='grey', alpha=0.3, ...) {
   plot3d(get(paste0(as.character(x), ".surf")), col=col, alpha=alpha, ...)
