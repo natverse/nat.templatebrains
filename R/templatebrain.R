@@ -108,6 +108,10 @@ as.templatebrain.im3d <- function(x, regName=NULL, name=regName, ...) {
                 units=units, ...)
 }
 
+#' @rdname as.templatebrain
+#' @export
+as.templatebrain.templatebrain <- function(x, ...) x
+
 #' Template brain methods
 #'
 #' @description \code{is.templatebrain} tests if object is of class

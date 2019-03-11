@@ -4,6 +4,7 @@
 \alias{as.templatebrain}
 \alias{as.templatebrain.character}
 \alias{as.templatebrain.im3d}
+\alias{as.templatebrain.templatebrain}
 \title{Use image file or other object to initialise template brain}
 \usage{
 as.templatebrain(x, ...)
@@ -11,6 +12,8 @@ as.templatebrain(x, ...)
 \method{as.templatebrain}{character}(x, ...)
 
 \method{as.templatebrain}{im3d}(x, regName = NULL, name = regName, ...)
+
+\method{as.templatebrain}{templatebrain}(x, ...)
 }
 \arguments{
 \item{x}{object used to construct the templatebrain, either a character
