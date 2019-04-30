@@ -217,6 +217,7 @@ reset_cache <- function() {
 #'   parameter}.
 #' @importFrom igraph shortest.paths get.shortest.paths E vertex_attr
 #' @export
+#' @param ... additional arguments passed on to \code{\link{bridging_graph}}
 #' @inheritParams xform_brain
 #' @examples
 #' \dontrun{
@@ -274,6 +275,15 @@ shortest_bridging_seq <-
 #'   either be \code{templatebrain} objects or a character string containing the
 #'   short name of the template e.g. \code{"IS2"}.
 #'
+#'   When transforming image data (\code{imagedata=TRUE}), the \code{target}
+#'   argument should normally be specified. This defines the absolute/voxel
+#'   dimensions of the target space. This can be calculated from a
+#'   \code{templatebrain} object, so by default it will be set to the value of
+#'   the \code{reference} argument. Alternatively an image file on disk can be
+#'   specified; this is essential if the \code{reference} argument does not
+#'   specify a \code{\link{templatebrain}} object but instead just names a
+#'   template space (i.e. is a string).
+#'
 #'   The significance of the \code{imagedata} and \code{checkboth} arguments is
 #'   that CMTK registrations are not directly invertible although they can be
 #'   numerically inverted in most cases (unless there are regions where folding
@@ -301,9 +311,16 @@ shortest_bridging_seq <-
 #'   only supported as a file on disk) or 3D object vertices - see details.
 #' @param checkboth When \code{TRUE} will look for registrations in both
 #'   directions. See details.
-#' @param ... extra arguments to pass to \code{\link[nat]{xform}}.
+#' @param target When transforming image data, this specifies the target space
+#'   (defaults to \code{reference} when \code{imagedata=TRUE}). See Details.
+#' @param ... extra arguments to pass to \code{\link[nat]{xform}} and then on to
+#'   \code{\link[nat]{xformpoints}} or \code{\link[nat]{xformimage}} which will
+#'   eventually hand off to \code{\link{cmtk.reformatx}} when using CMTK.
+#'
 #' @export
-#' @seealso \code{\link{mirror_brain}}, \code{\link{regtemplate}}
+#' @seealso \code{\link{mirror_brain}}, \code{\link{regtemplate}},
+#'   \code{\link{xform}}. \code{\link{xformpoints}}, \code{\link{xformimage}},
+#'   \code{\link{cmtk.reformatx}} (for transforming image data with CMTK).
 #' @examples
 #' ## depends on nat.flybrains package and system CMTK installation
 #' \dontrun{
@@ -334,17 +351,25 @@ shortest_bridging_seq <-
 #'
 #'
 #' ## reformat image examples
-#' # see ?cmtk.reformatx for details of all additional arguments
-#' xform_brain('in.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd', Verbose=F)
+#' # see ?cmtk.reformatx for details of any additional arguments
+#' # note that for image data a target space defining the dimensions of the
+#' # output image must be specified - this happens by default using the
+#' # reference templatebrain object
+#' xform_brain('in.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd')
+#' # or you can specify an image file explicitly as target
+#' xform_brain('in.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd',
+#'             target='JFRC2.nrrd')
 #'
-#' # use nearest neighbour interpolation for label field
-#' xform_brain('labels.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd', interpolation='nn')
+#' # use partial volume interpolation for label field
+#' xform_brain('labels.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd',
+#'             interpolation='pv')
 #'
 #' # use binary mask to restrict (and speed up) reformatting
 #' xform_brain('in.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd', mask='neuropil.nrrd')
 #' }
 xform_brain <- function(x, sample=regtemplate(x), reference, via=NULL,
-                        imagedata=is.character(x), checkboth=NULL, ...) {
+                        imagedata=is.character(x), checkboth=NULL, target=NULL,
+                        ...) {
   if(is.null(sample))
     stop("Invalid sample argument!\n",
          "Either specify manually or use regtemplate(x) <- to set space for x.")
@@ -360,7 +385,19 @@ xform_brain <- function(x, sample=regtemplate(x), reference, via=NULL,
     regs <- bridging_sequence(reference=reference, sample=sample, via=via,
                               checkboth = checkboth, mustWork = T)
   }
-  xt <- if(is.null(regs)) x else nat::xform(x, reg=regs, ...)
+  xt <- if(is.null(regs)) {
+    x
+  } else if(imagedata) {
+    if(is.null(target)) {
+      if(!is.templatebrain(reference))
+        stop("Please specify a <target> image to define the space for reformatting!")
+      target=reference
+    }
+    nat::xform(x, reg=regs, target=target, ...)
+  } else {
+    nat::xform(x, reg=regs, ...)
+  }
+
   # always set space if this is a complex object otherwise only on input
   if(is.object(x) || !is.null(regtemplate(x))) regtemplate(xt)=reference
   xt

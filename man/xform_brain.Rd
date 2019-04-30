@@ -5,7 +5,7 @@
 \title{Transform 3D object between template brains}
 \usage{
 xform_brain(x, sample = regtemplate(x), reference, via = NULL,
-  imagedata = is.character(x), checkboth = NULL, ...)
+  imagedata = is.character(x), checkboth = NULL, target = NULL, ...)
 }
 \arguments{
 \item{x}{the 3D object to be transformed}
@@ -24,7 +24,12 @@ only supported as a file on disk) or 3D object vertices - see details.}
 \item{checkboth}{When \code{TRUE} will look for registrations in both
 directions. See details.}
 
-\item{...}{extra arguments to pass to \code{\link[nat]{xform}}.}
+\item{target}{When transforming image data, this specifies the target space
+(defaults to \code{reference} when \code{imagedata=TRUE}). See Details.}
+
+\item{...}{extra arguments to pass to \code{\link[nat]{xform}} and then on to
+\code{\link[nat]{xformpoints}} or \code{\link[nat]{xformimage}} which will
+eventually hand off to \code{\link{cmtk.reformatx}} when using CMTK.}
 }
 \description{
 Transform 3D object between template brains
@@ -33,6 +38,15 @@ Transform 3D object between template brains
 NB the \code{sample}, \code{reference} and \code{via} brains can
   either be \code{templatebrain} objects or a character string containing the
   short name of the template e.g. \code{"IS2"}.
+
+  When transforming image data (\code{imagedata=TRUE}), the \code{target}
+  argument should normally be specified. This defines the absolute/voxel
+  dimensions of the target space. This can be calculated from a
+  \code{templatebrain} object, so by default it will be set to the value of
+  the \code{reference} argument. Alternatively an image file on disk can be
+  specified; this is essential if the \code{reference} argument does not
+  specify a \code{\link{templatebrain}} object but instead just names a
+  template space (i.e. is a string).
 
   The significance of the \code{imagedata} and \code{checkboth} arguments is
   that CMTK registrations are not directly invertible although they can be
@@ -81,16 +95,25 @@ plot3d(FCWBNP.surf, "MB.*_L", alpha=0.3)
 
 
 ## reformat image examples
-# see ?cmtk.reformatx for details of all additional arguments
-xform_brain('in.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd', Verbose=F)
+# see ?cmtk.reformatx for details of any additional arguments
+# note that for image data a target space defining the dimensions of the
+# output image must be specified - this happens by default using the
+# reference templatebrain object
+xform_brain('in.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd')
+# or you can specify an image file explicitly as target
+xform_brain('in.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd',
+            target='JFRC2.nrrd')
 
-# use nearest neighbour interpolation for label field
-xform_brain('labels.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd', interpolation='nn')
+# use partial volume interpolation for label field
+xform_brain('labels.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd',
+            interpolation='pv')
 
 # use binary mask to restrict (and speed up) reformatting
 xform_brain('in.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd', mask='neuropil.nrrd')
 }
 }
 \seealso{
-\code{\link{mirror_brain}}, \code{\link{regtemplate}}
+\code{\link{mirror_brain}}, \code{\link{regtemplate}},
+  \code{\link{xform}}. \code{\link{xformpoints}}, \code{\link{xformimage}},
+  \code{\link{cmtk.reformatx}} (for transforming image data with CMTK).
 }
