@@ -29,7 +29,7 @@ directions. See details.}
 \item{imagedata}{Whether \code{x} should be treated as image data (presently
 only supported as a file on disk) or 3D object vertices - see details.}
 
-\item{...}{extra arguments to pass to \code{\link[nat]{xform}}.}
+\item{...}{additional arguments passed on to \code{\link{bridging_graph}}}
 }
 \description{
 These functions are designed for expert use. In general it is
