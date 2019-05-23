@@ -64,4 +64,9 @@ test_that("as.templatebrain.im3d works", {
 
 test_that("print.templatebrain",{
   expect_output(print(FCWB.demo), "Name: FlyCircuit Whole Brain")
+
+  #Check if it can cycle through units that are not explicity given (for e.g. y and z direction units)
+  dummy_templatebrain <- as.templatebrain(im3d(dims = c(3,4),voxdims = c(2,3,4)), regName="FAFB", name='Full Adult')
+  dummy_templatebrain$units = 'nm'
+  expect_output(print(dummy_templatebrain), "\\nVoxel size:\\n  x = 2 nm\\n  y = 3 nm\\n  z = 4 nm")
 })

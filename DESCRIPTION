@@ -19,11 +19,12 @@ Imports:
     igraph,
     digest,
     rappdirs,
-    memoise
+    memoise,
+    purrr
 Suggests:
     testthat (>= 0.10),
     git2r (>= 0.22.1),
     nabor
 URL: https://github.com/jefferislab/nat.templatebrains
-RoxygenNote: 6.1.1
+RoxygenNote: 6.1.1.9000
 Encoding: UTF-8

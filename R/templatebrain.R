@@ -159,9 +159,10 @@ print.templatebrain <- function(x, ...) {
   cat("Sex: ", x$sex, "\n")
   cat(sprintf("Dimensions:%d x %d x %d voxels\n", x$dims[1], x$dims[2], x$dims[3]))
   cat(paste0("Voxel size:\n"))
-  cat("  x =", paste0(x$voxdims[1], " ", x$units[1], "\n"))
-  cat("  y =", paste0(x$voxdims[2], " ", x$units[2], "\n"))
-  cat("  z =", paste0(x$voxdims[3], " ", x$units[3], "\n"))
+  dimension_names = c('x','y','z')
+  for (dimidx in 1:length(x$voxdims)) {
+    cat(" ",dimension_names[dimidx] ,"=", paste0(x$voxdims[dimidx], " ",
+        purrr::pluck(x$units,dimidx,.default = x$units[1]), "\n")) }
   cat(paste0("Bounding box (", x$units[1], "):\n"))
   cat("  x =", paste0(x$BoundingBox[1, 1], ", y = ", x$BoundingBox[1, 2], ", z = ", x$BoundingBox[1, 3], ",\n"))
   cat("  x =", paste0(x$BoundingBox[2, 1], ", y = ", x$BoundingBox[2, 2], ", z = ", x$BoundingBox[2, 3], ".\n"))
