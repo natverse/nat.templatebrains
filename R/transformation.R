@@ -185,6 +185,21 @@ allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
 #' plot(bridging_graph(), vertex.size=25)
 #' }
 bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs'), reciprocal=NA) {
+  sha512=digest(list(regdirs, reciprocal), algo = "sha512")
+  bg=.bridging_graph[[sha512]]
+  if(is.null(bg)){
+    bg=make_bridging_graph(regdirs, reciprocal)
+    .bridging_graph[[sha512]]=bg
+  }
+  bg
+}
+
+set_bridging_graph <- function(bg, regdirs=getOption('nat.templatebrains.regdirs'), reciprocal=NA) {
+  sha512=digest(list(regdirs, reciprocal), algo = "sha512")
+  .bridging_graph[[sha512]]=bg
+}
+
+make_bridging_graph <- function(regdirs, reciprocal) {
   df=allreg_dataframe(regdirs)
   if(nrow(df)==0) return(NULL)
   # just keep the bridging registrations
@@ -205,10 +220,15 @@ bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs'), reci
   g
 }
 
+
+
+
+
 #' @importFrom memoise forget memoise
 reset_cache <- function() {
-  memoise::forget(shortest_bridging_seq)
-  memoise::memoise(shortest_bridging_seq)
+  # memoise::forget(shortest_bridging_seq)
+  # memoise::memoise(shortest_bridging_seq)
+  rm(list=ls(.bridging_graph), envir = .bridging_graph)
 }
 
 #' @description \code{shortest_bridging_seq} finds the shortest bridging

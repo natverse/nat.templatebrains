@@ -7,3 +7,5 @@
 
   invisible()
 }
+
+.bridging_graph <- new.env()
