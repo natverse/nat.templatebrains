@@ -5,3 +5,6 @@ travisbuildchildren.sh
 ^build-cmtk.sh$
 ^_pkgdown\.yml$
 ^docs$
+^LICENSE\.md$
+^\.github$
+^pkgdown$

@@ -1,29 +1,36 @@
-Package: nat.templatebrains
 Type: Package
-Title: NeuroAnatomy Toolbox ('nat') Extension for Handling Template Brains
+Package: nat.templatebrains
+Title: NeuroAnatomy Toolbox ('nat') Extension for Handling
+    Template Brains
 Version: 0.9
-Authors@R: c(
-    person("Gregory", "Jefferis", email = "jefferis@gmail.com", 
-    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0587-9355")),
-    person("James", "Manton", email = "ajd.manton@googlemail.com",
-    role = c("aut"), comment = c(ORCID = "0000-0001-9260-3156"))
-    )
-Description: Extends package 'nat' (NeuroAnatomy Toolbox) by providing objects
-    and functions for handling template brains.
+Authors@R: 
+    c(person(given = "Gregory",
+             family = "Jefferis",
+             role = c("aut", "cre"),
+             email = "jefferis@gmail.com",
+             comment = c(ORCID = "0000-0002-0587-9355")),
+      person(given = "James",
+             family = "Manton",
+             role = "aut",
+             email = "ajd.manton@googlemail.com",
+             comment = c(ORCID = "0000-0001-9260-3156")))
+Description: Extends package 'nat' (NeuroAnatomy Toolbox) by
+    providing objects and functions for handling template brains.
 License: GPL-3
-Depends:
-    R (>= 2.10),
-    rgl,
-    nat (>= 1.8.6)
-Imports:
-    igraph,
-    digest,
-    rappdirs,
-    memoise
-Suggests:
-    testthat (>= 0.10),
-    git2r (>= 0.22.1),
-    nabor
 URL: https://github.com/jefferislab/nat.templatebrains
-RoxygenNote: 6.1.1
+Depends:
+    nat (>= 1.8.6),
+    R (>= 2.10),
+    rgl
+Imports:
+    digest,
+    igraph,
+    memoise,
+    rappdirs
+Suggests:
+    git2r (>= 0.22.1),
+    nabor,
+    testthat (>= 0.10)
 Encoding: UTF-8
+RoxygenNote: 6.1.1
+BugReports: https://github.com/jefferislab/nat.templatebrains/issues
