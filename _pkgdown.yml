@@ -27,6 +27,11 @@ reference:
   - bridging_sequence
   - bridging_graph
   - allreg_dataframe
+- title: Finding Template Brains
+  desc: Functions that help you find available template brain objects
+  contents:
+  - all_templatebrains
+  - guess_templatebrain
 - title: Managing Registrations
   desc: Functions that inform the package of available bridging
     registrations or download / update registrations from remote sources.
