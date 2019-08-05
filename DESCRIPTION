@@ -17,7 +17,7 @@ Authors@R:
 Description: Extends package 'nat' (NeuroAnatomy Toolbox) by
     providing objects and functions for handling template brains.
 License: GPL-3
-URL: https://github.com/jefferislab/nat.templatebrains
+URL: https://github.com/natverse/nat.templatebrains
 Depends:
     nat (>= 1.8.6),
     R (>= 2.10),
@@ -33,4 +33,4 @@ Suggests:
     testthat (>= 0.10)
 Encoding: UTF-8
 RoxygenNote: 6.1.1
-BugReports: https://github.com/jefferislab/nat.templatebrains/issues
+BugReports: https://github.com/natverse/nat.templatebrains/issues

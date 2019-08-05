@@ -1,11 +1,11 @@
 # nat.templatebrains
 <!-- badges: start -->
 [![natverse](https://img.shields.io/badge/natverse-Part%20of%20the%20natverse-a241b6)](https://natverse.github.io)
-[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://jefferislab.github.io/nat.templatebrains/reference/)
+[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/nat.templatebrains/reference/)
 [![CRAN status](https://www.r-pkg.org/badges/version/nat.templatebrains)](https://CRAN.R-project.org/package=nat.templatebrains)
-[![Release Version](https://img.shields.io/github/release/jefferislab/nat.templatebrains.svg)](https://github.com/jefferislab/nat.templatebrains/releases/latest) 
-[![Build Status](https://travis-ci.org/jefferislab/nat.templatebrains.svg)](https://travis-ci.org/jefferislab/nat.templatebrains)
-[![Coverage Status](https://img.shields.io/coveralls/jefferislab/nat.templatebrains.svg)](https://coveralls.io/r/jefferislab/nat.templatebrains?branch=master)
+[![Release Version](https://img.shields.io/github/release/natverse/nat.templatebrains.svg)](https://github.com/natverse/nat.templatebrains/releases/latest) 
+[![Build Status](https://travis-ci.org/natverse/nat.templatebrains.svg)](https://travis-ci.org/natverse/nat.templatebrains)
+[![Coverage Status](https://img.shields.io/coveralls/natverse/nat.templatebrains.svg)](https://coveralls.io/r/natverse/nat.templatebrains?branch=master)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 <!-- badges: end -->
 
@@ -66,8 +66,8 @@ version of the nat package if you do this.
 
 ```r
 if (!require("devtools")) install.packages("devtools")
-devtools::install_github("jefferislab/nat")
-devtools::install_github("jefferislab/nat.templatebrains")
+devtools::install_github("natverse/nat")
+devtools::install_github("natverse/nat.templatebrains")
 ```
 
 Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) as 
