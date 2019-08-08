@@ -17,7 +17,8 @@ Authors@R:
 Description: Extends package 'nat' (NeuroAnatomy Toolbox) by
     providing objects and functions for handling template brains.
 License: GPL-3
-URL: https://github.com/natverse/nat.templatebrains
+URL: https://natverse.github.io/nat.templatebrains,
+    https://github.com/natverse/nat.templatebrains
 Depends:
     nat (>= 1.8.6),
     R (>= 2.10),
