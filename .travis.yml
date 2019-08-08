@@ -1,5 +1,9 @@
 language: r
 sudo: required
+addons:
+  apt:
+    packages:
+    - libglu1-mesa-dev
 cache:
   packages: true
   directories:
