@@ -30,7 +30,8 @@ Imports:
 Suggests:
     git2r (>= 0.22.1),
     nabor,
-    testthat (>= 0.10)
+    testthat (>= 0.10),
+    covr
 Encoding: UTF-8
 RoxygenNote: 6.1.1
 BugReports: https://github.com/natverse/nat.templatebrains/issues
