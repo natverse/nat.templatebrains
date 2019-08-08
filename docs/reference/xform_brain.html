@@ -81,11 +81,17 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
+<li>
+  <a href="../SUPPORT.html">Help</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jefferislab/nat.templatebrains">
+  <a href="https://natverse.github.io">natverse</a>
+</li>
+<li>
+  <a href="https://github.com/natverse/nat.templatebrains">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -103,7 +109,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Transform 3D object between template brains</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jefferislab/nat.templatebrains/blob/master/R/transformation.R'><code>R/transformation.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/natverse/nat.templatebrains/blob/master/R/transformation.R'><code>R/transformation.R</code></a></small>
     <div class="hidden name"><code>xform_brain.Rd</code></div>
     </div>
 
@@ -114,7 +120,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>xform_brain</span>(<span class='no'>x</span>, <span class='kw'>sample</span> <span class='kw'>=</span> <span class='fu'><a href='regtemplate.html'>regtemplate</a></span>(<span class='no'>x</span>), <span class='no'>reference</span>, <span class='kw'>via</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>imagedata</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>is.character</a></span>(<span class='no'>x</span>), <span class='kw'>checkboth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>imagedata</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>is.character</a></span>(<span class='no'>x</span>), <span class='kw'>checkboth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,8 +154,15 @@ only supported as a file on disk) or 3D object vertices - see details.</p></td>
 directions. See details.</p></td>
     </tr>
     <tr>
+      <th>target</th>
+      <td><p>When transforming image data, this specifies the target space
+(defaults to <code>reference</code> when <code>imagedata=TRUE</code>). See Details.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
-      <td><p>extra arguments to pass to <code><a href='https://www.rdocumentation.org/packages/nat/topics/xform'>xform</a></code>.</p></td>
+      <td><p>extra arguments to pass to <code><a href='https://www.rdocumentation.org/packages/nat/topics/xform'>xform</a></code> and then on to
+<code><a href='https://www.rdocumentation.org/packages/nat/topics/xformpoints'>xformpoints</a></code> or <code><a href='https://www.rdocumentation.org/packages/nat/topics/xformimage'>xformimage</a></code> which will
+eventually hand off to <code>cmtk.reformatx</code> when using CMTK.</p></td>
     </tr>
     </table>
     
@@ -158,6 +171,14 @@ directions. See details.</p></td>
     <p>NB the <code>sample</code>, <code>reference</code> and <code>via</code> brains can
   either be <code>templatebrain</code> objects or a character string containing the
   short name of the template e.g. <code>"IS2"</code>.</p>
+<p>When transforming image data (<code>imagedata=TRUE</code>), the <code>target</code>
+  argument should normally be specified. This defines the absolute/voxel
+  dimensions of the target space. This can be calculated from a
+  <code>templatebrain</code> object, so by default it will be set to the value of
+  the <code>reference</code> argument. Alternatively an image file on disk can be
+  specified; this is essential if the <code>reference</code> argument does not
+  specify a <code><a href='templatebrain.html'>templatebrain</a></code> object but instead just names a
+  template space (i.e. is a string).</p>
 <p>The significance of the <code>imagedata</code> and <code>checkboth</code> arguments is
   that CMTK registrations are not directly invertible although they can be
   numerically inverted in most cases (unless there are regions where folding
@@ -173,7 +194,9 @@ directions. See details.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='mirror_brain.html'>mirror_brain</a></code>, <code><a href='regtemplate.html'>regtemplate</a></code></p></div>
+    <div class='dont-index'><p><code><a href='mirror_brain.html'>mirror_brain</a></code>, <code><a href='regtemplate.html'>regtemplate</a></code>,
+  <code>xform</code>. <code>xformpoints</code>, <code>xformimage</code>,
+  <code>cmtk.reformatx</code> (for transforming image data with CMTK).</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -206,11 +229,18 @@ directions. See details.</p></td>
 
 
 <span class='co'>## reformat image examples</span>
-<span class='co'># see ?cmtk.reformatx for details of all additional arguments</span>
-<span class='fu'>xform_brain</span>(<span class='st'>'in.nrrd'</span>, <span class='kw'>sample</span><span class='kw'>=</span><span class='no'>FCWB</span>, <span class='kw'>ref</span><span class='kw'>=</span><span class='no'>JFRC2</span>, <span class='kw'>output</span><span class='kw'>=</span><span class='st'>'out.nrrd'</span>, <span class='kw'>Verbose</span><span class='kw'>=</span><span class='no'>F</span>)
+<span class='co'># see ?cmtk.reformatx for details of any additional arguments</span>
+<span class='co'># note that for image data a target space defining the dimensions of the</span>
+<span class='co'># output image must be specified - this happens by default using the</span>
+<span class='co'># reference templatebrain object</span>
+<span class='fu'>xform_brain</span>(<span class='st'>'in.nrrd'</span>, <span class='kw'>sample</span><span class='kw'>=</span><span class='no'>FCWB</span>, <span class='kw'>ref</span><span class='kw'>=</span><span class='no'>JFRC2</span>, <span class='kw'>output</span><span class='kw'>=</span><span class='st'>'out.nrrd'</span>)
+<span class='co'># or you can specify an image file explicitly as target</span>
+<span class='fu'>xform_brain</span>(<span class='st'>'in.nrrd'</span>, <span class='kw'>sample</span><span class='kw'>=</span><span class='no'>FCWB</span>, <span class='kw'>ref</span><span class='kw'>=</span><span class='no'>JFRC2</span>, <span class='kw'>output</span><span class='kw'>=</span><span class='st'>'out.nrrd'</span>,
+            <span class='kw'>target</span><span class='kw'>=</span><span class='st'>'JFRC2.nrrd'</span>)
 
-<span class='co'># use nearest neighbour interpolation for label field</span>
-<span class='fu'>xform_brain</span>(<span class='st'>'labels.nrrd'</span>, <span class='kw'>sample</span><span class='kw'>=</span><span class='no'>FCWB</span>, <span class='kw'>ref</span><span class='kw'>=</span><span class='no'>JFRC2</span>, <span class='kw'>output</span><span class='kw'>=</span><span class='st'>'out.nrrd'</span>, <span class='kw'>interpolation</span><span class='kw'>=</span><span class='st'>'nn'</span>)
+<span class='co'># use partial volume interpolation for label field</span>
+<span class='fu'>xform_brain</span>(<span class='st'>'labels.nrrd'</span>, <span class='kw'>sample</span><span class='kw'>=</span><span class='no'>FCWB</span>, <span class='kw'>ref</span><span class='kw'>=</span><span class='no'>JFRC2</span>, <span class='kw'>output</span><span class='kw'>=</span><span class='st'>'out.nrrd'</span>,
+            <span class='kw'>interpolation</span><span class='kw'>=</span><span class='st'>'pv'</span>)
 
 <span class='co'># use binary mask to restrict (and speed up) reformatting</span>
 <span class='fu'>xform_brain</span>(<span class='st'>'in.nrrd'</span>, <span class='kw'>sample</span><span class='kw'>=</span><span class='no'>FCWB</span>, <span class='kw'>ref</span><span class='kw'>=</span><span class='no'>JFRC2</span>, <span class='kw'>output</span><span class='kw'>=</span><span class='st'>'out.nrrd'</span>, <span class='kw'>mask</span><span class='kw'>=</span><span class='st'>'neuropil.nrrd'</span>)

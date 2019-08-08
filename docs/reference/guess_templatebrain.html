@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get or set the registration template space in which an object lives — regtemplate • nat.templatebrains</title>
+<title>Find all template brains or those matching a given image volume — all_templatebrains • nat.templatebrains</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,11 @@
 
 
 
-<meta property="og:title" content="Get or set the registration template space in which an object lives — regtemplate" />
+<meta property="og:title" content="Find all template brains or those matching a given image volume — all_templatebrains" />
 
-<meta property="og:description" content="Get or set the registration template space in which an object lives" />
+<meta property="og:description" content="all_templatebrains returns a data.frame detailing all
+  templatebrain objects on the search path (including those inside
+  packages)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -108,58 +110,87 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get or set the registration template space in which an object lives</h1>
+    <h1>Find all template brains or those matching a given image volume</h1>
     <small class="dont-index">Source: <a href='https://github.com/natverse/nat.templatebrains/blob/master/R/regtemplate.R'><code>R/regtemplate.R</code></a></small>
-    <div class="hidden name"><code>regtemplate.Rd</code></div>
+    <div class="hidden name"><code>guess_templatebrain.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Get or set the registration template space in which an object lives</p>
+    <p><code>all_templatebrains</code> returns a data.frame detailing all
+  <code>templatebrain</code> objects on the search path (including those inside
+  packages).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>regtemplate</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>all_templatebrains</span>(<span class='kw'>cached</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>remove.duplicates</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>regtemplate</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
+<span class='fu'>guess_templatebrain</span>(<span class='no'>x</span>, <span class='kw'>rval</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"templatebrain"</span>, <span class='st'>"name"</span>),
+  <span class='kw'>cached</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>The 3D object whose registration space will be set/returned</p></td>
+      <th>cached</th>
+      <td><p>When <code>TRUE</code> returns precomputed (memoised) results,
+otherwise rescans searching for all template brains.</p></td>
     </tr>
     <tr>
-      <th>value</th>
-      <td><p>The registration template brain (either a character vector
-naming the space or a <code><a href='templatebrain.html'>templatebrain</a></code> object)</p></td>
+      <th>remove.duplicates</th>
+      <td><p>Whether to remove duplicate template brains (as
+determined by md5 hash) from the result list</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>An image object</p></td>
+    </tr>
+    <tr>
+      <th>rval</th>
+      <td><p>Whether to return the <code><a href='templatebrain.html'>templatebrain</a></code> object itself
+or just its name.</p></td>
+    </tr>
+    <tr>
+      <th>mustWork</th>
+      <td><p>Whether to insist that exactly one template brain is found</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Either a <code>templatebrain</code> object or the newly tagged object</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p>For <code>all_templatebrains</code>, a <code>data.frame</code> containing the
+  following columns:</p><ul>
+<li><p>object The name of the <code>templatebrain</code> object</p></li>
+<li><p>pos An integer specifying the environment</p></li>
+<li><p>package Character vector naming the environment</p></li>
+<li><p>md5 md5 hash of the <code>templatebrain</code> object</p></li>
+<li><p>name</p></li>
+<li><p>W,H,D Width, height and depth of image stack (pixels)</p></li>
+</ul>
 
-    <p>In order to facilitate transformations between objects in defined
-  anatomical spaces these functions allow the registration template for an
-  object to be specified. Most of the time you will not need to use these
-  functions manually since the appropriate space will be set by the function
-  xform_brain and friends.</p>
+<p><code>guess_templatebrain</code> returns a <code><a href='templatebrain.html'>templatebrain</a></code>
+  object when <code>rval='templatebrain'</code> or a character vector when
+  <code>rval='name'</code>.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='templatebrain.html'>templatebrain</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>nat.flybrains</span>)
-<span class='no'>kcs3</span><span class='kw'>=</span><span class='no'>kcs20</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]
-<span class='fu'>regtemplate</span>(<span class='no'>kcs3</span>)<span class='kw'>=</span><span class='no'>FCWB</span>
-<span class='fu'>regtemplate</span>(<span class='no'>kcs3</span>)
+<span class='fu'>all_templatebrains</span>()
 
-<span class='no'>kcs3m</span><span class='kw'>=</span><span class='fu'><a href='mirror_brain.html'>mirror_brain</a></span>(<span class='no'>kcs3</span>, <span class='kw'>brain</span><span class='kw'>=</span><span class='fu'>regtemplate</span>(<span class='no'>kcs20</span>))
-<span class='fu'>plot3d</span>(<span class='no'>kcs3</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>'red'</span>)
-<span class='fu'>plot3d</span>(<span class='no'>kcs3m</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>'green'</span>)
+<span class='fu'>guess_templatebrain</span>(<span class='fu'>im3d</span>(<span class='kw'>dims</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>30</span>,<span class='fl'>40</span>,<span class='fl'>50</span>)))
+<span class='fu'>guess_templatebrain</span>(<span class='st'>'path/to/my/image.nrrd'</span>)
+
+<span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>'nat.flybrains'</span>)){
+  <span class='fu'>guess_templatebrain</span>(<span class='fu'>im3d</span>(<span class='kw'>dims</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1024</span>,<span class='fl'>512</span>,<span class='fl'>218</span>)), <span class='kw'>rval</span> <span class='kw'>=</span> <span class='st'>'name'</span>)
+  <span class='co'># get the matching template brain</span>
+  <span class='no'>tb</span><span class='kw'>=</span><span class='fu'>guess_templatebrain</span>(<span class='fu'>im3d</span>(<span class='kw'>dims</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1024</span>,<span class='fl'>512</span>,<span class='fl'>218</span>)), <span class='kw'>rval</span> <span class='kw'>=</span> <span class='st'>'brain'</span>)
+  <span class='co'># get its voxel dimensions</span>
+  <span class='fu'>voxdims</span>(<span class='no'>tb</span>)
+}
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -169,7 +200,7 @@ naming the space or a <code><a href='templatebrain.html'>templatebrain</a></code
       
       <li><a href="#value">Value</a></li>
 
-      <li><a href="#details">Details</a></li>
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
