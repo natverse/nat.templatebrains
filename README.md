@@ -4,7 +4,7 @@
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/nat.templatebrains/reference/)
 [![CRAN status](https://www.r-pkg.org/badges/version/nat.templatebrains)](https://CRAN.R-project.org/package=nat.templatebrains)
 [![Release Version](https://img.shields.io/github/release/natverse/nat.templatebrains.svg)](https://github.com/natverse/nat.templatebrains/releases/latest) 
-[![Build Status](https://travis-ci.org/natverse/nat.templatebrains.svg)](https://travis-ci.org/natverse/nat.templatebrains)
+[![Build Status](https://travis-ci.org/natverse/nat.templatebrains.svg?branch=master)](https://travis-ci.org/natverse/nat.templatebrains)
 [![Coverage Status](https://img.shields.io/coveralls/natverse/nat.templatebrains.svg)](https://coveralls.io/r/natverse/nat.templatebrains?branch=master)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 <!-- badges: end -->
