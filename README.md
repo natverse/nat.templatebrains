@@ -7,6 +7,7 @@
 [![Build Status](https://travis-ci.org/natverse/nat.templatebrains.svg?branch=master)](https://travis-ci.org/natverse/nat.templatebrains)
 [![Coverage Status](https://coveralls.io/repos/github/natverse/nat.templatebrains/badge.svg)](https://coveralls.io/r/natverse/nat.templatebrains?branch=master)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![Downloads](http://cranlogs.r-pkg.org/badges/nat.templatebrains?color=brightgreen)](http://www.r-pkg.org/pkg/nat.templatebrains)
 <!-- badges: end -->
 
 ## Quick Start
