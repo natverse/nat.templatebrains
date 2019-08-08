@@ -66,10 +66,10 @@ this using devtools. You will probably also wish to install the development
 version of the nat package if you do this.
 
 ```r
-if (!require("devtools")) install.packages("devtools")
-devtools::install_github("natverse/nat")
-devtools::install_github("natverse/nat.templatebrains")
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("natverse/nat")
+remotes::install_github("natverse/nat.templatebrains")
 ```
 
-Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) as 
-well as [devtools](https://CRAN.R-project.org/package=devtools) to install this way.
+Note: Windows users may need [Rtools](http://www.murdoch-sutherland.com/Rtools/) as 
+well as [remotes](https://CRAN.R-project.org/package=remotes) to install this way.
