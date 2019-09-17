@@ -226,13 +226,37 @@ reset_cache <- function() {
 #' shortest_bridging_seq('FCWB', 'IS2')
 #' }
 shortest_bridging_seq <-
-  function(sample, reference, checkboth = TRUE, imagedata = FALSE, reciprocal=NA, ...) {
+  function(sample, reference, via=NULL, checkboth = TRUE, imagedata = FALSE,
+           reciprocal=NA, ...) {
+
     reciprocal <- if (checkboth && is.na(reciprocal)) {
       ifelse(imagedata, 100, 1.01)
     } else NA
 
     sample = as.character(sample)
     reference = as.character(reference)
+
+    if(!is.null(via)) {
+      leg1 = shortest_bridging_seq(
+        sample = sample,
+        reference = via,
+        checkboth = checkboth,
+        imagedata = imagedata,
+        reciprocal = reciprocal,
+        ...
+      )
+      leg2 = shortest_bridging_seq(
+        sample = via,
+        reference = reference,
+        checkboth = checkboth,
+        imagedata = imagedata,
+        reciprocal = reciprocal,
+        ...
+      )
+      seq=simplify_bridging_sequence(c(leg1, leg2))
+      attr(seq, 'vpath')=union(attr(leg1, 'vpath'), attr(leg2, 'vpath'))
+      return(seq)
+    }
 
     # nothing to do ...
     if(isTRUE(all.equal(sample, reference, check.attributes=FALSE)))
@@ -257,7 +281,7 @@ shortest_bridging_seq <-
       warning("Bridging seq requires an inversion. This is very slow for image data!")
 
     gsp = get.shortest.paths(
-      g, from = sample, to = reference, mode = 'out', output = 'epath'
+      g, from = sample, to = reference, mode = 'out', output = 'both'
     )
     epath = gsp$epath[[1]]
     seq=mapply(function(x,y) {
@@ -266,7 +290,9 @@ shortest_bridging_seq <-
     },
     E(g)[epath]$path, E(g)[epath]$swap,
     USE.NAMES = F, SIMPLIFY = F)
-    simplify_bridging_sequence(seq)
+    seq <- simplify_bridging_sequence(seq)
+    attr(seq, 'vpath')=names(gsp$vpath[[1]])
+    seq
   }
 
 #' Transform 3D object between template brains
