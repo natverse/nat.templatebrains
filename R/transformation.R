@@ -205,10 +205,9 @@ bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs'), reci
   g
 }
 
-#' @importFrom memoise forget memoise
+#' @importFrom memoise forget
 reset_cache <- function() {
-  memoise::forget(shortest_bridging_seq)
-  memoise::memoise(shortest_bridging_seq)
+  forget(shortest_bridging_seq)
 }
 
 #' @description \code{shortest_bridging_seq} finds the shortest bridging
