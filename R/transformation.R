@@ -234,6 +234,18 @@ shortest_bridging_seq <-
 
     sample = as.character(sample)
     reference = as.character(reference)
+    if(!is.null(via)) {
+      via=as.character(via)
+      if(length(via)>1) stop("I can only accept one via brain at the moment!")
+      if(isTRUE(via==sample || via==reference)) {
+        warning("Ignoring via argument as identical to reference or sample!")
+        via=NULL
+      }
+    }
+
+    # nothing to do ...
+    if(isTRUE(all.equal(sample, reference, check.attributes=FALSE)))
+      return(NULL)
 
     if(!is.null(via)) {
       leg1 = shortest_bridging_seq(
@@ -256,10 +268,6 @@ shortest_bridging_seq <-
       attr(seq, 'vpath')=union(attr(leg1, 'vpath'), attr(leg2, 'vpath'))
       return(seq)
     }
-
-    # nothing to do ...
-    if(isTRUE(all.equal(sample, reference, check.attributes=FALSE)))
-      return(NULL)
 
     g = bridging_graph(reciprocal = reciprocal, ...)
     if(is.null(g)) stop("No bridging registrations available!")

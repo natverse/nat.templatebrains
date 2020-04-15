@@ -112,19 +112,19 @@ test_that("bridging graph and friends work",{
 
   baseline=reglist(file.path(td, "/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/FCWB_IS2.list"),
     swap = TRUE)
-  expect_equal(shortest_bridging_seq('FCWB', 'IS2'), baseline)
+  expect_equivalent(shortest_bridging_seq('FCWB', 'IS2'), baseline)
   expect_is(shortest_bridging_seq('FCWB', 'IBN'), 'reglist')
   expect_warning(fcwb_ibn<-shortest_bridging_seq('FCWB', 'IBN', imagedata = T),
                  'very slow for image data')
 
   # TODO think about normalising handling of swap attribute by reglist and
-  # nat.templatbrains functions (always present? only when T?)
+  # nat.templatebrains functions (always present? only when T?)
   bl=reglist(file.path(td,"/Users/jefferis/Library/Application Support/rpkg-nat.flybrains/regrepos/BridgingRegistrations/JFRC2_FCWB.list"),
              structure(file.path(td,"/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/JFRC2_IBNWB.list"),
                        swap=TRUE),
              structure(file.path(td,"/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/IBNWB_IBN.list"),
                        swap=TRUE))
-  expect_equal(fcwb_ibn, bl)
+  expect_equivalent(fcwb_ibn, bl)
   expect_error(shortest_bridging_seq('FCWB', 'crumble'))
 })
 
