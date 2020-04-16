@@ -181,7 +181,7 @@ test_that("can use a bridging registration in regdirs",{
   xform_brain(imfile, reference='JFRC2',sample='JFRC2', via='IS2', output=outfile,
               target=imfile, checkboth = TRUE, Verbose=F)
   kc2=dotprops(outfile)
-  # write an inverted registraion
+  # write an inverted registration
   cmtk.mat2dof(solve(aff), file.path(td,"IS2_JFRC2.list"))
   outfile2=file.path(td2, 'kcim_roundtrip2.nrrd')
   # check we can still xform image

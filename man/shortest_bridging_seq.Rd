@@ -5,11 +5,20 @@
 \alias{shortest_bridging_seq}
 \title{Make or query connected graph of bridging registrations}
 \usage{
-bridging_graph(regdirs = getOption("nat.templatebrains.regdirs"),
-  reciprocal = NA)
+bridging_graph(
+  regdirs = getOption("nat.templatebrains.regdirs"),
+  reciprocal = NA
+)
 
-shortest_bridging_seq(sample, reference, checkboth = TRUE,
-  imagedata = FALSE, reciprocal = NA, ...)
+shortest_bridging_seq(
+  sample,
+  reference,
+  via = NULL,
+  checkboth = TRUE,
+  imagedata = FALSE,
+  reciprocal = NA,
+  ...
+)
 }
 \arguments{
 \item{regdirs}{Character vector of directories to search for registrations
@@ -18,10 +27,14 @@ shortest_bridging_seq(sample, reference, checkboth = TRUE,
 \item{reciprocal}{Sets the weight of reciprocal edges in the graph (and
 thereby whether inverse registrations will be considered).}
 
-\item{sample}{Source template brain (e.g. IS2) that data is currently in.}
+\item{sample}{Source template brain (e.g. IS2) that data is currently in.
+Specified either as character vector or a \code{templatebrain} object.}
 
 \item{reference}{Target template brain (e.g. IS2) that data should be
 transformed into.}
+
+\item{via}{(optional) intermediate template brain that the registration
+sequence must pass through.}
 
 \item{checkboth}{When \code{TRUE} will look for registrations in both
 directions. See details.}

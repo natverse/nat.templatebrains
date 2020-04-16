@@ -4,19 +4,29 @@
 \alias{xform_brain}
 \title{Transform 3D object between template brains}
 \usage{
-xform_brain(x, sample = regtemplate(x), reference, via = NULL,
-  imagedata = is.character(x), checkboth = NULL, target = NULL, ...)
+xform_brain(
+  x,
+  sample = regtemplate(x),
+  reference,
+  via = NULL,
+  imagedata = is.character(x),
+  checkboth = NULL,
+  target = NULL,
+  Verbose = interactive(),
+  ...
+)
 }
 \arguments{
 \item{x}{the 3D object to be transformed}
 
-\item{sample}{Source template brain (e.g. IS2) that data is currently in.}
+\item{sample}{Source template brain (e.g. IS2) that data is currently in.
+Specified either as character vector or a \code{templatebrain} object.}
 
 \item{reference}{Target template brain (e.g. IS2) that data should be
 transformed into.}
 
-\item{via}{optional intermediate brain to use when there is no direct
-bridging registration.}
+\item{via}{(optional) intermediate template brain that the registration
+sequence must pass through.}
 
 \item{imagedata}{Whether \code{x} should be treated as image data (presently
 only supported as a file on disk) or 3D object vertices - see details.}
@@ -26,6 +36,8 @@ directions. See details.}
 
 \item{target}{When transforming image data, this specifies the target space
 (defaults to \code{reference} when \code{imagedata=TRUE}). See Details.}
+
+\item{Verbose}{Whether to show a message with the sequence of template brains}
 
 \item{...}{extra arguments to pass to \code{\link[nat]{xform}} and then on to
 \code{\link[nat]{xformpoints}} or \code{\link[nat]{xformimage}} which will
@@ -88,7 +100,7 @@ clear3d()
 plot3d(kcs20.jfrc2)
 # nb "MB.*_L" is a regular expression
 plot3d(JFRC2NP.surf, "MB.*_L", alpha=0.3)
-# compare with originals - briging registration is no perfect in peduncle
+# compare with originals - bridging registration is no perfect in peduncle
 nopen3d()
 plot3d(kcs20)
 plot3d(FCWBNP.surf, "MB.*_L", alpha=0.3)

@@ -335,16 +335,18 @@ shortest_bridging_seq <-
 #'
 #' @param x the 3D object to be transformed
 #' @param sample Source template brain (e.g. IS2) that data is currently in.
+#'   Specified either as character vector or a \code{templatebrain} object.
 #' @param reference Target template brain (e.g. IS2) that data should be
 #'   transformed into.
-#' @param via optional intermediate brain to use when there is no direct
-#'   bridging registration.
+#' @param via (optional) intermediate template brain that the registration
+#'   sequence must pass through.
 #' @param imagedata Whether \code{x} should be treated as image data (presently
 #'   only supported as a file on disk) or 3D object vertices - see details.
 #' @param checkboth When \code{TRUE} will look for registrations in both
 #'   directions. See details.
 #' @param target When transforming image data, this specifies the target space
 #'   (defaults to \code{reference} when \code{imagedata=TRUE}). See Details.
+#' @param Verbose Whether to show a message with the sequence of template brains
 #' @param ... extra arguments to pass to \code{\link[nat]{xform}} and then on to
 #'   \code{\link[nat]{xformpoints}} or \code{\link[nat]{xformimage}} which will
 #'   eventually hand off to \code{\link{cmtk.reformatx}} when using CMTK.
@@ -376,7 +378,7 @@ shortest_bridging_seq <-
 #' plot3d(kcs20.jfrc2)
 #' # nb "MB.*_L" is a regular expression
 #' plot3d(JFRC2NP.surf, "MB.*_L", alpha=0.3)
-#' # compare with originals - briging registration is no perfect in peduncle
+#' # compare with originals - bridging registration is no perfect in peduncle
 #' nopen3d()
 #' plot3d(kcs20)
 #' plot3d(FCWBNP.surf, "MB.*_L", alpha=0.3)
@@ -401,21 +403,20 @@ shortest_bridging_seq <-
 #' }
 xform_brain <- function(x, sample=regtemplate(x), reference, via=NULL,
                         imagedata=is.character(x), checkboth=NULL, target=NULL,
-                        ...) {
+                        Verbose=interactive(), ...) {
   if(is.null(sample))
     stop("Invalid sample argument!\n",
          "Either specify manually or use regtemplate(x) <- to set space for x.")
-  if(is.null(via)) {
-    # use bridging_graph, with checkboth = TRUE
-    if(is.null(checkboth)) checkboth=TRUE
-    # use imagedata to choose reciprocal weight
-    regs<-shortest_bridging_seq(sample = sample, reference = reference,
-                          checkboth = checkboth, imagedata = imagedata)
-  } else {
-    if(is.null(checkboth))
-      checkboth=!imagedata
-    regs <- bridging_sequence(reference=reference, sample=sample, via=via,
-                              checkboth = checkboth, mustWork = T)
+
+  # uses bridging_graph, with checkboth = TRUE
+  if(is.null(checkboth)) checkboth=TRUE
+  # use imagedata to choose reciprocal weight
+  regs<-shortest_bridging_seq(sample = sample, reference = reference,
+                        checkboth = checkboth, imagedata = imagedata, via=via)
+  vpath=attr(regs, 'vpath')
+  if(Verbose && !is.null(vpath)) {
+    prettypath <- paste(vpath, collapse = '->')
+    message("Transforming neurons using the sequence: ", prettypath)
   }
   xt <- if(is.null(regs)) {
     x
