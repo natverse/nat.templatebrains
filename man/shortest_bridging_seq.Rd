@@ -75,6 +75,8 @@ plot(bridging_graph(), vertex.size=25)
 shortest_bridging_seq(FCWB, IS2)
 # or
 shortest_bridging_seq('FCWB', 'IS2')
+
+shortest_bridging_seq(sample='FCWB', reference='IS2', via="JFRC2")
 }
 }
 \seealso{

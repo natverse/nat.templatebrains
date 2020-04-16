@@ -117,6 +117,56 @@ test_that("bridging graph and friends work",{
   expect_warning(fcwb_ibn<-shortest_bridging_seq('FCWB', 'IBN', imagedata = T),
                  'very slow for image data')
 
+  # more complex bridging sequences
+  bridging_path <- function(...) attr(shortest_bridging_seq(...), 'vpath')
+  expect_equal(
+    bridging_path(sample = "Cell07", reference = "IS2"),
+    c("Cell07", "IS2"))
+
+  templatebrain("IBN")
+  expect_equal(
+    bridging_path(sample = "IBN", reference = "Cell07"),
+    c("IBN", "IBNWB", "JFRC2", "IS2", "Cell07"))
+
+  expect_equal(
+    bridging_path(sample = "IBN", reference = "Cell07"),
+    c("IBN", "IBNWB", "JFRC2", "IS2", "Cell07"))
+
+  expect_equal(
+    bridging_path(sample = "IBN", reference = "Cell07", via='FCWB'),
+    c("IBN", "IBNWB", "JFRC2", "FCWB", "IS2", "Cell07"))
+
+  expect_equal(
+    bridging_path(sample = "IBN", reference = "Cell07",
+                  via=templatebrain('FCWB')),
+    c("IBN", "IBNWB", "JFRC2", "FCWB", "IS2", "Cell07"))
+
+  expect_equal(
+    bridging_path(sample = "IBN", reference = "Cell07",
+                  via=c("IBNWB", "JFRC2", "FCWB", "IS2")),
+    c("IBN", "IBNWB", "JFRC2", "FCWB", "IS2", "Cell07"))
+
+  expect_equal(
+    bridging_path(sample = "Cell07", reference = "Cell07", via='FCWB'),
+    c("Cell07", "IS2", "FCWB", "IS2", "Cell07"))
+
+  expect_equal(
+    bridging_path(sample = "Cell07", reference = "Cell07",
+                  via=c("IS2", "FCWB", "IS2")),
+    c("Cell07", "IS2", "FCWB", "IS2", "Cell07"))
+
+  expect_equal(
+    bridging_path(sample = "Cell07", reference = "Cell07",
+                  via=list(templatebrain("IS2"),
+                           templatebrain("FCWB"),
+                           templatebrain("IS2"))),
+    c("Cell07", "IS2", "FCWB", "IS2", "Cell07"))
+
+  expect_null(bridging_path(sample = "Cell07", reference = "Cell07"))
+
+  expect_error(bridging_path(sample = "Cell07", reference = "V2"))
+  expect_error(bridging_path(sample = "Cell07", reference = "V2", via='IS2'))
+
   # TODO think about normalising handling of swap attribute by reglist and
   # nat.templatebrains functions (always present? only when T?)
   bl=reglist(file.path(td,"/Users/jefferis/Library/Application Support/rpkg-nat.flybrains/regrepos/BridgingRegistrations/JFRC2_FCWB.list"),
