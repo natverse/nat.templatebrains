@@ -175,19 +175,23 @@ allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
 #' @param reciprocal Sets the weight of reciprocal edges in the graph (and
 #'   thereby whether inverse registrations will be considered).
 #' @inheritParams allreg_dataframe
-#' @seealso \code{\link{allreg_dataframe}}
+#' @seealso \code{\link{allreg_dataframe}}, \code{\link{xform_brain}}
 #' @export
 #' @importFrom igraph E E<- graph.edgelist
 #' @examples
 #' \dontrun{
+#' plot(bridging_graph(), vertex.size=25, edge.arrow.size=0.5)
+#' # with reciprocal edges
 #' plot(bridging_graph(reciprocal=3), vertex.size=25)
-#' # the same including
-#' plot(bridging_graph(), vertex.size=25)
 #' }
 bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs'), reciprocal=NA) {
   df=allreg_dataframe(regdirs)
   if(nrow(df)==0) return(NULL)
   # just keep the bridging registrations
+
+  if(!is.na(reciprocal) && (!is.numeric(reciprocal) || !is.finite(reciprocal)))
+    stop("reciprocal must be NA or specify the weight for reverse edges!")
+
   df=df[df$bridge & !df$dup,]
   el=as.matrix(df[,c("sample","reference")])
   if(is.na(reciprocal)){
