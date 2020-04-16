@@ -62,9 +62,9 @@ When \code{reciprocal != NA} we create a graph where each forward
 }
 \examples{
 \dontrun{
+plot(bridging_graph(), vertex.size=25, edge.arrow.size=0.5)
+# with reciprocal edges
 plot(bridging_graph(reciprocal=3), vertex.size=25)
-# the same including
-plot(bridging_graph(), vertex.size=25)
 }
 \dontrun{
 shortest_bridging_seq(FCWB, IS2)
@@ -73,5 +73,5 @@ shortest_bridging_seq('FCWB', 'IS2')
 }
 }
 \seealso{
-\code{\link{allreg_dataframe}}
+\code{\link{allreg_dataframe}}, \code{\link{xform_brain}}
 }
