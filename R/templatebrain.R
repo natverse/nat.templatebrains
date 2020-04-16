@@ -8,7 +8,7 @@
 #'
 #' A variety of methods are available to work on \code{templatebrain} objects. See
 #' \code{\link{templatebrain-meths}} for basic methods. The two main functions
-#' that are availavle for using template brains are \code{\link{xform_brain}} and
+#' that are available for using template brains are \code{\link{xform_brain}} and
 #' \code{\link{mirror_brain}}.
 #'
 #' \code{templatebrain} objects are only useful for transformation processes
@@ -68,7 +68,7 @@ templatebrain<-function(name, regName=name, type=NULL, sex=NULL, dims=NULL,
 #' @return A list with class \code{\link{templatebrain}}
 #' @details \code{as.templatebrain} can extract the key fields defining an
 #'   template space from an image file. This is generally a much more convenient
-#'   apprach to defining a \code{templatebrain} object than specifying all
+#'   approach to defining a \code{templatebrain} object than specifying all
 #'   fields by hand.
 #'
 #' @export

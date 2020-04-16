@@ -29,6 +29,7 @@ Imports:
     memoise,
     rappdirs
 Suggests:
+    spelling,
     git2r (>= 0.22.1),
     nabor,
     testthat (>= 2.1.0),
@@ -36,3 +37,4 @@ Suggests:
 Encoding: UTF-8
 RoxygenNote: 7.1.0
 BugReports: https://github.com/natverse/nat.templatebrains/issues
+Language: en-GB

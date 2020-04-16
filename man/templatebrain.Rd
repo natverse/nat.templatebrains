@@ -64,7 +64,7 @@ file or an im3d object into a \code{templatebrain}}.
 \details{
 A variety of methods are available to work on \code{templatebrain} objects. See
 \code{\link{templatebrain-meths}} for basic methods. The two main functions
-that are availavle for using template brains are \code{\link{xform_brain}} and
+that are available for using template brains are \code{\link{xform_brain}} and
 \code{\link{mirror_brain}}.
 
 \code{templatebrain} objects are only useful for transformation processes

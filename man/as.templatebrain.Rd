@@ -35,7 +35,7 @@ Use image file or other object to initialise template brain
 \details{
 \code{as.templatebrain} can extract the key fields defining an
   template space from an image file. This is generally a much more convenient
-  apprach to defining a \code{templatebrain} object than specifying all
+  approach to defining a \code{templatebrain} object than specifying all
   fields by hand.
 }
 \examples{

@@ -216,7 +216,7 @@ make_reg_url<-function(url) {
 #'
 #'   Note that this folder will always be the same place on a machine i.e. this
 #'   defines a consistent, persistent location on disk to store data across
-#'   sesssions.
+#'   sessions.
 #'
 #'   When called with a url, a SHA1 hash will be calculated for the URL and
 #'   appended to the basepath. This should ensure that locations derived from

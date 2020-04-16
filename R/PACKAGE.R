@@ -19,7 +19,7 @@
 #'
 #' @section Registrations: Functions such as \code{\link{xform_brain}} provided
 #'   by \code{nat.templatebrains} are not very useful unless you tell the
-#'   package about bridging/mirroring registrations that you have avilable.
+#'   package about bridging/mirroring registrations that you have available.
 #'   There are 4 supported ways to add registrations to the search list that
 #'   will be considered: \itemize{
 #'
