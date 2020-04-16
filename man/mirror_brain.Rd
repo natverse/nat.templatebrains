@@ -4,8 +4,13 @@
 \alias{mirror_brain}
 \title{Mirror 3D object around a given axis, optionally using a warping registration}
 \usage{
-mirror_brain(x, brain = regtemplate(x), mirrorAxis = c("X", "Y", "Z"),
-  transform = c("warp", "affine", "flip"), ...)
+mirror_brain(
+  x,
+  brain = regtemplate(x),
+  mirrorAxis = c("X", "Y", "Z"),
+  transform = c("warp", "affine", "flip"),
+  ...
+)
 }
 \arguments{
 \item{x}{the 3D object to be mirrored.}

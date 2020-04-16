@@ -14,8 +14,7 @@
 \usage{
 is.templatebrain(x)
 
-\method{as.character}{templatebrain}(x, field = c("regName", "name"),
-  ...)
+\method{as.character}{templatebrain}(x, field = c("regName", "name"), ...)
 
 \method{print}{templatebrain}(x, ...)
 

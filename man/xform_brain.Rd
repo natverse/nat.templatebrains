@@ -4,8 +4,16 @@
 \alias{xform_brain}
 \title{Transform 3D object between template brains}
 \usage{
-xform_brain(x, sample = regtemplate(x), reference, via = NULL,
-  imagedata = is.character(x), checkboth = NULL, target = NULL, ...)
+xform_brain(
+  x,
+  sample = regtemplate(x),
+  reference,
+  via = NULL,
+  imagedata = is.character(x),
+  checkboth = NULL,
+  target = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{the 3D object to be transformed}

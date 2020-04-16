@@ -4,8 +4,14 @@
 \alias{add_reglist}
 \title{Add reglist object describing a bridging/mirroring registration}
 \usage{
-add_reglist(x, reference = NULL, sample = NULL, mirror = NULL,
-  temp = TRUE, ...)
+add_reglist(
+  x,
+  reference = NULL,
+  sample = NULL,
+  mirror = NULL,
+  temp = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{A single \code{\link[nat]{reglist}} object (which )}

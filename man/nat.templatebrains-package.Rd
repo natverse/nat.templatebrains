@@ -108,11 +108,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Gregory Jefferis \email{jefferis@gmail.com} (0000-0002-0587-9355)
+\strong{Maintainer}: Gregory Jefferis \email{jefferis@gmail.com} (\href{https://orcid.org/0000-0002-0587-9355}{ORCID})
 
 Authors:
 \itemize{
-  \item James Manton \email{ajd.manton@googlemail.com} (0000-0001-9260-3156)
+  \item James Manton \email{ajd.manton@googlemail.com} (\href{https://orcid.org/0000-0001-9260-3156}{ORCID})
 }
 
 }

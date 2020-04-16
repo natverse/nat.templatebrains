@@ -7,8 +7,12 @@
 \usage{
 all_templatebrains(cached = TRUE, remove.duplicates = FALSE)
 
-guess_templatebrain(x, rval = c("templatebrain", "name"),
-  cached = TRUE, mustWork = FALSE)
+guess_templatebrain(
+  x,
+  rval = c("templatebrain", "name"),
+  cached = TRUE,
+  mustWork = FALSE
+)
 }
 \arguments{
 \item{cached}{When \code{TRUE} returns precomputed (memoised) results,

@@ -4,8 +4,14 @@
 \alias{bridging_sequence}
 \title{Find sequence of one or more bridging registrations}
 \usage{
-bridging_sequence(sample, reference, via = NULL, imagedata = FALSE,
-  checkboth = !imagedata, mustWork = FALSE)
+bridging_sequence(
+  sample,
+  reference,
+  via = NULL,
+  imagedata = FALSE,
+  checkboth = !imagedata,
+  mustWork = FALSE
+)
 }
 \arguments{
 \item{sample}{Source template brain (e.g. IS2) that data is currently in.}

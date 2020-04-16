@@ -5,11 +5,19 @@
 \alias{shortest_bridging_seq}
 \title{Make or query connected graph of bridging registrations}
 \usage{
-bridging_graph(regdirs = getOption("nat.templatebrains.regdirs"),
-  reciprocal = NA)
+bridging_graph(
+  regdirs = getOption("nat.templatebrains.regdirs"),
+  reciprocal = NA
+)
 
-shortest_bridging_seq(sample, reference, checkboth = TRUE,
-  imagedata = FALSE, reciprocal = NA, ...)
+shortest_bridging_seq(
+  sample,
+  reference,
+  checkboth = TRUE,
+  imagedata = FALSE,
+  reciprocal = NA,
+  ...
+)
 }
 \arguments{
 \item{regdirs}{Character vector of directories to search for registrations

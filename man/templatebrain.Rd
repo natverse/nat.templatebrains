@@ -4,9 +4,19 @@
 \alias{templatebrain}
 \title{Construct templatebrain object for an image registration template}
 \usage{
-templatebrain(name, regName = name, type = NULL, sex = NULL,
-  dims = NULL, BoundingBox = NULL, voxdims = NULL, units = NULL,
-  description = NULL, doi = NULL, ...)
+templatebrain(
+  name,
+  regName = name,
+  type = NULL,
+  sex = NULL,
+  dims = NULL,
+  BoundingBox = NULL,
+  voxdims = NULL,
+  units = NULL,
+  description = NULL,
+  doi = NULL,
+  ...
+)
 }
 \arguments{
 \item{name}{the full name of the template.}
