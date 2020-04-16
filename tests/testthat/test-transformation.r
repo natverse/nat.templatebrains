@@ -112,19 +112,69 @@ test_that("bridging graph and friends work",{
 
   baseline=reglist(file.path(td, "/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/FCWB_IS2.list"),
     swap = TRUE)
-  expect_equal(shortest_bridging_seq('FCWB', 'IS2'), baseline)
+  expect_equivalent(shortest_bridging_seq('FCWB', 'IS2'), baseline)
   expect_is(shortest_bridging_seq('FCWB', 'IBN'), 'reglist')
   expect_warning(fcwb_ibn<-shortest_bridging_seq('FCWB', 'IBN', imagedata = T),
                  'very slow for image data')
 
+  # more complex bridging sequences
+  bridging_path <- function(...) attr(shortest_bridging_seq(...), 'vpath')
+  expect_equal(
+    bridging_path(sample = "Cell07", reference = "IS2"),
+    c("Cell07", "IS2"))
+
+  templatebrain("IBN")
+  expect_equal(
+    bridging_path(sample = "IBN", reference = "Cell07"),
+    c("IBN", "IBNWB", "JFRC2", "IS2", "Cell07"))
+
+  expect_equal(
+    bridging_path(sample = "IBN", reference = "Cell07"),
+    c("IBN", "IBNWB", "JFRC2", "IS2", "Cell07"))
+
+  expect_equal(
+    bridging_path(sample = "IBN", reference = "Cell07", via='FCWB'),
+    c("IBN", "IBNWB", "JFRC2", "FCWB", "IS2", "Cell07"))
+
+  expect_equal(
+    bridging_path(sample = "IBN", reference = "Cell07",
+                  via=templatebrain('FCWB')),
+    c("IBN", "IBNWB", "JFRC2", "FCWB", "IS2", "Cell07"))
+
+  expect_equal(
+    bridging_path(sample = "IBN", reference = "Cell07",
+                  via=c("IBNWB", "JFRC2", "FCWB", "IS2")),
+    c("IBN", "IBNWB", "JFRC2", "FCWB", "IS2", "Cell07"))
+
+  expect_equal(
+    bridging_path(sample = "Cell07", reference = "Cell07", via='FCWB'),
+    c("Cell07", "IS2", "FCWB", "IS2", "Cell07"))
+
+  expect_equal(
+    bridging_path(sample = "Cell07", reference = "Cell07",
+                  via=c("IS2", "FCWB", "IS2")),
+    c("Cell07", "IS2", "FCWB", "IS2", "Cell07"))
+
+  expect_equal(
+    bridging_path(sample = "Cell07", reference = "Cell07",
+                  via=list(templatebrain("IS2"),
+                           templatebrain("FCWB"),
+                           templatebrain("IS2"))),
+    c("Cell07", "IS2", "FCWB", "IS2", "Cell07"))
+
+  expect_null(bridging_path(sample = "Cell07", reference = "Cell07"))
+
+  expect_error(bridging_path(sample = "Cell07", reference = "V2"))
+  expect_error(bridging_path(sample = "Cell07", reference = "V2", via='IS2'))
+
   # TODO think about normalising handling of swap attribute by reglist and
-  # nat.templatbrains functions (always present? only when T?)
+  # nat.templatebrains functions (always present? only when T?)
   bl=reglist(file.path(td,"/Users/jefferis/Library/Application Support/rpkg-nat.flybrains/regrepos/BridgingRegistrations/JFRC2_FCWB.list"),
              structure(file.path(td,"/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/JFRC2_IBNWB.list"),
                        swap=TRUE),
              structure(file.path(td,"/Library/Frameworks/R.framework/Versions/3.2/Resources/library/nat.flybrains/extdata/bridgingregistrations/IBNWB_IBN.list"),
                        swap=TRUE))
-  expect_equal(fcwb_ibn, bl)
+  expect_equivalent(fcwb_ibn, bl)
   expect_error(shortest_bridging_seq('FCWB', 'crumble'))
 })
 
@@ -181,7 +231,7 @@ test_that("can use a bridging registration in regdirs",{
   xform_brain(imfile, reference='JFRC2',sample='JFRC2', via='IS2', output=outfile,
               target=imfile, checkboth = TRUE, Verbose=F)
   kc2=dotprops(outfile)
-  # write an inverted registraion
+  # write an inverted registration
   cmtk.mat2dof(solve(aff), file.path(td,"IS2_JFRC2.list"))
   outfile2=file.path(td2, 'kcim_roundtrip2.nrrd')
   # check we can still xform image

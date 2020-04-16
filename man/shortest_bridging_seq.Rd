@@ -13,6 +13,7 @@ bridging_graph(
 shortest_bridging_seq(
   sample,
   reference,
+  via = NULL,
   checkboth = TRUE,
   imagedata = FALSE,
   reciprocal = NA,
@@ -26,10 +27,14 @@ shortest_bridging_seq(
 \item{reciprocal}{Sets the weight of reciprocal edges in the graph (and
 thereby whether inverse registrations will be considered).}
 
-\item{sample}{Source template brain (e.g. IS2) that data is currently in.}
+\item{sample}{Source template brain (e.g. IS2) that data is currently in.
+Specified either as character vector or a \code{templatebrain} object.}
 
 \item{reference}{Target template brain (e.g. IS2) that data should be
 transformed into.}
+
+\item{via}{(optional) intermediate template brain that the registration
+sequence must pass through.}
 
 \item{checkboth}{When \code{TRUE} will look for registrations in both
 directions. See details.}
@@ -70,6 +75,8 @@ plot(bridging_graph(reciprocal=3), vertex.size=25)
 shortest_bridging_seq(FCWB, IS2)
 # or
 shortest_bridging_seq('FCWB', 'IS2')
+
+shortest_bridging_seq(sample='FCWB', reference='IS2', via="JFRC2")
 }
 }
 \seealso{
