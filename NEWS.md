@@ -1,5 +1,15 @@
 # nat.templatebrains (development version)
 
+* Flexible `via` specification for `xform_brain()` / `shortest_bridging_seq()`.
+  This should allow one to choose particular groups of bridging registration 
+  (e.g. those using the JRC2018F template) even if they are not the shortest
+  possible path between sample and reference brain (#43)
+* Add `all_templatebrains()` which searches across all packages to find template
+  brains and `guess_templatebrain()` which tries to match an image on disk to a
+  `templatebrain()` (#35)
+* xform_brain should not require an explicit target specification for image data
+  bug (#16)
+
 # nat.templatebrains 0.9
 
 * shortest_bridging_seq complains if template brain does not exist in graph (#34)
