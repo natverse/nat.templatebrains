@@ -228,9 +228,8 @@ shortest_bridging_seq <-
   function(sample, reference, via=NULL, checkboth = TRUE, imagedata = FALSE,
            reciprocal=NA, ...) {
 
-    reciprocal <- if (checkboth && is.na(reciprocal)) {
-      ifelse(imagedata, 100, 1.01)
-    } else NA
+    if(is.na(reciprocal) && checkboth)
+      reciprocal <- ifelse(imagedata, 100, 1.01)
 
     sample = as.character(sample)
     reference = as.character(reference)
