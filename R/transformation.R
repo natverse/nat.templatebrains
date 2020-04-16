@@ -209,10 +209,9 @@ bridging_graph <- function(regdirs=getOption('nat.templatebrains.regdirs'), reci
   g
 }
 
-#' @importFrom memoise forget memoise
+#' @importFrom memoise forget
 reset_cache <- function() {
-  memoise::forget(shortest_bridging_seq)
-  memoise::memoise(shortest_bridging_seq)
+  forget(shortest_bridging_seq)
 }
 
 #' @description \code{shortest_bridging_seq} finds the shortest bridging
@@ -228,56 +227,100 @@ reset_cache <- function() {
 #' shortest_bridging_seq(FCWB, IS2)
 #' # or
 #' shortest_bridging_seq('FCWB', 'IS2')
+#'
+#' shortest_bridging_seq(sample='FCWB', reference='IS2', via="JFRC2")
 #' }
 shortest_bridging_seq <-
-  function(sample, reference, checkboth = TRUE, imagedata = FALSE, reciprocal=NA, ...) {
-    reciprocal <- if (checkboth && is.na(reciprocal)) {
-      ifelse(imagedata, 100, 1.01)
-    } else NA
+  function(sample, reference, via=NULL, checkboth = TRUE, imagedata = FALSE,
+           reciprocal=NA, ...) {
+
+    if(is.na(reciprocal) && checkboth)
+      reciprocal <- ifelse(imagedata, 100, 1.01)
 
     sample = as.character(sample)
     reference = as.character(reference)
+    if(!is.null(via)) {
+      # NB they may come in as a list of templatebrain objects
+      via <- if(is.templatebrain(via))
+        as.character(via)
+      else if(is.list(via)) {
+        if("regName" %in% names(via)) {
+          stop("To specify multiple template brains use an expression like:\n",
+               paste0("via=list(",paste(unlist(via[names(via)=='regName'],
+                                           use.names = F), collapse=", "),")"))
+        }
+        unname(sapply(via, as.character))
+      } else via
+
+      if(length(setdiff(via, c(sample, reference)))==0) {
+        warning("Ignoring via argument as identical to reference and/or sample!")
+        via=NULL
+      }
+    }
 
     # nothing to do ...
-    if(isTRUE(all.equal(sample, reference, check.attributes=FALSE)))
+    if(isTRUE(all.equal(sample, reference, check.attributes=FALSE)) && is.null(via))
       return(NULL)
 
     g = bridging_graph(reciprocal = reciprocal, ...)
     if(is.null(g)) stop("No bridging registrations available!")
-    vertex_names <- vertex_attr(g, "name")
-    if (!sample %in% vertex_names)
-      stop("Sample template: ", sample,
-           " has no known bridging registrations!")
-    if (!reference %in% vertex_names)
-      stop("Reference template: ", reference,
-           " has no known bridging registrations!")
 
-    # treat as directed
-    sp = shortest.paths(g, v = sample, to = reference, mode = 'out')
-    if (!is.finite(sp))
-      stop("No path between: ", reference, " and ", sample, "!")
-
-    if (sp > 100)
-      warning("Bridging seq requires an inversion. This is very slow for image data!")
-
-    gsp = get.shortest.paths(
-      g, from = sample, to = reference, mode = 'out', output = 'epath'
-    )
-    epath = gsp$epath[[1]]
+    nodes=c(sample, via, reference)
+    epaths=list()
+    for(i in seq_along(nodes[-1])) {
+      epaths[[i]] <- find_bridging_path(g, nodes[i], nodes[i+1])
+    }
+    epath=do.call(c, epaths)
     seq=mapply(function(x,y) {
       if (y)
         attr(x,'swap') = y;x
     },
     E(g)[epath]$path, E(g)[epath]$swap,
     USE.NAMES = F, SIMPLIFY = F)
-    simplify_bridging_sequence(seq)
+    seq <- simplify_bridging_sequence(seq)
+
+    attr(seq, 'vpath') <- c(igraph::ends(g, epath)[1,1], igraph::ends(g, epath)[,2])
+    seq
   }
+
+find_bridging_path <- function(g, sample, reference) {
+  vertex_names <- vertex_attr(g, "name")
+  if (!sample %in% vertex_names)
+    stop("Sample template: ", sample,
+         " has no known bridging registrations!")
+  if (!reference %in% vertex_names)
+    stop("Reference template: ", reference,
+         " has no known bridging registrations!")
+
+  # treat as directed
+  sp = shortest.paths(g, v = sample, to = reference, mode = 'out')
+  if (!is.finite(sp))
+    stop("No path between: ", sample, " and ", reference, "!")
+
+  if (sp > 100)
+    warning("Bridging seq requires an inversion. This is very slow for image data!")
+
+  gsp = get.shortest.paths(
+    g, from = sample, to = reference, mode = 'out', output = 'both'
+  )
+  gsp$epath[[1]]
+}
 
 #' Transform 3D object between template brains
 #'
 #' @details NB the \code{sample}, \code{reference} and \code{via} brains can
 #'   either be \code{templatebrain} objects or a character string containing the
 #'   short name of the template e.g. \code{"IS2"}.
+#'
+#'   \code{xform_brain} uses the helper function
+#'   \code{\link{shortest_bridging_seq}} to find the shortest path between
+#'   different template brains based on the set of bridging registrations that
+#'   the natverse has been informed about (see \code{\link{bridging_graph}}).
+#'   You can specify a \code{via} argument to ensure that the registrations
+#'   passes through one or more intermediate templates. Note that when multiple
+#'   brains are passed to \code{via} they should be in order from sample to
+#'   reference. If you are passing multiple \code{\link{templatebrain}} objects,
+#'   they must be wrapped in a list.
 #'
 #'   When transforming image data (\code{imagedata=TRUE}), the \code{target}
 #'   argument should normally be specified. This defines the absolute/voxel
@@ -295,34 +338,30 @@ shortest_bridging_seq <-
 #'
 #'   You can control whether you want to allow inverse registrations manually by
 #'   setting \code{checkboth} explicitly. Otherwise when \code{checkboth=NULL}
-#'   the following default behaviour occurs: \itemize{
-#'
-#'   \item when \code{via=NULL} \code{checkboth=T} but a warning will be given
-#'   if an inversion must be used.
-#'
-#'   \item when \code{via} is specified then \code{checkboth=T} but a warning
-#'   will be given if an inversion must be used.
-#'
-#'   }
+#'   the default is to act as if \code{checkboth=T} but issue a warning if an
+#'   inversion must be used.
 #'
 #' @param x the 3D object to be transformed
 #' @param sample Source template brain (e.g. IS2) that data is currently in.
+#'   Specified either as character vector or a \code{templatebrain} object.
 #' @param reference Target template brain (e.g. IS2) that data should be
 #'   transformed into.
-#' @param via optional intermediate brain to use when there is no direct
-#'   bridging registration.
+#' @param via (optional) intermediate template brain that the registration
+#'   sequence must pass through.
 #' @param imagedata Whether \code{x} should be treated as image data (presently
 #'   only supported as a file on disk) or 3D object vertices - see details.
 #' @param checkboth When \code{TRUE} will look for registrations in both
 #'   directions. See details.
 #' @param target When transforming image data, this specifies the target space
 #'   (defaults to \code{reference} when \code{imagedata=TRUE}). See Details.
+#' @param Verbose Whether to show a message with the sequence of template brains
 #' @param ... extra arguments to pass to \code{\link[nat]{xform}} and then on to
 #'   \code{\link[nat]{xformpoints}} or \code{\link[nat]{xformimage}} which will
 #'   eventually hand off to \code{\link{cmtk.reformatx}} when using CMTK.
 #'
 #' @export
-#' @seealso \code{\link{mirror_brain}}, \code{\link{regtemplate}},
+#' @seealso \code{\link{mirror_brain}}, \code{\link{shortest_bridging_seq}}
+#'   \code{\link{bridging_graph}}, \code{\link{regtemplate}},
 #'   \code{\link{xform}}. \code{\link{xformpoints}}, \code{\link{xformimage}},
 #'   \code{\link{cmtk.reformatx}} (for transforming image data with CMTK).
 #' @examples
@@ -336,7 +375,7 @@ shortest_bridging_seq <-
 #' plot3d(kcs20)
 #' plot3d(FCWB)
 #' # Convert to JFCR2 template brain
-#' kcs20.jfrc2=xform_brain(kcs20, sample = FCWB, reference=JFRC2, .progress='text')
+#' kcs20.jfrc2=xform_brain(kcs20, sample = FCWB, reference=JFRC2)
 #' # now plot in the new JFRC2 space
 #' nopen3d()
 #' plot3d(kcs20.jfrc2)
@@ -348,10 +387,14 @@ shortest_bridging_seq <-
 #' plot3d(kcs20.jfrc2)
 #' # nb "MB.*_L" is a regular expression
 #' plot3d(JFRC2NP.surf, "MB.*_L", alpha=0.3)
-#' # compare with originals - briging registration is no perfect in peduncle
+#' # compare with originals - bridging registration is no perfect in peduncle
 #' nopen3d()
 #' plot3d(kcs20)
 #' plot3d(FCWBNP.surf, "MB.*_L", alpha=0.3)
+#'
+#' # insist on using a specific intermediate template brain
+#' # this would nor be an improvement in this case
+#' kcs20.jfrc2viais2=xform_brain(kcs20, sample = FCWB, via=IS2, reference=JFRC2)
 #'
 #'
 #' ## reformat image examples
@@ -373,21 +416,20 @@ shortest_bridging_seq <-
 #' }
 xform_brain <- function(x, sample=regtemplate(x), reference, via=NULL,
                         imagedata=is.character(x), checkboth=NULL, target=NULL,
-                        ...) {
+                        Verbose=interactive(), ...) {
   if(is.null(sample))
     stop("Invalid sample argument!\n",
          "Either specify manually or use regtemplate(x) <- to set space for x.")
-  if(is.null(via)) {
-    # use bridging_graph, with checkboth = TRUE
-    if(is.null(checkboth)) checkboth=TRUE
-    # use imagedata to choose reciprocal weight
-    regs<-shortest_bridging_seq(sample = sample, reference = reference,
-                          checkboth = checkboth, imagedata = imagedata)
-  } else {
-    if(is.null(checkboth))
-      checkboth=!imagedata
-    regs <- bridging_sequence(reference=reference, sample=sample, via=via,
-                              checkboth = checkboth, mustWork = T)
+
+  # uses bridging_graph, with checkboth = TRUE
+  if(is.null(checkboth)) checkboth=TRUE
+  # use imagedata to choose reciprocal weight
+  regs<-shortest_bridging_seq(sample = sample, reference = reference,
+                        checkboth = checkboth, imagedata = imagedata, via=via)
+  vpath=attr(regs, 'vpath')
+  if(Verbose && !is.null(vpath)) {
+    prettypath <- paste(vpath, collapse = '->')
+    message("Transforming neurons using the sequence: ", prettypath)
   }
   xt <- if(is.null(regs)) {
     x
