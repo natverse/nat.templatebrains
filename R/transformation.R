@@ -247,8 +247,9 @@ shortest_bridging_seq <-
         }
         unname(sapply(via, as.character))
       } else via
-      if(isTRUE(via==sample || via==reference)) {
-        warning("Ignoring via argument as identical to reference or sample!")
+
+      if(length(setdiff(via, c(sample, reference)))==0) {
+        warning("Ignoring via argument as identical to reference and/or sample!")
         via=NULL
       }
     }
