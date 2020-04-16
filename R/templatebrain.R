@@ -32,6 +32,7 @@
 #' @param BoundingBox physical dimensions of the image (see
 #'   \code{\link[nat]{boundingbox}}).
 #' @param voxdims physical spacing between voxels.
+#' @param origin the physical location of the first voxel
 #' @param units units of physical measurements (e.g. microns).
 #' @param description details of the template.
 #' @param doi a DOI for the original template brain image.
@@ -43,8 +44,8 @@
 #' @seealso \code{\link{as.templatebrain}}, \code{\link{templatebrain-meths}},
 #'   \code{\link{xform_brain}}, \code{\link{mirror_brain}}.
 templatebrain<-function(name, regName=name, type=NULL, sex=NULL, dims=NULL,
-                        BoundingBox=NULL, voxdims=NULL, units=NULL,
-                        description=NULL, doi=NULL, ...) {
+                        BoundingBox=NULL, voxdims=NULL, origin=NULL,
+                        units=NULL, description=NULL, doi=NULL, ...) {
   template <- structure(list(name=name, regName=regName, type=type, sex=sex,
                              dims=dims, voxdims=voxdims, origin=origin,
                              BoundingBox=BoundingBox, units=units,

@@ -12,6 +12,7 @@ templatebrain(
   dims = NULL,
   BoundingBox = NULL,
   voxdims = NULL,
+  origin = NULL,
   units = NULL,
   description = NULL,
   doi = NULL,
@@ -38,6 +39,8 @@ of multiple images.}
 \code{\link[nat]{boundingbox}}).}
 
 \item{voxdims}{physical spacing between voxels.}
+
+\item{origin}{the physical location of the first voxel}
 
 \item{units}{units of physical measurements (e.g. microns).}
 

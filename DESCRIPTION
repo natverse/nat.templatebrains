@@ -31,7 +31,7 @@ Imports:
 Suggests:
     git2r (>= 0.22.1),
     nabor,
-    testthat (>= 0.10),
+    testthat (>= 2.1.0),
     covr
 Encoding: UTF-8
 RoxygenNote: 7.1.0
