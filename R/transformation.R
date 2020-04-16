@@ -244,7 +244,7 @@ shortest_bridging_seq <-
     }
 
     # nothing to do ...
-    if(isTRUE(all.equal(sample, reference, check.attributes=FALSE)))
+    if(isTRUE(all.equal(sample, reference, check.attributes=FALSE)) && is.null(via))
       return(NULL)
 
     if(!is.null(via)) {
