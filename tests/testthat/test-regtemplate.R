@@ -25,3 +25,8 @@ test_that("mirroring can use regtemplate", {
                kcs3m)
 })
 
+test_that("guess_templatebrain",{
+  testim <- as.im3d(FCWB.demo)
+  expect_equal(guess <- guess_templatebrain(testim, mustWork = T), FCWB.demo)
+  expect_equal(guess_templatebrain(testim, rval='name'), as.character(FCWB.demo))
+})
