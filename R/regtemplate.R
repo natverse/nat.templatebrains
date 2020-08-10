@@ -49,33 +49,37 @@ get_templatebrain <- function(x, strict=FALSE) {
   if(inherits(b, 'try-error')) NULL else b
 }
 
-all_templatebrains_m <- memoise::memoise(function() {
+brain_details <- function(x, pos) {
+  obj=get(x, pos = pos)
+  if(!is.templatebrain(obj))
+    return(NULL)
+
+  env.name=attr(as.environment(pos), 'name')
+  if(is.null(env.name)) env.name=NA_character_
+  env.name=sub("package:","", env.name)
+  dims=obj[['dims']]
+  if(is.null(dims))
+    dims=rep(NA_integer_, 3)
+  name=as.character(obj)
+  md5=digest::digest(obj, algo = 'md5')
+  data.frame(package=env.name, name=name, md5=md5,
+             W=dims[1],H=dims[2],D=dims[3], stringsAsFactors = FALSE)
+}
+
+all_templatebrains_tomemo <- function() {
   ll=apropos(what='.*', mode='list', where=TRUE)
   df=data.frame(object=ll, pos=as.integer(names(ll)),
                 stringsAsFactors = FALSE)
 
-  brain_details <- function(x, pos) {
-    obj=get(x, pos = pos)
-    env.name=attr(as.environment(pos), 'name')
-    if(is.null(env.name)) env.name=NA_character_
-    env.name=sub("package:","", env.name)
-    if(is.templatebrain(obj)) {
-      dims=obj[['dims']]
-      name=as.character(obj)
-    } else {
-      dims=rep(NA_integer_, 3L)
-      name=NA_character_
-    }
-    data.frame(package=env.name, name=name, md5=digest::digest(obj, algo = 'md5'),
-               W=dims[1],H=dims[2],D=dims[3], stringsAsFactors = FALSE)
-  }
-
-  details <- do.call(rbind, mapply(brain_details, df$object, df$pos, SIMPLIFY = FALSE))
-  df=cbind(df, details)
-  df=df[!is.na(df$name),]
+  reslist=mapply(brain_details, df$object, df$pos, SIMPLIFY = FALSE)
+  goodvals=sapply(reslist, is.data.frame)
+  details <- do.call(rbind, reslist[goodvals])
+  df=cbind(df[goodvals,,drop=FALSE], details)
   rownames(df)=NULL
   df
-})
+}
+
+all_templatebrains_m <- memoise::memoise(all_templatebrains_tomemo)
 
 
 #' @description \code{all_templatebrains} returns a data.frame detailing all
