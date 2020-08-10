@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -53,7 +57,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nat.templatebrains</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
       </span>
     </div>
 
@@ -112,22 +116,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/natverse/nat.templatebrains/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
     <div id="nattemplatebrains-development-version" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="development version">
 <a href="#nattemplatebrains-development-version" class="anchor"></a>nat.templatebrains (development version)<small> Unreleased </small>
 </h1>
 <ul>
 <li>Flexible <code>via</code> specification for <code><a href="../reference/xform_brain.html">xform_brain()</a></code> / <code><a href="../reference/shortest_bridging_seq.html">shortest_bridging_seq()</a></code>. This should allow one to choose particular groups of bridging registration (e.g. those using the JRC2018F template) even if they are not the shortest possible path between sample and reference brain (<a href='https://github.com/natverse/nat.templatebrains/issues/43'>#43</a>)</li>
 <li>Add <code><a href="../reference/guess_templatebrain.html">all_templatebrains()</a></code> which searches across all packages to find template brains and <code><a href="../reference/guess_templatebrain.html">guess_templatebrain()</a></code> which tries to match an image on disk to a <code><a href="../reference/templatebrain.html">templatebrain()</a></code> (<a href='https://github.com/natverse/nat.templatebrains/issues/35'>#35</a>)</li>
 <li>xform_brain should not require an explicit target specification for image data bug (<a href='https://github.com/natverse/nat.templatebrains/issues/16'>#16</a>)</li>
+<li>fix bugs in <code><a href="../reference/guess_templatebrain.html">all_templatebrains()</a></code> and therefore in <code><a href="../reference/guess_templatebrain.html">guess_templatebrain()</a></code> which should now be fast and functional again (<a href='https://github.com/natverse/nat.templatebrains/issues/47'>#47</a>)</li>
 </ul>
 </div>
     <div id="nattemplatebrains-09" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.9">
 <a href="#nattemplatebrains-09" class="anchor"></a>nat.templatebrains 0.9<small> 2018-06-24 </small>
 </h1>
 <ul>
@@ -139,7 +144,7 @@
 </ul>
 </div>
     <div id="nattemplatebrains-08" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8">
 <a href="#nattemplatebrains-08" class="anchor"></a>nat.templatebrains 0.8<small> Unreleased </small>
 </h1>
 <p>This is another major version bump since there is significant new/changed behaviour in xform_brain brain and friends which will now tag transformed objects with a registration template space. This means that nat functions will typically not be need to told the space of an object such as a neuron list in many cases, but some objects will have a new regtemplate attribute.</p>
@@ -152,7 +157,7 @@
 </ul>
 </div>
     <div id="nattemplatebrains-07" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7">
 <a href="#nattemplatebrains-07" class="anchor"></a>nat.templatebrains 0.7<small> Unreleased </small>
 </h1>
 <p>This is the first public release since 0.6.2 and there are some significant changes under the hood, hence the major version bump.</p>
@@ -162,7 +167,7 @@
 </ul>
 </div>
     <div id="nattemplatebrains-064" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.4">
 <a href="#nattemplatebrains-064" class="anchor"></a>nat.templatebrains 0.6.4<small> Unreleased </small>
 </h1>
 <ul>
@@ -170,7 +175,7 @@
 </ul>
 </div>
     <div id="nattemplatebrains-063" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.3">
 <a href="#nattemplatebrains-063" class="anchor"></a>nat.templatebrains 0.6.3<small> Unreleased </small>
 </h1>
 <ul>
@@ -178,7 +183,7 @@
 </ul>
 </div>
     <div id="nattemplatebrains-062" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.2">
 <a href="#nattemplatebrains-062" class="anchor"></a>nat.templatebrains 0.6.2<small> 2015-12-07 </small>
 </h1>
 <ul>
@@ -186,7 +191,7 @@
 </ul>
 </div>
     <div id="nattemplatebrains-061" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.1">
 <a href="#nattemplatebrains-061" class="anchor"></a>nat.templatebrains 0.6.1<small> 2015-10-08 </small>
 </h1>
 <ul>
@@ -194,7 +199,7 @@
 </ul>
 </div>
     <div id="nattemplatebrains-06" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6">
 <a href="#nattemplatebrains-06" class="anchor"></a>nat.templatebrains 0.6<small> 2015-07-01 </small>
 </h1>
 <ul>
@@ -204,7 +209,7 @@
 </ul>
 </div>
     <div id="nattemplatebrains-05" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5">
 <a href="#nattemplatebrains-05" class="anchor"></a>nat.templatebrains 0.5<small> Unreleased </small>
 </h1>
 <ul>
@@ -218,7 +223,7 @@
 </ul>
 </div>
     <div id="nattemplatebrains-041" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.1">
 <a href="#nattemplatebrains-041" class="anchor"></a>nat.templatebrains 0.4.1<small> 2014-09-16 </small>
 </h1>
 <ul>
@@ -229,7 +234,7 @@
 </ul>
 </div>
     <div id="nattemplatebrains-04" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4">
 <a href="#nattemplatebrains-04" class="anchor"></a>nat.templatebrains 0.4<small> Unreleased </small>
 </h1>
 <ul>
@@ -242,7 +247,7 @@
 </ul>
 </div>
     <div id="nattemplatebrains-03" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3">
 <a href="#nattemplatebrains-03" class="anchor"></a>nat.templatebrains 0.3<small> Unreleased </small>
 </h1>
 <ul>
@@ -254,7 +259,7 @@
 </ul>
 </div>
     <div id="nattemplatebrains-02" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2">
 <a href="#nattemplatebrains-02" class="anchor"></a>nat.templatebrains 0.2<small> Unreleased </small>
 </h1>
 <ul>
@@ -267,26 +272,10 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#nattemplatebrains-development-version">development version</a></li>
-        <li><a href="#nattemplatebrains-09">0.9</a></li>
-        <li><a href="#nattemplatebrains-08">0.8</a></li>
-        <li><a href="#nattemplatebrains-07">0.7</a></li>
-        <li><a href="#nattemplatebrains-064">0.6.4</a></li>
-        <li><a href="#nattemplatebrains-063">0.6.3</a></li>
-        <li><a href="#nattemplatebrains-062">0.6.2</a></li>
-        <li><a href="#nattemplatebrains-061">0.6.1</a></li>
-        <li><a href="#nattemplatebrains-06">0.6</a></li>
-        <li><a href="#nattemplatebrains-05">0.5</a></li>
-        <li><a href="#nattemplatebrains-041">0.4.1</a></li>
-        <li><a href="#nattemplatebrains-04">0.4</a></li>
-        <li><a href="#nattemplatebrains-03">0.3</a></li>
-        <li><a href="#nattemplatebrains-02">0.2</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
@@ -298,7 +287,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
