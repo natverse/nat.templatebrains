@@ -21,7 +21,9 @@ otherwise rescans searching for all template brains.}
 \item{remove.duplicates}{Whether to remove duplicate template brains (as
 determined by md5 hash) from the result list}
 
-\item{x}{An image object}
+\item{x}{A \code{\link{im3d}} image object, array or matrix compatible with
+\code{\link{as.templatebrain}} OR a 2 or 3-vector defining the dimensions
+of an image or image stack.}
 
 \item{rval}{Whether to return the \code{\link{templatebrain}} object itself
 or just its name.}
@@ -65,9 +67,11 @@ guess_templatebrain('path/to/my/image.nrrd')
 if(require('nat.flybrains')){
   guess_templatebrain(im3d(dims=c(1024,512,218)), rval = 'name')
   # get the matching template brain
-  tb=guess_templatebrain(im3d(dims=c(1024,512,218)), rval = 'brain')
+  tb=guess_templatebrain(im3d(dims=c(1024,512,218)))
   # get its voxel dimensions
   voxdims(tb)
+
+  tb=guess_templatebrain(c(1024,512))
 }
 }
 }

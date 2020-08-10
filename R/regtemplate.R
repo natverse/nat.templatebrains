@@ -118,7 +118,9 @@ all_templatebrains <- function(cached=TRUE, remove.duplicates=FALSE) {
 
 #' Find all template brains or those matching a given image volume
 #'
-#' @param x An image object
+#' @param x A \code{\link{im3d}} image object, array or matrix compatible with
+#'   \code{\link{as.templatebrain}} OR a 2 or 3-vector defining the dimensions
+#'   of an image or image stack.
 #' @param rval Whether to return the \code{\link{templatebrain}} object itself
 #'   or just its name.
 #' @param cached When \code{TRUE} returns precomputed (memoised) results,
@@ -136,30 +138,46 @@ all_templatebrains <- function(cached=TRUE, remove.duplicates=FALSE) {
 #' all_templatebrains()
 #'
 #' guess_templatebrain(im3d(dims=c(30,40,50)))
+#' # or
+#' guess_templatebrain(c(30,40,50))
 #' guess_templatebrain('path/to/my/image.nrrd')
 #'
 #' if(require('nat.flybrains')){
 #'   guess_templatebrain(im3d(dims=c(1024,512,218)), rval = 'name')
 #'   # get the matching template brain
-#'   tb=guess_templatebrain(im3d(dims=c(1024,512,218)), rval = 'brain')
+#'   tb=guess_templatebrain(im3d(dims=c(1024,512,218)))
 #'   # get its voxel dimensions
 #'   voxdims(tb)
+#'
+#'   tb=guess_templatebrain(c(1024,512))
+#'   tb
 #' }
 #' }
 guess_templatebrain <- function(x, rval=c("templatebrain", "name"),
                                 cached=TRUE, mustWork=FALSE) {
-  tx=as.templatebrain(x, regName='dummy')
+  dims <- if(is.numeric(x) && length(x)%in%2:3) {
+    # assume that these are dimensions (xy) or (xyz)
+    paste(x, collapse="x")
+  } else {
+    tx=as.templatebrain(x, regName='dummy')
+    paste(tx$dims, collapse="x")
+  }
   rval=match.arg(rval)
   df=all_templatebrains(cached = cached, remove.duplicates = TRUE)
-  df$dims=apply(df[c("W","H","D")],1,paste, collapse="x")
-  dims=paste(tx$dims, collapse="x")
-  candidates=df[dims==df$dims,,drop=FALSE]
-  if(nrow(candidates)>1) {
-    if(mustWork) {
-      print(candidates)
-      stop("Multiple candidates!")
+  if(nrow(df)==0) {
+    # empty results df
+    candidates=data.frame()
+  } else {
+    df$dims=apply(df[c("W","H","D")],1,paste, collapse="x")
+    candidates=df[pmatch(dims, df$dims, duplicates.ok = TRUE),,drop=FALSE]
+    if(nrow(candidates)>1) {
+      if(mustWork) {
+        print(candidates)
+        stop("Multiple candidates!")
+      }
     }
   }
+
   if(nrow(candidates)==0)
     if(mustWork) stop("No candidates found!")
 

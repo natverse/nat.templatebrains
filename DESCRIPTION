@@ -35,6 +35,6 @@ Suggests:
     testthat (>= 2.1.0),
     covr
 Encoding: UTF-8
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 BugReports: https://github.com/natverse/nat.templatebrains/issues
 Language: en-GB

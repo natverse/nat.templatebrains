@@ -29,4 +29,11 @@ test_that("guess_templatebrain",{
   testim <- as.im3d(FCWB.demo)
   expect_equal(guess <- guess_templatebrain(testim, mustWork = T), FCWB.demo)
   expect_equal(guess_templatebrain(testim, rval='name'), as.character(FCWB.demo))
+
+  expect_equal(guess <- guess_templatebrain(c(1769,1026,108), mustWork = T),
+               FCWB.demo)
+  expect_equal(guess <- guess_templatebrain(c(1769,1026), mustWork = T),
+               FCWB.demo)
+  expect_error(guess <- guess_templatebrain(c(1769,1999), mustWork = T))
+  expect_error(guess <- guess_templatebrain(c(1769), mustWork = T))
 })
