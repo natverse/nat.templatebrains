@@ -9,6 +9,8 @@
   `templatebrain()` (#35)
 * xform_brain should not require an explicit target specification for image data
   bug (#16)
+* fix bugs in `all_templatebrains()` and therefore in `guess_templatebrain()`
+  which should now be fast and functional again (#47)
 
 # nat.templatebrains 0.9
 
