@@ -8,3 +8,4 @@ travisbuildchildren.sh
 ^LICENSE\.md$
 ^\.github$
 ^pkgdown$
+^cran-comments\.md$
