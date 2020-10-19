@@ -126,17 +126,17 @@
     <p>Transform 3D object between template brains</p>
     </div>
 
-    <pre class="usage"><span class='fu'>xform_brain</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>sample</span> <span class='kw'>=</span> <span class='fu'><a href='regtemplate.html'>regtemplate</a></span>(<span class='no'>x</span>),
-  <span class='no'>reference</span>,
-  <span class='kw'>via</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>imagedata</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>is.character</a></span>(<span class='no'>x</span>),
-  <span class='kw'>checkboth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>target</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>Verbose</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(),
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>xform_brain</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  sample <span class='op'>=</span> <span class='fu'><a href='regtemplate.html'>regtemplate</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>,
+  <span class='va'>reference</span>,
+  via <span class='op'>=</span> <span class='cn'>NULL</span>,
+  imagedata <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>is.character</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>,
+  checkboth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  target <span class='op'>=</span> <span class='cn'>NULL</span>,
+  Verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -193,9 +193,9 @@ eventually hand off to <code>cmtk.reformatx</code> when using CMTK.</p></td>
   either be <code>templatebrain</code> objects or a character string containing the
   short name of the template e.g. <code>"IS2"</code>.</p>
 <p><code>xform_brain</code> uses the helper function
-  <code><a href='shortest_bridging_seq.html'>shortest_bridging_seq</a></code> to find the shortest path between
+  <code><a href='bridging_graph.html'>shortest_bridging_seq</a></code> to find the shortest path between
   different template brains based on the set of bridging registrations that
-  the natverse has been informed about (see <code><a href='shortest_bridging_seq.html'>bridging_graph</a></code>).
+  the natverse has been informed about (see <code><a href='bridging_graph.html'>bridging_graph</a></code>).
   You can specify a <code>via</code> argument to ensure that the registrations
   passes through one or more intermediate templates. Note that when multiple
   brains are passed to <code>via</code> they should be in order from sample to
@@ -219,42 +219,42 @@ eventually hand off to <code>cmtk.reformatx</code> when using CMTK.</p></td>
   inversion must be used.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='mirror_brain.html'>mirror_brain</a></code>, <code><a href='shortest_bridging_seq.html'>shortest_bridging_seq</a></code>
-  <code><a href='shortest_bridging_seq.html'>bridging_graph</a></code>, <code><a href='regtemplate.html'>regtemplate</a></code>,
+    <div class='dont-index'><p><code><a href='mirror_brain.html'>mirror_brain</a></code>, <code><a href='bridging_graph.html'>shortest_bridging_seq</a></code>
+  <code><a href='bridging_graph.html'>bridging_graph</a></code>, <code><a href='regtemplate.html'>regtemplate</a></code>,
   <code>xform</code>. <code>xformpoints</code>, <code>xformimage</code>,
   <code>cmtk.reformatx</code> (for transforming image data with CMTK).</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## depends on nat.flybrains package and system CMTK installation</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>## reformat neurons</span>
 <span class='co'>##</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>nat.flybrains</span>)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/natverse/nat.flybrains'>nat.flybrains</a></span><span class='op'>)</span>
 <span class='co'># Plot Kenyon cells in their original FCWB template brain</span>
-<span class='fu'>nopen3d</span>()
-<span class='fu'>plot3d</span>(<span class='no'>kcs20</span>)
-<span class='fu'>plot3d</span>(<span class='no'>FCWB</span>)
+<span class='fu'>nopen3d</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>plot3d</span><span class='op'>(</span><span class='va'>kcs20</span><span class='op'>)</span>
+<span class='fu'>plot3d</span><span class='op'>(</span><span class='va'>FCWB</span><span class='op'>)</span>
 <span class='co'># Convert to JFCR2 template brain</span>
-<span class='no'>kcs20.jfrc2</span><span class='kw'>=</span><span class='fu'>xform_brain</span>(<span class='no'>kcs20</span>, <span class='kw'>sample</span> <span class='kw'>=</span> <span class='no'>FCWB</span>, <span class='kw'>reference</span><span class='kw'>=</span><span class='no'>JFRC2</span>)
+<span class='va'>kcs20.jfrc2</span><span class='op'>=</span><span class='fu'>xform_brain</span><span class='op'>(</span><span class='va'>kcs20</span>, sample <span class='op'>=</span> <span class='va'>FCWB</span>, reference<span class='op'>=</span><span class='va'>JFRC2</span><span class='op'>)</span>
 <span class='co'># now plot in the new JFRC2 space</span>
-<span class='fu'>nopen3d</span>()
-<span class='fu'>plot3d</span>(<span class='no'>kcs20.jfrc2</span>)
-<span class='fu'>plot3d</span>(<span class='no'>JFRC2</span>)
+<span class='fu'>nopen3d</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>plot3d</span><span class='op'>(</span><span class='va'>kcs20.jfrc2</span><span class='op'>)</span>
+<span class='fu'>plot3d</span><span class='op'>(</span><span class='va'>JFRC2</span><span class='op'>)</span>
 <span class='co'># compare with the untransformed neurons</span>
-<span class='fu'>plot3d</span>(<span class='no'>kcs20</span>)
+<span class='fu'>plot3d</span><span class='op'>(</span><span class='va'>kcs20</span><span class='op'>)</span>
 <span class='co'># plot with neuropil sub regions for the left mushroom body</span>
-<span class='fu'>clear3d</span>()
-<span class='fu'>plot3d</span>(<span class='no'>kcs20.jfrc2</span>)
+<span class='fu'>clear3d</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>plot3d</span><span class='op'>(</span><span class='va'>kcs20.jfrc2</span><span class='op'>)</span>
 <span class='co'># nb "MB.*_L" is a regular expression</span>
-<span class='fu'>plot3d</span>(<span class='no'>JFRC2NP.surf</span>, <span class='st'>"MB.*_L"</span>, <span class='kw'>alpha</span><span class='kw'>=</span><span class='fl'>0.3</span>)
+<span class='fu'>plot3d</span><span class='op'>(</span><span class='va'>JFRC2NP.surf</span>, <span class='st'>"MB.*_L"</span>, alpha<span class='op'>=</span><span class='fl'>0.3</span><span class='op'>)</span>
 <span class='co'># compare with originals - bridging registration is no perfect in peduncle</span>
-<span class='fu'>nopen3d</span>()
-<span class='fu'>plot3d</span>(<span class='no'>kcs20</span>)
-<span class='fu'>plot3d</span>(<span class='no'>FCWBNP.surf</span>, <span class='st'>"MB.*_L"</span>, <span class='kw'>alpha</span><span class='kw'>=</span><span class='fl'>0.3</span>)
+<span class='fu'>nopen3d</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>plot3d</span><span class='op'>(</span><span class='va'>kcs20</span><span class='op'>)</span>
+<span class='fu'>plot3d</span><span class='op'>(</span><span class='va'>FCWBNP.surf</span>, <span class='st'>"MB.*_L"</span>, alpha<span class='op'>=</span><span class='fl'>0.3</span><span class='op'>)</span>
 
 <span class='co'># insist on using a specific intermediate template brain</span>
 <span class='co'># this would nor be an improvement in this case</span>
-<span class='no'>kcs20.jfrc2viais2</span><span class='kw'>=</span><span class='fu'>xform_brain</span>(<span class='no'>kcs20</span>, <span class='kw'>sample</span> <span class='kw'>=</span> <span class='no'>FCWB</span>, <span class='kw'>via</span><span class='kw'>=</span><span class='no'>IS2</span>, <span class='kw'>reference</span><span class='kw'>=</span><span class='no'>JFRC2</span>)
+<span class='va'>kcs20.jfrc2viais2</span><span class='op'>=</span><span class='fu'>xform_brain</span><span class='op'>(</span><span class='va'>kcs20</span>, sample <span class='op'>=</span> <span class='va'>FCWB</span>, via<span class='op'>=</span><span class='va'>IS2</span>, reference<span class='op'>=</span><span class='va'>JFRC2</span><span class='op'>)</span>
 
 
 <span class='co'>## reformat image examples</span>
@@ -262,18 +262,19 @@ eventually hand off to <code>cmtk.reformatx</code> when using CMTK.</p></td>
 <span class='co'># note that for image data a target space defining the dimensions of the</span>
 <span class='co'># output image must be specified - this happens by default using the</span>
 <span class='co'># reference templatebrain object</span>
-<span class='fu'>xform_brain</span>(<span class='st'>'in.nrrd'</span>, <span class='kw'>sample</span><span class='kw'>=</span><span class='no'>FCWB</span>, <span class='kw'>ref</span><span class='kw'>=</span><span class='no'>JFRC2</span>, <span class='kw'>output</span><span class='kw'>=</span><span class='st'>'out.nrrd'</span>)
+<span class='fu'>xform_brain</span><span class='op'>(</span><span class='st'>'in.nrrd'</span>, sample<span class='op'>=</span><span class='va'>FCWB</span>, ref<span class='op'>=</span><span class='va'>JFRC2</span>, output<span class='op'>=</span><span class='st'>'out.nrrd'</span><span class='op'>)</span>
 <span class='co'># or you can specify an image file explicitly as target</span>
-<span class='fu'>xform_brain</span>(<span class='st'>'in.nrrd'</span>, <span class='kw'>sample</span><span class='kw'>=</span><span class='no'>FCWB</span>, <span class='kw'>ref</span><span class='kw'>=</span><span class='no'>JFRC2</span>, <span class='kw'>output</span><span class='kw'>=</span><span class='st'>'out.nrrd'</span>,
-            <span class='kw'>target</span><span class='kw'>=</span><span class='st'>'JFRC2.nrrd'</span>)
+<span class='fu'>xform_brain</span><span class='op'>(</span><span class='st'>'in.nrrd'</span>, sample<span class='op'>=</span><span class='va'>FCWB</span>, ref<span class='op'>=</span><span class='va'>JFRC2</span>, output<span class='op'>=</span><span class='st'>'out.nrrd'</span>,
+            target<span class='op'>=</span><span class='st'>'JFRC2.nrrd'</span><span class='op'>)</span>
 
 <span class='co'># use partial volume interpolation for label field</span>
-<span class='fu'>xform_brain</span>(<span class='st'>'labels.nrrd'</span>, <span class='kw'>sample</span><span class='kw'>=</span><span class='no'>FCWB</span>, <span class='kw'>ref</span><span class='kw'>=</span><span class='no'>JFRC2</span>, <span class='kw'>output</span><span class='kw'>=</span><span class='st'>'out.nrrd'</span>,
-            <span class='kw'>interpolation</span><span class='kw'>=</span><span class='st'>'pv'</span>)
+<span class='fu'>xform_brain</span><span class='op'>(</span><span class='st'>'labels.nrrd'</span>, sample<span class='op'>=</span><span class='va'>FCWB</span>, ref<span class='op'>=</span><span class='va'>JFRC2</span>, output<span class='op'>=</span><span class='st'>'out.nrrd'</span>,
+            interpolation<span class='op'>=</span><span class='st'>'pv'</span><span class='op'>)</span>
 
 <span class='co'># use binary mask to restrict (and speed up) reformatting</span>
-<span class='fu'>xform_brain</span>(<span class='st'>'in.nrrd'</span>, <span class='kw'>sample</span><span class='kw'>=</span><span class='no'>FCWB</span>, <span class='kw'>ref</span><span class='kw'>=</span><span class='no'>JFRC2</span>, <span class='kw'>output</span><span class='kw'>=</span><span class='st'>'out.nrrd'</span>, <span class='kw'>mask</span><span class='kw'>=</span><span class='st'>'neuropil.nrrd'</span>)
-}</div></pre>
+<span class='fu'>xform_brain</span><span class='op'>(</span><span class='st'>'in.nrrd'</span>, sample<span class='op'>=</span><span class='va'>FCWB</span>, ref<span class='op'>=</span><span class='va'>JFRC2</span>, output<span class='op'>=</span><span class='st'>'out.nrrd'</span>, mask<span class='op'>=</span><span class='st'>'neuropil.nrrd'</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -289,7 +290,7 @@ eventually hand off to <code>cmtk.reformatx</code> when using CMTK.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

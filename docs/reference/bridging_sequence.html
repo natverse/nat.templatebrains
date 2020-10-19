@@ -128,14 +128,14 @@
   used inside <code>xform_brain</code>) but may be useful for end users.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bridging_sequence</span>(
-  <span class='no'>sample</span>,
-  <span class='no'>reference</span>,
-  <span class='kw'>via</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>imagedata</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>checkboth</span> <span class='kw'>=</span> !<span class='no'>imagedata</span>,
-  <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>bridging_sequence</span><span class='op'>(</span>
+  <span class='va'>sample</span>,
+  <span class='va'>reference</span>,
+  via <span class='op'>=</span> <span class='cn'>NULL</span>,
+  imagedata <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  checkboth <span class='op'>=</span> <span class='op'>!</span><span class='va'>imagedata</span>,
+  mustWork <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,10 +199,11 @@ list(JFRC2 = structure(
 in these circumstances, which xformpoints.cmtkreg turns into "-- JFRC2_IS2.list --inverse FCWB_IS2.list".</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>bridging_sequence</span>(<span class='kw'>sample</span><span class='kw'>=</span><span class='no'>JFRC2</span>, <span class='kw'>ref</span><span class='kw'>=</span><span class='no'>FCWB</span>, <span class='kw'>checkboth</span> <span class='kw'>=</span> <span class='no'>T</span>)
-<span class='fu'>bridging_sequence</span>(<span class='kw'>sample</span><span class='kw'>=</span><span class='no'>JFRC2</span>, <span class='kw'>via</span><span class='kw'>=</span><span class='no'>IS2</span>, <span class='kw'>ref</span><span class='kw'>=</span><span class='no'>FCWB</span>, <span class='kw'>checkboth</span> <span class='kw'>=</span> <span class='no'>T</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>bridging_sequence</span><span class='op'>(</span>sample<span class='op'>=</span><span class='va'>JFRC2</span>, ref<span class='op'>=</span><span class='va'>FCWB</span>, checkboth <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>
+<span class='fu'>bridging_sequence</span><span class='op'>(</span>sample<span class='op'>=</span><span class='va'>JFRC2</span>, via<span class='op'>=</span><span class='va'>IS2</span>, ref<span class='op'>=</span><span class='va'>FCWB</span>, checkboth <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -218,7 +219,7 @@ in these circumstances, which xformpoints.cmtkreg turns into "-- JFRC2_IS2.list 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
