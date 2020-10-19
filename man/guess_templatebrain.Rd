@@ -62,6 +62,8 @@ For \code{all_templatebrains}, a \code{data.frame} containing the
 all_templatebrains()
 
 guess_templatebrain(im3d(dims=c(30,40,50)))
+# or
+guess_templatebrain(c(30,40,50))
 guess_templatebrain('path/to/my/image.nrrd')
 
 if(require('nat.flybrains')){
@@ -72,6 +74,7 @@ if(require('nat.flybrains')){
   voxdims(tb)
 
   tb=guess_templatebrain(c(1024,512))
+  tb
 }
 }
 }
