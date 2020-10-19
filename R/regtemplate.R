@@ -67,7 +67,7 @@ brain_details <- function(x, pos) {
 }
 
 all_templatebrains_tomemo <- function() {
-  ll=apropos(what='.*', mode='list', where=TRUE)
+  ll=utils::apropos(what='.*', mode='list', where=TRUE)
   df=data.frame(object=ll, pos=as.integer(names(ll)),
                 stringsAsFactors = FALSE)
 
