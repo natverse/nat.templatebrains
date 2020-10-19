@@ -9,3 +9,4 @@ travisbuildchildren.sh
 ^\.github$
 ^pkgdown$
 ^cran-comments\.md$
+^CRAN-RELEASE$
