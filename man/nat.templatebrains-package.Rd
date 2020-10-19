@@ -101,7 +101,7 @@ options(nat.templatebrains.regdirs=union("/my/new/path"),
 
 Useful links:
 \itemize{
-  \item \url{http://natverse.org/nat.templatebrains}
+  \item \url{http://natverse.org/nat.templatebrains/}
   \item \url{https://github.com/natverse/nat.templatebrains}
   \item Report bugs at \url{https://github.com/natverse/nat.templatebrains/issues}
 }

@@ -45,7 +45,7 @@ library(testthat)
 test_package("nat.templatebrains")
 ```
 
-**nat.templatebrains** provides additional functions for use with the [NeuroAnatomy Toolbox](http://natverse.org/nat) (nat). In particular, it defines the notion of a template brain, as used in image registration of 3D data, along with bridging registrations between template brains (see https://github.com/jefferislab/BridgingRegistrations) and mirroring registrations from one brain hemisphere to the other.
+**nat.templatebrains** provides additional functions for use with the [NeuroAnatomy Toolbox](http://natverse.org/nat/) (nat). In particular, it defines the notion of a template brain, as used in image registration of 3D data, along with bridging registrations between template brains (see https://github.com/jefferislab/BridgingRegistrations) and mirroring registrations from one brain hemisphere to the other.
 
 This is a generic package, usable with data from any species. For _Drosophila_ specific functions and data, see our [nat.flybrains](https://github.com/natverse/nat.flybrains) package. Installing/loading **nat.flybrains** will automatically
 install/load **nat.templatebrains**.
