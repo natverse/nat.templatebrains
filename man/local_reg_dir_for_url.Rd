@@ -21,15 +21,18 @@ When called without any argument returns the root directory that
   a github repository such as this one of ours:.
   \href{https://github.com/jefferislab/BridgingRegistrations}{jefferislab/BridgingRegistrations}
 
-
   Note that this folder will always be the same place on a machine i.e. this
   defines a consistent, persistent location on disk to store data across
-  sessions.
+  sessions. You can modify the location of this folder by editing the
+  \code{R_USER_DATA_DIR} environment variable. While this is not recommended
+  on a personal machine, it may be necessary on a server. See
+  \code{rappdirs::\link{user_data_dir}} for details.
 
   When called with a url, a SHA1 hash will be calculated for the URL and
   appended to the basepath. This should ensure that locations derived from
   different URLs do not clash.
 }
 \seealso{
-\code{\link{download_reg_repo}}
+\code{\link{download_reg_repo}},
+  \code{rappdirs::\link{user_data_dir}}
 }

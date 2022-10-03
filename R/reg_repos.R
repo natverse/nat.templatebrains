@@ -213,10 +213,12 @@ make_reg_url<-function(url) {
 #'   a github repository such as this one of ours:.
 #'   \href{https://github.com/jefferislab/BridgingRegistrations}{jefferislab/BridgingRegistrations}
 #'
-#'
 #'   Note that this folder will always be the same place on a machine i.e. this
 #'   defines a consistent, persistent location on disk to store data across
-#'   sessions.
+#'   sessions. You can modify the location of this folder by editing the
+#'   \code{R_USER_DATA_DIR} environment variable. While this is not recommended
+#'   on a personal machine, it may be necessary on a server. See
+#'   \code{rappdirs::\link{user_data_dir}} for details.
 #'
 #'   When called with a url, a SHA1 hash will be calculated for the URL and
 #'   appended to the basepath. This should ensure that locations derived from
@@ -225,7 +227,8 @@ make_reg_url<-function(url) {
 #' @param url Character vector containing a url. When \code{url=NULL} defaults
 #'   to giving the base path.
 #' @export
-#' @seealso \code{\link{download_reg_repo}}
+#' @seealso \code{\link{download_reg_repo}},
+#'   \code{rappdirs::\link{user_data_dir}}
 #' @importFrom digest digest
 #' @importFrom rappdirs user_data_dir
 local_reg_dir_for_url<-function(url=NULL) {
