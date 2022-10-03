@@ -11,8 +11,7 @@ information about reference brains along with helper functions to simplify
 transformation of data between template brains (a.k.a bridging) and mirroring
 of data within a template brain.
 
-Extends package 'nat' (NeuroAnatomy Toolbox) by
-    providing objects and functions for handling template brains.
+Extends package 'nat' (NeuroAnatomy Toolbox) by providing objects and functions for handling template brains.
 }
 \section{Helper functions}{
  Easy-to-use functions for transforming data from
