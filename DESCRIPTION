@@ -27,7 +27,8 @@ Imports:
     digest,
     igraph,
     memoise,
-    rappdirs
+    rappdirs,
+    Morpho
 Suggests:
     spelling,
     git2r (>= 0.22.1),
