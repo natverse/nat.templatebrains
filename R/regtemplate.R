@@ -60,10 +60,15 @@ brain_details <- function(x, pos) {
   dims=obj[['dims']]
   if(is.null(dims))
     dims=rep(NA_integer_, 3)
+  units=obj[['units']]
+  if(is.null(units))
+    units=NA_character_
+  else units=units[1]
   name=as.character(obj)
   md5=digest::digest(obj, algo = 'md5')
   data.frame(package=env.name, name=name, md5=md5,
-             W=dims[1],H=dims[2],D=dims[3], stringsAsFactors = FALSE)
+             W=dims[1],H=dims[2],D=dims[3], units=units,
+             stringsAsFactors = FALSE)
 }
 
 all_templatebrains_tomemo <- function() {
