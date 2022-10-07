@@ -85,7 +85,7 @@ sample_points_in_surf <- function(x, n){
       l[[length(l)+1]]=df[df$inside,c("X","Y","Z")]
     else nfails=nfails+1
   }
-  dff=dplyr::bind_rows(l)
+  dff=do.call(rbind, l)
   dff[seq_len(n),,drop=F]
 }
 
