@@ -2,7 +2,7 @@ Type: Package
 Package: nat.templatebrains
 Title: NeuroAnatomy Toolbox ('nat') Extension for Handling
     Template Brains
-Version: 1.0
+Version: 1.0.0.9000
 Authors@R: 
     c(person(given = "Gregory",
              family = "Jefferis",
@@ -27,7 +27,8 @@ Imports:
     digest,
     igraph,
     memoise,
-    rappdirs
+    rappdirs,
+    Morpho
 Suggests:
     spelling,
     git2r (>= 0.22.1),
