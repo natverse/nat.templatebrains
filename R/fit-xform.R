@@ -30,6 +30,7 @@
 #' # compute transform with translations in nm not microns
 #' fit_xform(reg, nat::kcs20, subsample=200, type='affine', scale=1000)
 #' }
+#' @importFrom nat xyzmatrix xform
 fit_xform <- function(reg, samplepts, refpts=NULL, type = c("affine","rigid", "similarity", "tps"), subsample=FALSE, scale=c(1, 1), ...) {
   if(missing(reg) && is.null(refpts))
     stop("Must supply either a registration or reference points")
@@ -58,14 +59,17 @@ fit_xform <- function(reg, samplepts, refpts=NULL, type = c("affine","rigid", "s
   xt
 }
 
+
 sample_points_in_surf2 <- function(bb, n, x) {
-  mm=mapply(runif, min=bb[1,], max=bb[2,], n = n)
+  mm=mapply(stats::runif, min=bb[1,], max=bb[2,], n = n)
   colnames(mm)=c("X","Y","Z")
   data.frame(mm, inside=pointsinside(mm,x))
 }
 
 # n defines the target number of points to find as well as the chunk size
 # to use.
+#' @importFrom rgl as.mesh3d
+#' @importFrom nat pointsinside
 sample_points_in_surf <- function(x, n){
   max_failures=100
   min_chunksize=100
