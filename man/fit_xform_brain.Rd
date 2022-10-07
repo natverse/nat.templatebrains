@@ -10,7 +10,8 @@ fit_xform_brain(
   via = NULL,
   type = c("affine", "rigid", "similarity", "tps"),
   pts = NULL,
-  npts = if (is.null(pts)) 300 else NULL,
+  npts = if (is.null(pts)) 1000 else NULL,
+  scale = c(1, 1),
   ...
 )
 }
@@ -30,8 +31,14 @@ sequence must pass through.}
 \item{pts}{Optional set of points to use for the fit. If they are not
 specified they will be randomly sampled (see details).}
 
-\item{npts}{Number of points to use for fit (defaults to 300 when no
+\item{npts}{Number of points to use for fit (defaults to 1000 when no
 \code{pts} argument is specified).}
+
+\item{scale}{a 2-vector indicating the amount to scale the sample and
+reference points. You can supply one vector if this is the same. If the
+transform expects points in microns and returns points in microns then you
+would need \code{scale=c(1000,1)} if you want the input to be in microns
+and the output to be in nm.}
 
 \item{...}{Additional arguments passed to \code{\link{fit_xform}}}
 }
@@ -60,6 +67,9 @@ If pts are supplied these will be used to construct the fit. This
 \dontrun{
 library(nat.flybrains)
 t1=fit_xform_brain(sample='FCWB', reference="JFRC2", type='affine')
+t1
+# the same but for points in nm
+fit_xform_brain(sample='FCWB', reference="JFRC2", type='affine', scale=1000)
 # run the fit based on a particular group of Kenyon cells
 t2=fit_xform_brain(sample='FCWB', reference="JFRC2",
   pts=nat::kcs20, npts=300, type='affine')

@@ -10,6 +10,7 @@ fit_xform(
   refpts = NULL,
   type = c("affine", "rigid", "similarity", "tps"),
   subsample = FALSE,
+  scale = c(1, 1),
   ...
 )
 }
@@ -31,6 +32,12 @@ object compatible with \code{nat::\link{xyzmatrix}}.}
 \code{samplepts,refpts}. The default value of \code{FALSE} means use all
 provided points to calculate the new transform.}
 
+\item{scale}{a 2-vector indicating the amount to scale the sample and
+reference points. You can supply one vector if this is the same. If the
+transform expects points in microns and returns points in microns then you
+would need \code{scale=c(1000,1)} if you want the input to be in microns
+and the output to be in nm.}
+
 \item{...}{Additional arguments passed to \code{\link{computeTransform}}}
 }
 \value{
@@ -44,5 +51,7 @@ Fit affine or thin plate spline transform to arbitrary transformation
 library(nat.flybrains)
 reg=shortest_bridging_seq(sample='FCWB', reference="JFRC2")
 fit_xform(reg, nat::kcs20, subsample=200, type='affine')
+# compute transform with translations in nm not microns
+fit_xform(reg, nat::kcs20, subsample=200, type='affine', scale=1000)
 }
 }

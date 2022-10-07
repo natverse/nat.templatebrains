@@ -9,6 +9,11 @@
 #'   \code{samplepts}. You must either supply this or the \code{reg} argument.
 #' @param type A character string specifying the type of registration. See
 #'   \code{\link{computeTransform}} for details.
+#' @param scale a 2-vector indicating the amount to scale the sample and
+#'   reference points. You can supply one vector if this is the same. If the
+#'   transform expects points in microns and returns points in microns then you
+#'   would need \code{scale=c(1000,1)} if you want the input to be in microns
+#'   and the output to be in nm.
 #' @param subsample A number of points to subsample from
 #'   \code{samplepts,refpts}. The default value of \code{FALSE} means use all
 #'   provided points to calculate the new transform.
@@ -22,8 +27,10 @@
 #' library(nat.flybrains)
 #' reg=shortest_bridging_seq(sample='FCWB', reference="JFRC2")
 #' fit_xform(reg, nat::kcs20, subsample=200, type='affine')
+#' # compute transform with translations in nm not microns
+#' fit_xform(reg, nat::kcs20, subsample=200, type='affine', scale=1000)
 #' }
-fit_xform <- function(reg, samplepts, refpts=NULL, type = c("affine","rigid", "similarity", "tps"), subsample=FALSE, ...) {
+fit_xform <- function(reg, samplepts, refpts=NULL, type = c("affine","rigid", "similarity", "tps"), subsample=FALSE, scale=c(1, 1), ...) {
   if(missing(reg) && is.null(refpts))
     stop("Must supply either a registration or reference points")
   samplepts=xyzmatrix(samplepts)
@@ -43,7 +50,8 @@ fit_xform <- function(reg, samplepts, refpts=NULL, type = c("affine","rigid", "s
   if(is.null(refpts))
     refpts=xform(samplepts, reg)
   type=match.arg(type)
-  xt=Morpho::computeTransform(refpts, samplepts, type=type, ...)
+  if(length(scale)==1) scale=rep(scale,2)
+  xt=Morpho::computeTransform(refpts*scale[2], samplepts*scale[1], type=type, ...)
   if(type=='tps') {
     class(xt)=union('tpsreg', class(xt))
   }
@@ -87,7 +95,7 @@ sample_points_in_surf <- function(x, n){
 #'
 #' @param pts Optional set of points to use for the fit. If they are not
 #'   specified they will be randomly sampled (see details).
-#' @param npts Number of points to use for fit (defaults to 300 when no
+#' @param npts Number of points to use for fit (defaults to 1000 when no
 #'   \code{pts} argument is specified).
 #' @param ... Additional arguments passed to \code{\link{fit_xform}}
 #' @inheritParams xform_brain
@@ -115,9 +123,13 @@ sample_points_in_surf <- function(x, n){
 #' \dontrun{
 #' library(nat.flybrains)
 #' t1=fit_xform_brain(sample='FCWB', reference="JFRC2", type='affine')
+#' t1
+#' # the same but for points in nm
+#' fit_xform_brain(sample='FCWB', reference="JFRC2", type='affine', scale=1000)
 #' # run the fit based on a particular group of Kenyon cells
 #' t2=fit_xform_brain(sample='FCWB', reference="JFRC2",
 #'   pts=nat::kcs20, npts=300, type='affine')
+
 #'
 #' nclear3d()
 #' mfrow3d(1, 2, sharedMouse = TRUE)
@@ -131,7 +143,8 @@ sample_points_in_surf <- function(x, n){
 fit_xform_brain <- function(sample, reference, via=NULL,
                             type=c("affine","rigid", "similarity", "tps"),
                             pts=NULL,
-                            npts=if(is.null(pts)) 300 else NULL,
+                            npts=if(is.null(pts)) 1000 else NULL,
+                            scale=c(1,1),
                             ...) {
   sbs=shortest_bridging_seq(sample = sample, reference = reference, via=via)
   if(is.null(pts)) {
@@ -140,7 +153,7 @@ fit_xform_brain <- function(sample, reference, via=NULL,
     # find surface
     atb=all_templatebrains()
     m=match(as.character(sample), atb$name)
-    if(!is.na(m)) {
+    if(!is.null(sample) && !is.na(m)) {
       b = try(get(paste0(atb$name[m], '.surf'), mode = 'list'), silent = T)
       if(inherits(b, c('hxsurf', 'mesh3d'))) {
         if(interactive())
@@ -155,5 +168,6 @@ fit_xform_brain <- function(sample, reference, via=NULL,
       pts=sample_points_in_surf(b, npts)
     } else stop("Failed to find template brain!")
   }
-  fit_xform(reg = sbs, samplepts = pts, type=type, subsample = ifelse(is.null(npts), F, npts), ...)
+
+  fit_xform(reg = sbs, samplepts = pts, type=type, subsample = ifelse(is.null(npts), F, npts), scale=scale, ...)
 }
