@@ -243,6 +243,14 @@ test_that("can use a bridging registration in regdirs",{
               "round trip with cmtk reformatx inversion")
   expect_true(mean(nabor::knn(xyzmatrix(kc3), xyzmatrix(kc1), k = 1)$nn.dists)<1.0,
               "round trip with pre-inverted registration")
+
+  skip_if_not_installed('Morpho')
+
+  blreg=matrix(c(1.2134, -0.0165, -0.0081, 0, 0.0155, 1.17, -0.0677, 0, 0.0245,
+                 -0.1086, 0.6865, 0, 127.7245, -20.9117, 5.5061, 1), ncol = 4)
+  expect_equal(
+    fit_xform_brain(sample = 'IS2', reference = 'JFRC2', pts = nat::Cell07PNs),
+    blreg, tolerance = 1e-3)
 })
 
 test_that("xform doesn't try to transform when sample==reference", {
