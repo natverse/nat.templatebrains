@@ -105,8 +105,8 @@ sample_points_in_surf <- function(x, n){
 #' @inheritParams xform_brain
 #' @inheritParams fit_xform
 #'
-#' @details If pts are supplied these will be used to construct the fit. This
-#'   might be useful if you are focussing on a particular brain region and
+#' @details If \code{pts} are supplied these will be used to construct the fit.
+#'   This might be useful if you are focussing on a particular brain region and
 #'   supply relevant neurons. But if you want to work with one registration to
 #'   use for the whole brain then it's better to use points across the brain.
 #'
