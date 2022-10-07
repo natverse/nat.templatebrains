@@ -18,6 +18,8 @@ reference:
   contents:
   - xform_brain
   - mirror_brain
+  - fit_xform
+  - fit_xform_brain
 - title: Registration Sequences
   desc: Functions that list available registrations or return registration sequences
     between different template brains (used by xform_brain and friends but may be

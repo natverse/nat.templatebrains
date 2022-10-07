@@ -43,6 +43,12 @@
     <loc>/reference/download_reg_repo.html</loc>
   </url>
   <url>
+    <loc>/reference/fit_xform.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fit_xform_brain.html</loc>
+  </url>
+  <url>
     <loc>/reference/guess_templatebrain.html</loc>
   </url>
   <url>
