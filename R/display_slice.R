@@ -9,6 +9,7 @@ display_slice <- function(brain, slice, ...) {
 }
 
 #' @method display_slice default
+#' @export
 display_slice.default <- function(brain, slice, ...) {
 }
 
