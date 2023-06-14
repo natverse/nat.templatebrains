@@ -39,8 +39,8 @@ mirror_reg<-function(brain, ...) {
 #' @export
 #' @examples
 #' \dontrun{
-#' bridging_sequence(sample=JFRC2, ref=FCWB, checkboth = T)
-#' bridging_sequence(sample=JFRC2, via=IS2, ref=FCWB, checkboth = T)
+#' bridging_sequence(sample=JFRC2, ref=FCWB, checkboth = TRUE)
+#' bridging_sequence(sample=JFRC2, via=IS2, ref=FCWB, checkboth = TRUE)
 #' }
 bridging_sequence<-function(sample, reference, via=NULL, imagedata=FALSE,
                             checkboth=!imagedata, mustWork=FALSE) {
@@ -338,7 +338,7 @@ find_bridging_path <- function(g, sample, reference) {
 #'
 #'   You can control whether you want to allow inverse registrations manually by
 #'   setting \code{checkboth} explicitly. Otherwise when \code{checkboth=NULL}
-#'   the default is to act as if \code{checkboth=T} but issue a warning if an
+#'   the default is to act as if \code{checkboth=TRUE} but issue a warning if an
 #'   inversion must be used.
 #'
 #' @param x the 3D object to be transformed
@@ -358,7 +358,7 @@ find_bridging_path <- function(g, sample, reference) {
 #' @param ... extra arguments to pass to \code{\link[nat]{xform}} and then on to
 #'   \code{\link[nat]{xformpoints}} or \code{\link[nat]{xformimage}} which will
 #'   eventually hand off to \code{\link{cmtk.reformatx}} when using CMTK.
-#'
+#' @return A transformed version of \code{x}
 #' @export
 #' @seealso \code{\link{mirror_brain}}, \code{\link{shortest_bridging_seq}}
 #'   \code{\link{bridging_graph}}, \code{\link{regtemplate}},
@@ -457,6 +457,7 @@ xform_brain <- function(x, sample=regtemplate(x), reference, via=NULL,
 #' @param transform whether to use warp (default) or affine component of
 #'   registration, or simply flip about midplane of axis.
 #' @param ... extra arguments to pass to \code{\link[nat]{mirror}}.
+#' @return A transformed version of \code{x}
 #' @seealso \code{\link{xform_brain}}, \code{\link{regtemplate}}
 #' @export
 #' @examples

@@ -3,12 +3,16 @@
 #' @param brain template brain (e.g. IS2) of the slice.
 #' @param slice Path to PNG image containing slice to display.
 #' @param ... extra arguments to pass to \code{\link[rgl]{persp3d}}.
+#'
+#' @return This function is principally called for its side effect of adding to
+#'   the plot. A vector of rgl shape IDs is returned invisibly.
 #' @export
 display_slice <- function(brain, slice, ...) {
   UseMethod("display_slice")
 }
 
 #' @method display_slice default
+#' @export
 display_slice.default <- function(brain, slice, ...) {
 }
 

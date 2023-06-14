@@ -1,4 +1,10 @@
-# nat.templatebrains (development version)
+# nat.templatebrains 1.1
+
+* Fixes for CRAN after archival (mostly documentation and links)
+* Feature/fit xform by @jefferis in https://github.com/natverse/nat.templatebrains/pull/50
+* dev: check and pkgdown docs now via github actions
+
+**Full Changelog**: https://github.com/natverse/nat.templatebrains/compare/v1.0...v1.1
 
 # nat.templatebrains 1.0
 

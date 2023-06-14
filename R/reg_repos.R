@@ -13,6 +13,8 @@
 #'   credentials for private repo.
 #' @seealso \code{\link{add_reg_folders}}, \code{\link{local_reg_dir_for_url}},
 #'   \code{git2r::\link[git2r]{clone}}
+#' @return This function is principally called for its side effect. A path to
+#'   the location on disk containing added registrations is returned invisibly.
 #' @examples
 #' ## find the root location of all registration directories
 #' local_reg_dir_for_url()
@@ -75,6 +77,8 @@ download_reg_repo<-function(url, localdir=NULL, ...) {
 #' @param first Whether the new folder should be added to the start (default) or
 #'   end of the search list.
 #' @export
+#' @return This function is principally called for its side effect. A path to
+#'   the location on disk containing added registrations is returned invisibly.
 #' @examples
 #'
 #' \dontrun{
@@ -126,6 +130,7 @@ add_reg_folders<-function(dir=extra_reg_folders(), first=TRUE) {
 #'   \code{TRUE}.
 #' @param ... Additional arguments passed to \code{\link{saveRDS}} e.g. to
 #'   control compression when the reglist object is saved to disk.
+#' @return This function is called for its side effect and has no return value.
 #' @export
 #' @seealso add_reg_folders
 #' @examples
@@ -173,6 +178,9 @@ add_reglist <- function(x, reference=NULL, sample=NULL, mirror=NULL, temp=TRUE,
 #'
 #' @param x Path to local checkout of a registration git repository. See details
 #'   for meaning of default.
+#' @return This function is principally called for its side effect, but does
+#'   return a \code{git2r::repository} object containing the path on disk to the
+#'   location of the git repository with registration.
 #' @export
 #' @seealso \code{\link{download_reg_repo}}
 update_reg_repos<-function(x=NULL) {
@@ -226,6 +234,7 @@ make_reg_url<-function(url) {
 #'
 #' @param url Character vector containing a url. When \code{url=NULL} defaults
 #'   to giving the base path.
+#' @return path(s) containing registrations on disk.
 #' @export
 #' @seealso \code{\link{download_reg_repo}},
 #'   \code{rappdirs::\link{user_data_dir}}

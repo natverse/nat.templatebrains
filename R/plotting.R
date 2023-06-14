@@ -12,6 +12,8 @@
 #' @param ... extra arguments to pass to \code{\link[rgl]{plot3d}}.
 #' @export
 #' @importFrom rgl plot3d
+#' @return This function is principally called for its side effect of adding to
+#'   the plot. A vector of rgl shape IDs is returned invisibly.?
 plot3d.templatebrain <- function(x, col='grey', alpha=0.3, ...) {
   plot3d(get(paste0(as.character(x), ".surf")), col=col, alpha=alpha, ...)
 }

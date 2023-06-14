@@ -10,6 +10,9 @@ local_reg_dir_for_url(url = NULL)
 \item{url}{Character vector containing a url. When \code{url=NULL} defaults
 to giving the base path.}
 }
+\value{
+path(s) containing registrations on disk.
+}
 \description{
 Standard local checkout location for extra registration directories
 }
