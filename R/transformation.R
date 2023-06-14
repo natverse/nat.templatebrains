@@ -39,8 +39,8 @@ mirror_reg<-function(brain, ...) {
 #' @export
 #' @examples
 #' \dontrun{
-#' bridging_sequence(sample=JFRC2, ref=FCWB, checkboth = T)
-#' bridging_sequence(sample=JFRC2, via=IS2, ref=FCWB, checkboth = T)
+#' bridging_sequence(sample=JFRC2, ref=FCWB, checkboth = TRUE)
+#' bridging_sequence(sample=JFRC2, via=IS2, ref=FCWB, checkboth = TRUE)
 #' }
 bridging_sequence<-function(sample, reference, via=NULL, imagedata=FALSE,
                             checkboth=!imagedata, mustWork=FALSE) {
@@ -338,7 +338,7 @@ find_bridging_path <- function(g, sample, reference) {
 #'
 #'   You can control whether you want to allow inverse registrations manually by
 #'   setting \code{checkboth} explicitly. Otherwise when \code{checkboth=NULL}
-#'   the default is to act as if \code{checkboth=T} but issue a warning if an
+#'   the default is to act as if \code{checkboth=TRUE} but issue a warning if an
 #'   inversion must be used.
 #'
 #' @param x the 3D object to be transformed

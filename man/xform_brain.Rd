@@ -77,7 +77,7 @@ NB the \code{sample}, \code{reference} and \code{via} brains can
 
   You can control whether you want to allow inverse registrations manually by
   setting \code{checkboth} explicitly. Otherwise when \code{checkboth=NULL}
-  the default is to act as if \code{checkboth=T} but issue a warning if an
+  the default is to act as if \code{checkboth=TRUE} but issue a warning if an
   inversion must be used.
 }
 \examples{
