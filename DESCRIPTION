@@ -2,7 +2,7 @@ Type: Package
 Package: nat.templatebrains
 Title: NeuroAnatomy Toolbox ('nat') Extension for Handling
     Template Brains
-Version: 1.0.0.9000
+Version: 1.1
 Authors@R: 
     c(person(given = "Gregory",
              family = "Jefferis",
