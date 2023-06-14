@@ -29,6 +29,9 @@ temporary folder (that will be removed when R closes). Defaults to
 \item{...}{Additional arguments passed to \code{\link{saveRDS}} e.g. to
 control compression when the reglist object is saved to disk.}
 }
+\value{
+This function is called for its side effect and has no return value.
+}
 \description{
 By specifying either \code{reference, sample} \emph{or}
   \code{mirror} arguments, you can add a bridging or mirroring registration,

@@ -36,10 +36,14 @@ is.templatebrain(x)
 \item{...}{additional arguments for methods.}
 }
 \value{
-A logical indicating whether or not the object is a
-  \code{templatebrain}.
+Return values are documented in the generic methods.
+  \code{is.templatebrain} returns a logical indicating whether or not the
+  object is a \code{templatebrain}.
 
-Character vector.
+\code{as.character.templatebrain} returns a character vector with the
+  name of the template brain.
+
+\code{dim.templatebrain} returns a 3-value integer vector.
 }
 \description{
 \code{is.templatebrain} tests if object is of class

@@ -358,7 +358,7 @@ find_bridging_path <- function(g, sample, reference) {
 #' @param ... extra arguments to pass to \code{\link[nat]{xform}} and then on to
 #'   \code{\link[nat]{xformpoints}} or \code{\link[nat]{xformimage}} which will
 #'   eventually hand off to \code{\link{cmtk.reformatx}} when using CMTK.
-#'
+#' @return A transformed version of \code{x}
 #' @export
 #' @seealso \code{\link{mirror_brain}}, \code{\link{shortest_bridging_seq}}
 #'   \code{\link{bridging_graph}}, \code{\link{regtemplate}},
@@ -457,6 +457,7 @@ xform_brain <- function(x, sample=regtemplate(x), reference, via=NULL,
 #' @param transform whether to use warp (default) or affine component of
 #'   registration, or simply flip about midplane of axis.
 #' @param ... extra arguments to pass to \code{\link[nat]{mirror}}.
+#' @return A transformed version of \code{x}
 #' @seealso \code{\link{xform_brain}}, \code{\link{regtemplate}}
 #' @export
 #' @examples

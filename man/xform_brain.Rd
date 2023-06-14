@@ -43,6 +43,9 @@ directions. See details.}
 \code{\link[nat]{xformpoints}} or \code{\link[nat]{xformimage}} which will
 eventually hand off to \code{\link{cmtk.reformatx}} when using CMTK.}
 }
+\value{
+A transformed version of \code{x}
+}
 \description{
 Transform 3D object between template brains
 }
