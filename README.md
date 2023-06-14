@@ -4,7 +4,7 @@
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.org/nat.templatebrains/reference/)
 [![CRAN status](https://www.r-pkg.org/badges/version/nat.templatebrains)](https://CRAN.R-project.org/package=nat.templatebrains)
 [![Release Version](https://img.shields.io/github/release/natverse/nat.templatebrains.svg)](https://github.com/natverse/nat.templatebrains/releases/latest) 
-[![Build Status](https://app.travis-ci.com/natverse/nat.templatebrains.svg?branch=master)](https://app.travis-ci.com/natverse/nat.templatebrains)
+[![R-CMD-check](https://github.com/natverse/nat.templatebrains/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/natverse/nat.templatebrains/actions/workflows/R-CMD-check.yaml)
 [![Coverage Status](https://coveralls.io/repos/github/natverse/nat.templatebrains/badge.svg)](https://coveralls.io/github/natverse/nat.templatebrains)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Downloads](https://cranlogs.r-pkg.org/badges/nat.templatebrains?color=brightgreen)](https://www.r-pkg.org/pkg/nat.templatebrains)
