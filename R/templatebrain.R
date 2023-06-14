@@ -15,7 +15,7 @@
 #' when the \code{BoundingBox} is specified to define the physical extent of the
 #' volume. We use the definition of the Amira 3D visualisation and analysis
 #' software. This corresponds to the \strong{node} centers option in the
-#' \href{http://teem.sourceforge.net/nrrd/format.html}{NRRD format}. The
+#' \href{https://teem.sourceforge.net/nrrd/format.html}{NRRD format}. The
 #' bounding box can be obtained from NRRD or AmiraMesh format files. See
 #' \code{\link[nat]{boundingbox}} for details.
 #'
@@ -118,8 +118,9 @@ as.templatebrain.templatebrain <- function(x, ...) x
 #' @description \code{is.templatebrain} tests if object is of class
 #'   templatebrain
 #' @param x an object (usually a \code{templatebrain}).
-#' @return A logical indicating whether or not the object is a
-#'   \code{templatebrain}.
+#' @return Return values are documented in the generic methods.
+#'   \code{is.templatebrain} returns a logical indicating whether or not the
+#'   object is a \code{templatebrain}.
 #' @export
 #' @name templatebrain-meths
 #' @aliases is.templatebrain
@@ -140,7 +141,8 @@ is.templatebrain<-function(x) inherits(x, 'templatebrain')
 #'
 #' @param field which field to use (defaults to \code{'regName'}).
 #' @param ... additional arguments for methods.
-#' @return Character vector.
+#' @return \code{as.character.templatebrain} returns a character vector with the
+#'   name of the template brain.
 #' @export
 #' @rdname templatebrain-meths
 as.character.templatebrain<-function(x, field=c('regName','name'), ...){
@@ -203,6 +205,7 @@ origin.templatebrain <- function(x, ...) {
 #' @export
 #' @method dim templatebrain
 #' @rdname templatebrain-meths
+#' @return \code{dim.templatebrain} returns a 3-value integer vector.
 dim.templatebrain <- function(x, ...) {
   dim(nat::as.im3d(x))
 }

@@ -13,6 +13,10 @@ display_slice(brain, slice, ...)
 
 \item{...}{extra arguments to pass to \code{\link[rgl]{persp3d}}.}
 }
+\value{
+This function is principally called for its side effect of adding to
+  the plot. A vector of rgl shape IDs is returned invisibly.
+}
 \description{
 Display an image slice in 3D
 }

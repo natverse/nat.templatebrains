@@ -10,6 +10,11 @@ update_reg_repos(x = NULL)
 \item{x}{Path to local checkout of a registration git repository. See details
 for meaning of default.}
 }
+\value{
+This function is principally called for its side effect, but does
+  return a \code{git2r::repository} object containing the path on disk to the
+  location of the git repository with registration.
+}
 \description{
 When \code{x=NULL} all repositories listed in
 options(nat.templatebrains.regdirs) are checked to see if they are git

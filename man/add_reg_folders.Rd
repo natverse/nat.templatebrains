@@ -19,6 +19,10 @@ end of the search list.}
 
 \item{full.names}{Whether to list full path to registration folders}
 }
+\value{
+This function is principally called for its side effect. A path to
+  the location on disk containing added registrations is returned invisibly.
+}
 \description{
 \code{add_reg_folders} sets
   options('nat.templatebrains.regdirs') appropriately so that registrations

@@ -43,6 +43,9 @@ directions. See details.}
 \code{\link[nat]{xformpoints}} or \code{\link[nat]{xformimage}} which will
 eventually hand off to \code{\link{cmtk.reformatx}} when using CMTK.}
 }
+\value{
+A transformed version of \code{x}
+}
 \description{
 Transform 3D object between template brains
 }
@@ -77,7 +80,7 @@ NB the \code{sample}, \code{reference} and \code{via} brains can
 
   You can control whether you want to allow inverse registrations manually by
   setting \code{checkboth} explicitly. Otherwise when \code{checkboth=NULL}
-  the default is to act as if \code{checkboth=T} but issue a warning if an
+  the default is to act as if \code{checkboth=TRUE} but issue a warning if an
   inversion must be used.
 }
 \examples{

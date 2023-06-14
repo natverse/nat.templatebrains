@@ -24,6 +24,9 @@ registration, or simply flip about midplane of axis.}
 
 \item{...}{extra arguments to pass to \code{\link[nat]{mirror}}.}
 }
+\value{
+A transformed version of \code{x}
+}
 \description{
 Mirror 3D object around a given axis, optionally using a warping registration
 }

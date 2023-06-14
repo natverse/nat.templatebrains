@@ -17,6 +17,10 @@ rappdirs function.}
 \item{...}{additional arguments passed to \code{git2r::clone} e.g.
 credentials for private repo.}
 }
+\value{
+This function is principally called for its side effect. A path to
+  the location on disk containing added registrations is returned invisibly.
+}
 \description{
 Note that these extra registrations will be downloaded to a standard location
 on your hard drive that will be used for one session to the next. See

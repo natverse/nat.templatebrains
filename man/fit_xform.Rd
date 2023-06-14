@@ -41,7 +41,8 @@ and the output to be in nm.}
 \item{...}{Additional arguments passed to \code{\link{computeTransform}}}
 }
 \value{
-A homogeneous affine matrix or a \code{\link{tpsreg}} object
+A homogeneous affine matrix or a \code{nat::tpsreg} object
+  n.b. only in development nat (>= 1.10.1)
 }
 \description{
 Fit affine or thin plate spline transform to arbitrary transformation

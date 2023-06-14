@@ -15,6 +15,10 @@
 
 \item{...}{extra arguments to pass to \code{\link[rgl]{plot3d}}.}
 }
+\value{
+This function is principally called for its side effect of adding to
+  the plot. A vector of rgl shape IDs is returned invisibly.?
+}
 \description{
 Plot 3D surface of a template brain
 }

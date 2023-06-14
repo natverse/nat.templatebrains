@@ -19,7 +19,8 @@
 #'   provided points to calculate the new transform.
 #' @param ... Additional arguments passed to \code{\link{computeTransform}}
 #'
-#' @return A homogeneous affine matrix or a \code{\link{tpsreg}} object
+#' @return A homogeneous affine matrix or a \code{nat::tpsreg} object
+#'   n.b. only in development nat (>= 1.10.1)
 #' @export
 #'
 #' @examples
@@ -119,7 +120,8 @@ sample_points_in_surf <- function(x, n){
 #'   bounding box. If not there will be an error and you will have to supply the
 #'   points.
 #'
-#' @return A homogeneous affine matrix or a \code{\link{tpsreg}} object
+#' @return A homogeneous affine matrix or a \code{nat::tpsreg} object
+#'   n.b. only in development nat (>= 1.10.1)
 #' @seealso \code{\link{fit_xform}}
 #' @export
 #'

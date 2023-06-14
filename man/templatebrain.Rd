@@ -71,7 +71,7 @@ that are available for using template brains are \code{\link{xform_brain}} and
 when the \code{BoundingBox} is specified to define the physical extent of the
 volume. We use the definition of the Amira 3D visualisation and analysis
 software. This corresponds to the \strong{node} centers option in the
-\href{http://teem.sourceforge.net/nrrd/format.html}{NRRD format}. The
+\href{https://teem.sourceforge.net/nrrd/format.html}{NRRD format}. The
 bounding box can be obtained from NRRD or AmiraMesh format files. See
 \code{\link[nat]{boundingbox}} for details.
 }
