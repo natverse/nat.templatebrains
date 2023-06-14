@@ -13,7 +13,7 @@ for meaning of default.}
 \value{
 This function is principally called for its side effect, but does
   return a \code{git2r::repository} object containing the path on disk to the
-  location of the git repostitory with registration.
+  location of the git repository with registration.
 }
 \description{
 When \code{x=NULL} all repositories listed in

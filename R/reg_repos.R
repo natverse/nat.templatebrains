@@ -180,7 +180,7 @@ add_reglist <- function(x, reference=NULL, sample=NULL, mirror=NULL, temp=TRUE,
 #'   for meaning of default.
 #' @return This function is principally called for its side effect, but does
 #'   return a \code{git2r::repository} object containing the path on disk to the
-#'   location of the git repostitory with registration.
+#'   location of the git repository with registration.
 #' @export
 #' @seealso \code{\link{download_reg_repo}}
 update_reg_repos<-function(x=NULL) {
