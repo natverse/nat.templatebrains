@@ -27,14 +27,14 @@ Imports:
     digest,
     igraph,
     memoise,
-    rappdirs,
-    Morpho
+    rappdirs
 Suggests:
     spelling,
     git2r (>= 0.22.1),
     nabor,
     testthat (>= 2.1.0),
-    covr
+    covr,
+    Morpho
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 BugReports: https://github.com/natverse/nat.templatebrains/issues

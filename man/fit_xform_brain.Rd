@@ -26,7 +26,7 @@ transformed into.}
 sequence must pass through.}
 
 \item{type}{A character string specifying the type of registration. See
-\code{\link{computeTransform}} for details.}
+\code{Morpho::computeTransform} for details.}
 
 \item{pts}{Optional set of points to use for the fit. If they are not
 specified they will be randomly sampled (see details).}
