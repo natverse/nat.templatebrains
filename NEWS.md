@@ -1,3 +1,8 @@
+# nat.templatebrains 1.2
+* Suggest Morpho instead of importing it by @jefferis in https://github.com/natverse/nat.templatebrains/pull/52
+
+**Full Changelog**: https://github.com/natverse/nat.templatebrains/compare/v1.1...v1.2
+
 # nat.templatebrains 1.1
 
 * Fixes for CRAN after archival (mostly documentation and links)
