@@ -65,7 +65,6 @@
 #' @name nat.templatebrains-package
 #' @aliases nat.templatebrains
 #' @seealso \code{\link[nat]{nat}}
-#' @docType package
 #' @keywords package registration template
 #' @examples
 #' \dontrun{
@@ -85,7 +84,7 @@
 #' options(nat.templatebrains.regdirs=union("/my/new/path"),
 #'   getOption('nat.templatebrains.regdirs'))
 #' }
-NULL
+"_PACKAGE"
 
 #' Sample template brain: FlyCircuit Whole Brain
 #'
