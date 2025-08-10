@@ -71,5 +71,5 @@ remotes::install_github("natverse/nat")
 remotes::install_github("natverse/nat.templatebrains")
 ```
 
-Note: Windows users may need [Rtools](https://www.murdoch-sutherland.com/Rtools/) as 
+Note: Windows users may need [Rtools](https://cran.r-project.org/bin/windows/Rtools/) as 
 well as [remotes](https://CRAN.R-project.org/package=remotes) to install this way.
