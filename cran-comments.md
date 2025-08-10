@@ -1,17 +1,14 @@
-## Test environments
-* local R installation, R 4.3.0
-* ubuntu 20.04 (github actions), R 4.3.0
-* win-builder (devel)
-https://win-builder.r-project.org/xy6hBvBl0Ir4/00check.log
+# nat.templatebrains 1.2.1
 
-This release is principally to reverse the archival triggered by temporary 
-archival of the strong dependency nat.utils (now reversed).
-This release adds a small amount of new functionality to a relatively mature package.
-A number of URLs in README/Description have been updated on the basis of
-R CMD check forwarding tests from win-builder.
+This submission fixes Rd link targets missing package anchors as requested by
+Kurt Hornik on behalf of CRAN on 2025-07-23.
+
+With many thanks,
+
+Greg Jefferis.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 notes
+via Winbuilder
 
-(pertaining to archival and a false positive proposed spelling issue)
+0 errors | 0 warnings | 0 notes
