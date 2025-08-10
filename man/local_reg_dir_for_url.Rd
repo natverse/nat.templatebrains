@@ -29,7 +29,7 @@ When called without any argument returns the root directory that
   sessions. You can modify the location of this folder by editing the
   \code{R_USER_DATA_DIR} environment variable. While this is not recommended
   on a personal machine, it may be necessary on a server. See
-  \code{rappdirs::\link{user_data_dir}} for details.
+  \code{rappdirs::\link[rappdirs]{user_data_dir}} for details.
 
   When called with a url, a SHA1 hash will be calculated for the URL and
   appended to the basepath. This should ensure that locations derived from
@@ -37,5 +37,5 @@ When called without any argument returns the root directory that
 }
 \seealso{
 \code{\link{download_reg_repo}},
-  \code{rappdirs::\link{user_data_dir}}
+  \code{rappdirs::\link[rappdirs]{user_data_dir}}
 }

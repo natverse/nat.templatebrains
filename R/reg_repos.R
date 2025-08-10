@@ -226,7 +226,7 @@ make_reg_url<-function(url) {
 #'   sessions. You can modify the location of this folder by editing the
 #'   \code{R_USER_DATA_DIR} environment variable. While this is not recommended
 #'   on a personal machine, it may be necessary on a server. See
-#'   \code{rappdirs::\link{user_data_dir}} for details.
+#'   \code{rappdirs::\link[rappdirs]{user_data_dir}} for details.
 #'
 #'   When called with a url, a SHA1 hash will be calculated for the URL and
 #'   appended to the basepath. This should ensure that locations derived from
@@ -237,7 +237,7 @@ make_reg_url<-function(url) {
 #' @return path(s) containing registrations on disk.
 #' @export
 #' @seealso \code{\link{download_reg_repo}},
-#'   \code{rappdirs::\link{user_data_dir}}
+#'   \code{rappdirs::\link[rappdirs]{user_data_dir}}
 #' @importFrom digest digest
 #' @importFrom rappdirs user_data_dir
 local_reg_dir_for_url<-function(url=NULL) {

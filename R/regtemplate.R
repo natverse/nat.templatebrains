@@ -123,9 +123,9 @@ all_templatebrains <- function(cached=TRUE, remove.duplicates=FALSE) {
 
 #' Find all template brains or those matching a given image volume
 #'
-#' @param x A \code{\link{im3d}} image object, array or matrix compatible with
-#'   \code{\link{as.templatebrain}} OR a 2 or 3-vector defining the dimensions
-#'   of an image or image stack.
+#' @param x A \code{\link[nat]{im3d}} image object, array or matrix compatible
+#'   with \code{\link{as.templatebrain}} OR a 2 or 3-vector defining the
+#'   dimensions of an image or image stack.
 #' @param rval Whether to return the \code{\link{templatebrain}} object itself
 #'   or just its name.
 #' @param cached When \code{TRUE} returns precomputed (memoised) results,

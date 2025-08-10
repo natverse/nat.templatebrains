@@ -15,12 +15,12 @@ fit_xform(
 )
 }
 \arguments{
-\item{reg}{Any registration compatible with \code{nat::\link{xform}},
+\item{reg}{Any registration compatible with \code{nat::\link[nat]{xform}},
 including non-rigid and multi-step registrations. You must either supply
 this or the \code{refpts} argument.}
 
 \item{samplepts}{A set of points in the sample (floating) space. Can be any
-object compatible with \code{nat::\link{xyzmatrix}}.}
+object compatible with \code{nat::\link[nat]{xyzmatrix}}.}
 
 \item{refpts}{An optional set of points in the target (fixed) space matching
 \code{samplepts}. You must either supply this or the \code{reg} argument.}

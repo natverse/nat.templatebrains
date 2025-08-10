@@ -41,7 +41,7 @@ directions. See details.}
 
 \item{...}{extra arguments to pass to \code{\link[nat]{xform}} and then on to
 \code{\link[nat]{xformpoints}} or \code{\link[nat]{xformimage}} which will
-eventually hand off to \code{\link{cmtk.reformatx}} when using CMTK.}
+eventually hand off to \code{\link[nat]{cmtk.reformatx}} when using CMTK.}
 }
 \value{
 A transformed version of \code{x}
@@ -137,6 +137,7 @@ xform_brain('in.nrrd', sample=FCWB, ref=JFRC2, output='out.nrrd', mask='neuropil
 \seealso{
 \code{\link{mirror_brain}}, \code{\link{shortest_bridging_seq}}
   \code{\link{bridging_graph}}, \code{\link{regtemplate}},
-  \code{\link{xform}}. \code{\link{xformpoints}}, \code{\link{xformimage}},
-  \code{\link{cmtk.reformatx}} (for transforming image data with CMTK).
+  \code{\link[nat]{xform}}. \code{\link[nat]{xformpoints}},
+  \code{\link[nat]{xformimage}}, \code{\link[nat]{cmtk.reformatx}} (for
+  transforming image data with CMTK).
 }

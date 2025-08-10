@@ -1,10 +1,10 @@
 #' Fit affine or thin plate spline transform to arbitrary transformation
 #'
-#' @param reg Any registration compatible with \code{nat::\link{xform}},
+#' @param reg Any registration compatible with \code{nat::\link[nat]{xform}},
 #'   including non-rigid and multi-step registrations. You must either supply
 #'   this or the \code{refpts} argument.
 #' @param samplepts A set of points in the sample (floating) space. Can be any
-#'   object compatible with \code{nat::\link{xyzmatrix}}.
+#'   object compatible with \code{nat::\link[nat]{xyzmatrix}}.
 #' @param refpts An optional set of points in the target (fixed) space matching
 #'   \code{samplepts}. You must either supply this or the \code{reg} argument.
 #' @param type A character string specifying the type of registration. See
