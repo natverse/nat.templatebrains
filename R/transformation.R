@@ -66,7 +66,14 @@ simplify_bridging_sequence<-function(x) {
   # convert all elements of x to reglists ...
   make_reglist <- function(r) {
     swap=NULL
-    if(is.character(r) && tools::file_ext(r)=="rds"){
+    if(is.character(r) && startsWith(r, "memory://")) {
+      # In-memory cached reglist
+      swap=attr(r, 'swap')
+      key <- sub("^memory://", "", r)
+      r <- get_cached_reglist(key)
+      if(is.null(r))
+        stop("Cached reglist not found: ", key)
+    } else if(is.character(r) && tools::file_ext(r)=="rds"){
       swap=attr(r, 'swap')
       r=readRDS(r)
     }
@@ -147,9 +154,19 @@ allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
   if(!length(regdirs)) regdirs=character()
   df=data.frame(path=dir(regdirs, pattern = '\\.(list|rds)$', full.names = T),
                 stringsAsFactors = F)
+
+  # Add in-memory cached reglists with memory:// prefix
+  mem_keys <- list_cached_reglists()
+  if(length(mem_keys) > 0) {
+    mem_df <- data.frame(path = paste0("memory://", mem_keys),
+                         stringsAsFactors = FALSE)
+    df <- rbind(df, mem_df)
+  }
+
   df$name=basename(df$path)
   df$dup=duplicated(df$name)
-  df$bridge=!grepl("(mirror|imgflip)\\.list",df$name)
+  # Non-bridging regs end with _mirror or _imgflip, optionally followed by extension
+  df$bridge=!grepl("(mirror|imgflip)(\\.[^.]+)?$",df$name)
   df$reference=gsub("^([^_]+)_.*","\\1", df$name)
   df$sample=gsub("^[^_]+_([^.]+).*","\\1", df$name)
   # set mirroring registration sample brain to NA
