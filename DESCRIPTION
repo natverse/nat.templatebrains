@@ -21,7 +21,7 @@ URL: http://natverse.org/nat.templatebrains/,
     https://github.com/natverse/nat.templatebrains
 Depends:
     nat (>= 1.8.6),
-    R (>= 2.10),
+    R (>= 4.0),
     rgl
 Imports:
     digest,

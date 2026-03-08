@@ -113,6 +113,22 @@ add_reg_folders<-function(dir=extra_reg_folders(), first=TRUE) {
 }
 
 
+# Clean up session folders where the original tempdir no longer exists
+# (indicating the R session has ended)
+cleanup_stale_reglist_sessions <- function(cache_base) {
+  if (!dir.exists(cache_base)) return()
+  session_dirs <- list.dirs(cache_base, recursive = FALSE, full.names = TRUE)
+  for (d in session_dirs) {
+    marker <- file.path(d, ".tempdir_path")
+    if (file.exists(marker)) {
+      original_tempdir <- readLines(marker, n = 1, warn = FALSE)
+      if (!dir.exists(original_tempdir)) {
+        unlink(d, recursive = TRUE)
+      }
+    }
+  }
+}
+
 #' Add reglist object describing a bridging/mirroring registration
 #'
 #' @description By specifying either \code{reference, sample} \emph{or}
@@ -126,8 +142,8 @@ add_reg_folders<-function(dir=extra_reg_folders(), first=TRUE) {
 #' @param mirror The reference brain (in \code{character} or
 #'   \code{templatebrain} form) for a mirroring registration.
 #' @param temp Whether to store the on disk representation in a session-specific
-#'   temporary folder (that will be removed when R closes). Defaults to
-#'   \code{TRUE}.
+#'   cache folder. These are cleaned up when a new session detects that the
+#'   original session has ended. Defaults to \code{TRUE}.
 #' @param ... Additional arguments passed to \code{\link{saveRDS}} e.g. to
 #'   control compression when the reglist object is saved to disk.
 #' @return This function is called for its side effect and has no return value.
@@ -149,12 +165,22 @@ add_reglist <- function(x, reference=NULL, sample=NULL, mirror=NULL, temp=TRUE,
                         ...) {
   # first make a place to store the registration
   if(temp){
-    d <- file.path(tempdir(), 'nat.templatebrains', 'tempreglists')
+    # Use persistent cache with session-specific subfolder
+    # (tempdir() itself gets cleaned by macOS after 3 days of inactivity)
+    cache_base <- file.path(tools::R_user_dir("nat.templatebrains", "cache"), "tempreglists")
+    cleanup_stale_reglist_sessions(cache_base)
+    d <- file.path(cache_base, basename(tempdir()))
   } else {
     d <- file.path(local_reg_dir_for_url(), "reglists")
   }
   if(!file.exists(d))
     dir.create(d, recursive = TRUE)
+  # Write marker file to track which tempdir this session uses
+  if(temp) {
+    marker <- file.path(d, ".tempdir_path")
+    if(!file.exists(marker))
+      writeLines(tempdir(), marker)
+  }
   add_reg_folders(d <- normalizePath(d), first = TRUE)
 
   # now save it with an appropriate name
