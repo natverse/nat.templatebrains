@@ -1,3 +1,25 @@
+# In-memory cache for temporary reglists (avoids tempdir cleanup issues on macOS)
+.reglist_cache <- cachem::cache_mem()
+
+# Get a reglist from the in-memory cache
+# @param key The cache key (e.g., "FAFB14_FlyWire" or "JFRC2_mirror")
+# @return The unserialized reglist object, or NULL if not found
+get_cached_reglist <- function(key) {
+  val <- .reglist_cache$get(key)
+  if (is.null(val)) return(NULL)
+  unserialize(val)
+}
+
+# List all keys in the in-memory reglist cache
+list_cached_reglists <- function() {
+  .reglist_cache$keys()
+}
+
+# Clear the in-memory reglist cache (mainly for testing)
+clear_reglist_cache <- function() {
+  .reglist_cache$reset()
+}
+
 #' Download and register git repository containing registrations
 #'
 #' Note that these extra registrations will be downloaded to a standard location
@@ -125,11 +147,12 @@ add_reg_folders<-function(dir=extra_reg_folders(), first=TRUE) {
 #'   or \code{templatebrain} form) for a bridging registration.
 #' @param mirror The reference brain (in \code{character} or
 #'   \code{templatebrain} form) for a mirroring registration.
-#' @param temp Whether to store the on disk representation in a session-specific
-#'   temporary folder (that will be removed when R closes). Defaults to
-#'   \code{TRUE}.
-#' @param ... Additional arguments passed to \code{\link{saveRDS}} e.g. to
-#'   control compression when the reglist object is saved to disk.
+#' @param temp Whether to store in an in-memory cache (default \code{TRUE}) or
+#'   persist to disk (\code{FALSE}). In-memory storage serializes the reglist
+#'   to break environment references, avoiding memory leaks from captured
+#'   closures.
+#' @param ... Additional arguments passed to \code{\link{saveRDS}} when
+#'   \code{temp=FALSE}.
 #' @return This function is called for its side effect and has no return value.
 #' @export
 #' @seealso add_reg_folders
@@ -147,24 +170,31 @@ add_reg_folders<-function(dir=extra_reg_folders(), first=TRUE) {
 #' }
 add_reglist <- function(x, reference=NULL, sample=NULL, mirror=NULL, temp=TRUE,
                         ...) {
-  # first make a place to store the registration
-  if(temp){
-    d <- file.path(tempdir(), 'nat.templatebrains', 'tempreglists')
+  # Determine the key/filename
+  if(!is.null(mirror)) {
+    key <- paste0(as.character(mirror), "_mirror")
+  } else if(is.null(reference) || is.null(sample)) {
+    stop("Must supply reference and sample brains to define a bridging registration")
   } else {
-    d <- file.path(local_reg_dir_for_url(), "reglists")
+    key <- paste0(as.character(reference), "_", as.character(sample))
   }
+
+  if(temp) {
+    # Store serialized reglist in memory cache
+    # Serialization breaks environment references, avoiding memory leaks
+    .reglist_cache$set(key, serialize(x, NULL))
+    reset_cache()
+    return(invisible())
+  }
+
+  # For temp=FALSE, persist to disk
+  d <- file.path(local_reg_dir_for_url(), "reglists")
   if(!file.exists(d))
     dir.create(d, recursive = TRUE)
   add_reg_folders(d <- normalizePath(d), first = TRUE)
 
-  # now save it with an appropriate name
-  if(!is.null(mirror)) {
-    f=paste0(as.character(mirror), "_mirror.rds")
-  } else if(is.null(reference) || is.null(sample)) {
-    stop("Must supply reference and sample brains to define a bridging registration")
-  } else {
-    f=paste0(as.character(reference), "_", as.character(sample), ".rds")
-  }
+  # Save with appropriate name (key already computed above)
+  f <- paste0(key, ".rds")
   saveRDS(x, file=file.path(d, f), ...)
   reset_cache()
   return(invisible())

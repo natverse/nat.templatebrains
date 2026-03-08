@@ -84,6 +84,8 @@ context("Bridging Graph")
 test_that("bridging graph and friends work",{
   skip_on_cran()
 
+  # Clear in-memory cache to test empty state
+  nat.templatebrains:::clear_reglist_cache()
   expect_is(emptydf<-allreg_dataframe(NULL), 'data.frame')
   expect_equal(nrow(emptydf), 0L)
 
@@ -183,6 +185,9 @@ context("Transformation")
 test_that("can use a bridging registration in regdirs",{
   if(is.null(cmtk.bindir()))
     skip("skipping transformation tests since CMTK is not installed")
+
+  # Clear in-memory cache for clean test environment
+  nat.templatebrains:::clear_reglist_cache()
 
   td=tempfile(pattern = 'extrabridge')
   dir.create(td)
