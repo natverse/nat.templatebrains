@@ -1,23 +1,24 @@
 # In-memory cache for temporary reglists (avoids tempdir cleanup issues on macOS)
-.reglist_cache <- cachem::cache_mem()
+# Using a simple environment since cachem has key restrictions (lowercase only)
+.reglist_cache <- new.env(parent = emptyenv())
 
 # Get a reglist from the in-memory cache
 # @param key The cache key (e.g., "FAFB14_FlyWire" or "JFRC2_mirror")
 # @return The unserialized reglist object, or NULL if not found
 get_cached_reglist <- function(key) {
-  val <- .reglist_cache$get(key)
+  val <- .reglist_cache[[key]]
   if (is.null(val)) return(NULL)
   unserialize(val)
 }
 
 # List all keys in the in-memory reglist cache
 list_cached_reglists <- function() {
-  .reglist_cache$keys()
+  ls(.reglist_cache)
 }
 
 # Clear the in-memory reglist cache (mainly for testing)
 clear_reglist_cache <- function() {
-  .reglist_cache$reset()
+  rm(list = ls(.reglist_cache), envir = .reglist_cache)
 }
 
 #' Download and register git repository containing registrations
@@ -182,7 +183,7 @@ add_reglist <- function(x, reference=NULL, sample=NULL, mirror=NULL, temp=TRUE,
   if(temp) {
     # Store serialized reglist in memory cache
     # Serialization breaks environment references, avoiding memory leaks
-    .reglist_cache$set(key, serialize(x, NULL))
+    .reglist_cache[[key]] <- serialize(x, NULL)
     reset_cache()
     return(invisible())
   }

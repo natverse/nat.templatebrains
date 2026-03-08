@@ -24,7 +24,6 @@ Depends:
     R (>= 2.10),
     rgl
 Imports:
-    cachem,
     digest,
     igraph,
     memoise,
