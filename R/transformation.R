@@ -165,8 +165,14 @@ allreg_dataframe<-function(regdirs=getOption('nat.templatebrains.regdirs')) {
 
   df$name=basename(df$path)
   df$dup=duplicated(df$name)
-  # Non-bridging regs end with _mirror or _imgflip, optionally followed by extension
-  df$bridge=!grepl("(mirror|imgflip)(\\.[^.]+)?$",df$name)
+  # Non-bridging regs end with _mirror or _imgflip followed by a file extension
+  df$bridge=!grepl("(mirror|imgflip)\\.[^.]+$",df$name)
+  # For memory entries, use the stored type rather than guessing from the name,
+  # since a bridging reg's sample brain name may legitimately end with "_mirror"
+  if(length(mem_keys) > 0) {
+    mem_is_mirror <- is_cached_mirror(mem_keys)
+    df$bridge[df$path %in% paste0("memory://", mem_keys)] <- !mem_is_mirror
+  }
   df$reference=gsub("^([^_]+)_.*","\\1", df$name)
   df$sample=gsub("^[^_]+_([^.]+).*","\\1", df$name)
   # set mirroring registration sample brain to NA

@@ -46,6 +46,12 @@ test_that("we can work with reglist objects on disk",{
                xform(pts, solve(m)))
 
   expect_error(add_reglist(sample='rhubarb'), "reference and sample")
+
+  # Regression test: bridging reg where sample brain name ends with "_mirror"
+  # should not be misclassified as a mirror registration
+  add_reglist(reglist(m1, m2), reference = "rhubarb", sample="crumble_mirror")
+  df <- nat.templatebrains:::allreg_dataframe()
+  expect_true(df$bridge[df$name == "rhubarb_crumble_mirror"])
 })
 
 test_that("we can find bridging registrations",{
